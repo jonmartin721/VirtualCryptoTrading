@@ -11,46 +11,44 @@ public class Main {
         switch (selection) {
 
             case 0:
-                clearConsole();
+                ConsoleTools.lineBreak();
                 System.out.println("Exiting program...");
                 System.exit(0);
                 break;
 
             case 1:
-                System.out.println("Opening cryptocurrency browser...");
+                ConsoleTools.lineBreak();
                 browse();
                 break;
 
             case 2:
-                //wallet();
+                ConsoleTools.lineBreak();
+                wallet();
                 break;
 
             case 3:
-                //trading();
+                ConsoleTools.lineBreak();
+                trading();
                 break;
 
             case 4:
-                //indicators();
+                ConsoleTools.lineBreak();
+                indicators();
                 break;
 
             case 5:
-                //help();
+                ConsoleTools.lineBreak();
+                help();
 
             default:
-                //selection = menu();
+                System.out.println("\nEnter a valid choice!");
+                menu();
                 break;
 
         }
 
-    }
-
-    //this method will help the user to browse historical and current values of cryptocurrencies using CCXT
-    private static void browse() {
-
-        Scanner keyboard = new Scanner(System.in);
-        System.out.println("This section of the program will show current and past cryptocurrency values.");
-        System.out.println("Press enter to return to the menu.");
-        keyboard.next();
+        //returns to the menu every time an option is exited
+        menu();
 
     }
 
@@ -62,7 +60,8 @@ public class Main {
         Scanner keyboard = new Scanner(System.in);
 
         //outputs the menu options
-        System.out.println("Simulated Cryptocurrency Wallet v0.01");
+        ConsoleTools.lineBreak();
+        System.out.println("Simulated Cryptocurrency Wallet and Trading v0.01");
         System.out.println("\nChoose an option below by typing the number:");
         System.out.println("1) Browse Currencies");
         System.out.println("2) View Wallet");
@@ -72,6 +71,8 @@ public class Main {
         System.out.println("0) Exit");
 
         //captures the user selection
+        System.out.print("\nSelection? ");
+
         selection = keyboard.nextInt();
 
         return selection;
@@ -79,18 +80,59 @@ public class Main {
 
     }
 
-    private static void clearConsole() {
-        try {
-            final String os = System.getProperty("os.name");
+    //this method will help the user to browse historical and current values of cryptocurrencies using CCXT
+    private static void browse() {
 
-            if (os.contains("Windows")) {
-                Runtime.getRuntime().exec("cls");
-            } else {
-                Runtime.getRuntime().exec("clear");
-            }
-        } catch (final Exception e) {
-            //  Handle any exceptions.
-        }
+        System.out.println("Loading cryptocurrency browser ...");
+        ConsoleTools.underConstruction();
+        System.out.println("This section of the program will show current and past cryptocurrency values.");
+        System.out.println("Press enter to return to the menu.");
+        ConsoleTools.promptEnterKey();
+
+    }
+
+    //this holds wallet information (funds, currencies)
+    private static void wallet() {
+
+        System.out.println("Opening wallet ...");
+        ConsoleTools.underConstruction();
+        System.out.println("This section will show you your wallet and funds.");
+        System.out.println("Press enter to return to the menu.");
+        ConsoleTools.promptEnterKey();
+
+    }
+
+    //this has trading views and options to buy and sell
+    private static void trading() {
+
+        System.out.println("Launching trading system ...");
+        ConsoleTools.underConstruction();
+        System.out.println("This section will allow you to buy and sell cryptocurrencies.");
+        System.out.println("Press enter to return to the menu.");
+        ConsoleTools.promptEnterKey();
+
+    }
+
+    //this has custom algorithms to help people predict what to do
+    private static void indicators() {
+
+        System.out.println("Loading Indicators ...");
+        ConsoleTools.underConstruction();
+        System.out.println("This section will use algorithms to help you make better decisions.");
+        System.out.println("Press enter to return to the menu.");
+        ConsoleTools.promptEnterKey();
+
+    }
+
+    //this has information about the program and cryptocurrencies
+    private static void help() {
+
+        System.out.println("Loading help ...");
+        ConsoleTools.underConstruction();
+        System.out.println("This section will display About and Help information.");
+        System.out.println("Press enter to return to the menu.");
+        ConsoleTools.promptEnterKey();
+
     }
 
 }
