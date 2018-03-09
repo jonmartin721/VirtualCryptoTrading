@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.knowm.xchange:xchange-poloniex:4.3.5-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-poloniex/4.3.5-SNAPSHOT/xchange-poloniex-4.3.5-20180309.101343-2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-poloniex/4.3.5-SNAPSHOT/xchange-poloniex-4.3.5-20180309.101343-2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/knowm/xchange/xchange-poloniex/4.3.5-SNAPSHOT/xchange-poloniex-4.3.5-20180309.101343-2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

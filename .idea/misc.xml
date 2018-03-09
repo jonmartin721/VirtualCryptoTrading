@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$USER_HOME$/Downloads/XChange-develop/xchange-core/pom.xml" />
+        <option value="$USER_HOME$/Downloads/XChange-develop/xchange-examples/pom.xml" />
+        <option value="$USER_HOME$/Downloads/XChange-develop/xchange-bitfinex/pom.xml" />
+        <option value="$USER_HOME$/Downloads/XChange-develop/xchange-binance/pom.xml" />
+        <option value="$USER_HOME$/Downloads/XChange-develop/xchange-bitcoincore/pom.xml" />
+        <option value="$USER_HOME$/Downloads/XChange-develop/xchange-bitcoincharts/pom.xml" />
+        <option value="$USER_HOME$/Downloads/XChange-develop/xchange-bitmarket/pom.xml" />
+        <option value="$USER_HOME$/Downloads/XChange-develop/xchange-blockchain/pom.xml" />
+      </list>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_9" default="true" project-jdk-name="9.0" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
