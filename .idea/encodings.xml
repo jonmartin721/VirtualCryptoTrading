@@ -77,5 +77,8 @@
     <file url="file://$USER_HOME$/Downloads/XChange-develop/xchange-wex" charset="UTF-8" />
     <file url="file://$USER_HOME$/Downloads/XChange-develop/xchange-yobit" charset="UTF-8" />
     <file url="file://$USER_HOME$/Downloads/XChange-develop/xchange-zaif" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/ta4j-master" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/ta4j-master/ta4j-core" charset="UTF-8" />
+    <file url="file://$USER_HOME$/Downloads/ta4j-master/ta4j-examples" charset="UTF-8" />
   </component>
 </project>

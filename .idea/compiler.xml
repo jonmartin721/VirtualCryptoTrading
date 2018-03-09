@@ -6,6 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ta4j-core" />
+        <module name="ta4j-examples" />
         <module name="xchange-binance" />
         <module name="xchange-bitcoincharts" />
         <module name="xchange-bitcoincore" />
@@ -18,6 +20,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="JavaCryptoProject" target="1.5" />
+      <module name="ta4j-core" target="1.8" />
+      <module name="ta4j-examples" target="1.8" />
+      <module name="ta4j-parent" target="1.8" />
       <module name="xchange-abucoins" target="1.8" />
       <module name="xchange-acx" target="1.8" />
       <module name="xchange-anx" target="1.8" />
