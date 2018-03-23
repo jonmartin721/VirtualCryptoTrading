@@ -6,20 +6,31 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ta4j-core" />
-        <module name="ta4j-examples" />
-        <module name="xchange-binance" />
-        <module name="xchange-bitcoincharts" />
-        <module name="xchange-bitcoincore" />
-        <module name="xchange-bitfinex" />
-        <module name="xchange-bitmarket" />
-        <module name="xchange-blockchain" />
-        <module name="xchange-core" />
-        <module name="xchange-examples" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="adapter-guava" target="1.7" />
+      <module name="adapter-java8" target="1.8" />
+      <module name="adapter-rxjava" target="1.7" />
+      <module name="adapter-rxjava2" target="1.7" />
+      <module name="adapter-scala" target="1.8" />
+      <module name="converter-gson" target="1.7" />
+      <module name="converter-guava" target="1.7" />
+      <module name="converter-jackson" target="1.7" />
+      <module name="converter-java8" target="1.8" />
+      <module name="converter-jaxb" target="1.7" />
+      <module name="converter-moshi" target="1.7" />
+      <module name="converter-protobuf" target="1.7" />
+      <module name="converter-scalars" target="1.7" />
+      <module name="converter-simplexml" target="1.7" />
+      <module name="converter-wire" target="1.7" />
       <module name="JavaCryptoProject" target="1.5" />
+      <module name="parent" target="1.5" />
+      <module name="retrofit" target="1.7" />
+      <module name="retrofit-adapters" target="1.5" />
+      <module name="retrofit-converters" target="1.5" />
+      <module name="retrofit-mock" target="1.7" />
+      <module name="samples" target="1.7" />
       <module name="ta4j-core" target="1.8" />
       <module name="ta4j-examples" target="1.8" />
       <module name="ta4j-parent" target="1.8" />

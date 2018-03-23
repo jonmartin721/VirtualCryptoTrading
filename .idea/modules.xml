@@ -3,17 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CryptoProject/CryptoProject.iml" filepath="$PROJECT_DIR$/CryptoProject/CryptoProject.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/ta4j-master/ta4j-core/ta4j-core.iml" filepath="$USER_HOME$/Downloads/ta4j-master/ta4j-core/ta4j-core.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/ta4j-master/ta4j-examples/ta4j-examples.iml" filepath="$USER_HOME$/Downloads/ta4j-master/ta4j-examples/ta4j-examples.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/ta4j-master/ta4j-parent.iml" filepath="$USER_HOME$/Downloads/ta4j-master/ta4j-parent.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/XChange-develop/xchange-binance/xchange-binance.iml" filepath="$USER_HOME$/Downloads/XChange-develop/xchange-binance/xchange-binance.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/XChange-develop/xchange-bitcoincharts/xchange-bitcoincharts.iml" filepath="$USER_HOME$/Downloads/XChange-develop/xchange-bitcoincharts/xchange-bitcoincharts.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/XChange-develop/xchange-bitcoincore/xchange-bitcoincore.iml" filepath="$USER_HOME$/Downloads/XChange-develop/xchange-bitcoincore/xchange-bitcoincore.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/XChange-develop/xchange-bitfinex/xchange-bitfinex.iml" filepath="$USER_HOME$/Downloads/XChange-develop/xchange-bitfinex/xchange-bitfinex.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/XChange-develop/xchange-bitmarket/xchange-bitmarket.iml" filepath="$USER_HOME$/Downloads/XChange-develop/xchange-bitmarket/xchange-bitmarket.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/XChange-develop/xchange-blockchain/xchange-blockchain.iml" filepath="$USER_HOME$/Downloads/XChange-develop/xchange-blockchain/xchange-blockchain.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/XChange-develop/xchange-core/xchange-core.iml" filepath="$USER_HOME$/Downloads/XChange-develop/xchange-core/xchange-core.iml" />
-      <module fileurl="file://$USER_HOME$/Downloads/XChange-develop/xchange-examples/xchange-examples.iml" filepath="$USER_HOME$/Downloads/XChange-develop/xchange-examples/xchange-examples.iml" />
     </modules>
   </component>
 </project>
