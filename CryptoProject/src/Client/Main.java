@@ -1,3 +1,5 @@
+package Client;
+
 import java.util.Scanner;
 
 public class Main {
@@ -18,10 +20,10 @@ public class Main {
 
         //outputs the menu options
         ConsoleTools.lineBreak();
-        System.out.println("Simulated Cryptocurrency Wallet and Trading v0.01");
+        System.out.println("Simulated Client.Cryptocurrency Client.Wallet and Trading v0.01");
         System.out.println("\nChoose an option below by typing the number:");
         System.out.println("1) Browse Currencies");
-        System.out.println("2) View Wallet");
+        System.out.println("2) View Client.Wallet");
         System.out.println("3) Trading");
         System.out.println("4) Use Indicators");
         System.out.println("5) Help");

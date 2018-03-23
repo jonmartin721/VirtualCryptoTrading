@@ -1,4 +1,4 @@
-//This class contains useful console tools for this project.
+package Client;//This class contains useful console tools for this project.
 //We need tools because we want this project to be easy to use
 //and the interface to be uncluttered. We create custom tools for simplicity
 

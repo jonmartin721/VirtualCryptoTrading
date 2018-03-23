@@ -1,3 +1,5 @@
+package Client;
+
 import jdk.jfr.Percentage;
 
 import java.math.BigDecimal;
@@ -62,11 +64,6 @@ public class Cryptocurrency {
     public void setLast4Hours(Percentage last4Hours) {
         this.last4Hours = last4Hours;
     }
-
-
-
-
-
 
 
 }

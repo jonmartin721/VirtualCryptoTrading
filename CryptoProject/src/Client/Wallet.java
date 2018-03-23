@@ -1,37 +1,40 @@
+package Client;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Wallet {
 
-    ArrayList<Crypto> holdings;
+    ArrayList<Cryptocurrency> holdings;
     double usdBalance;
     UUID walletID;
     String username;
 
     Wallet(){
-        holdings = new ArrayList<Crypto>();
+        holdings = new ArrayList<Cryptocurrency>();
         usdBalance = 0.0;
         username = "";
         walletID = UUID.randomUUID();
     }
 
     public double getTotalValue(){
-    // I'M NOT SURE HOW getTotalValue calculates yet.
+        // I'M NOT SURE HOW getTotalValue calculates yet.
+        return 0.0;
     }
 
     public void setPassword(){
-    // ASSUMING THIS WILL CONNECT WITH PasswordEncryptionService class?
+        // ASSUMING THIS WILL CONNECT WITH PasswordEncryptionService class?
     }
 
     public void changePassword(){
         // ASSUMING THIS WILL CONNECT WITH PasswordEncryptionService class?
     }
 
-    public ArrayList<Crypto> getHoldings() {
+    public ArrayList<Cryptocurrency> getHoldings() {
         return holdings;
     }
 
-    public void setHoldings(ArrayList<Crypto> holdings) {
+    public void setHoldings(ArrayList<Cryptocurrency> holdings) {
         this.holdings = holdings;
     }
 
