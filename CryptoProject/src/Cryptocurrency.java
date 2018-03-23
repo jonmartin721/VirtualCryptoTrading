@@ -1,11 +1,10 @@
 import jdk.jfr.Percentage;
 
 import java.math.BigDecimal;
-import java.time.Period;
 import java.util.UUID;
 
 
-public class CryptoCurrency {
+public class Cryptocurrency {
 
 
     private String tag;
