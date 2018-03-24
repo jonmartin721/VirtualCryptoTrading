@@ -1,17 +1,22 @@
 package Client;
 
+/*
+The wallet is a the class that is essentially the user profile; it is the container for this entire application.
+Each wallet object has funding, holdings, personal information, trade history, and goals.
+ */
+
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Wallet {
 
-    ArrayList<Cryptocurrency> holdings;
-    double usdBalance;
-    UUID walletID;
-    String username;
+    private ArrayList<Cryptocurrency> holdings;
+    private double usdBalance;
+    private UUID walletID;
+    private String username;
 
-    Wallet(){
-        holdings = new ArrayList<Cryptocurrency>();
+    public Wallet() {
+        holdings = new ArrayList<>();
         usdBalance = 0.0;
         username = "";
         walletID = UUID.randomUUID();
