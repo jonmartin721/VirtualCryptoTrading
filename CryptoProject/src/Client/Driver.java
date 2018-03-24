@@ -1,5 +1,9 @@
 package Client;
 
+/*
+This class should be the driver and feature methods that use the other classes in the application.
+ */
+
 import java.util.Scanner;
 
 public class Driver {
@@ -12,6 +16,7 @@ public class Driver {
     }
 
     //has the user choose what they want to do
+    //TODO Move the menu and related features into a convenience class.
     private static void menu() {
 
         //creates objects and variables for menu system
@@ -19,7 +24,7 @@ public class Driver {
         Scanner keyboard = new Scanner(System.in);
 
         //outputs the menu options
-        ConsoleTools.lineBreak();
+        ConsoleUtils.lineBreak();
         System.out.println("Simulated Client.Cryptocurrency Client.Wallet and Trading v0.01");
         System.out.println("\nChoose an option below by typing the number:");
         System.out.println("1) Browse Currencies");
@@ -37,33 +42,33 @@ public class Driver {
         switch (selection) {
 
             case 0:
-                ConsoleTools.lineBreak();
+                ConsoleUtils.lineBreak();
                 System.out.println("Exiting program...");
                 System.exit(0);
                 break;
 
             case 1:
-                ConsoleTools.lineBreak();
+                ConsoleUtils.lineBreak();
                 browse();
                 break;
 
             case 2:
-                ConsoleTools.lineBreak();
+                ConsoleUtils.lineBreak();
                 wallet();
                 break;
 
             case 3:
-                ConsoleTools.lineBreak();
+                ConsoleUtils.lineBreak();
                 trading();
                 break;
 
             case 4:
-                ConsoleTools.lineBreak();
+                ConsoleUtils.lineBreak();
                 indicators();
                 break;
 
             case 5:
-                ConsoleTools.lineBreak();
+                ConsoleUtils.lineBreak();
                 help();
                 break;
 
@@ -81,10 +86,10 @@ public class Driver {
     private static void browse() {
 
         System.out.println("Loading cryptocurrency browser ...");
-        ConsoleTools.underConstruction();
+        ConsoleUtils.underConstruction();
         System.out.println("This section of the program will show current and past cryptocurrency values.");
         System.out.println("Press enter to return to the menu.");
-        ConsoleTools.promptEnterKey();
+        ConsoleUtils.promptEnterKey();
         menu();
 
     }
@@ -93,10 +98,10 @@ public class Driver {
     private static void wallet() {
 
         System.out.println("Opening wallet ...");
-        ConsoleTools.underConstruction();
+        ConsoleUtils.underConstruction();
         System.out.println("This section will show you your wallet and funds.");
         System.out.println("Press enter to return to the menu.");
-        ConsoleTools.promptEnterKey();
+        ConsoleUtils.promptEnterKey();
         menu();
     }
 
@@ -104,10 +109,10 @@ public class Driver {
     private static void trading() {
 
         System.out.println("Launching trading system ...");
-        ConsoleTools.underConstruction();
+        ConsoleUtils.underConstruction();
         System.out.println("This section will allow you to buy and sell cryptocurrencies.");
         System.out.println("Press enter to return to the menu.");
-        ConsoleTools.promptEnterKey();
+        ConsoleUtils.promptEnterKey();
         menu();
 
     }
@@ -116,10 +121,10 @@ public class Driver {
     private static void indicators() {
 
         System.out.println("Loading Indicators ...");
-        ConsoleTools.underConstruction();
+        ConsoleUtils.underConstruction();
         System.out.println("This section will use algorithms to help you make better decisions.");
         System.out.println("Press enter to return to the menu.");
-        ConsoleTools.promptEnterKey();
+        ConsoleUtils.promptEnterKey();
         menu();
 
     }
@@ -128,10 +133,10 @@ public class Driver {
     private static void help() {
 
         System.out.println("Loading help ...");
-        ConsoleTools.underConstruction();
+        ConsoleUtils.underConstruction();
         System.out.println("This section will display About and Help information.");
         System.out.println("Press enter to return to the menu.");
-        ConsoleTools.promptEnterKey();
+        ConsoleUtils.promptEnterKey();
         menu();
 
     }

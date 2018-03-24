@@ -1,19 +1,21 @@
 package Client;
 
+/*
+This class is instantiated and put in every Wallet as a cryptocurrency held by that user. It contains all the info needed
+on each cryptocurrency.
+ */
+
 import jdk.jfr.Percentage;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-
-public class Cryptocurrency {
+public class Cryptocurrency extends Currency {
 
 
     private String tag;
     private UUID cryptoID;
-    private String name;
     private BigDecimal currentValue;
-    private BigDecimal amountHeld;
     private Percentage last4Hours;
 
     public String getTag() {
@@ -38,7 +40,7 @@ public class Cryptocurrency {
     }
 
     public void setName(String name) {
-        this.name = name;// returns the names of the CrytoCurrencies
+        this.name = name;// returns the names of the CryptoCurrencies
     }
 
     public BigDecimal getCurrentValue() {
