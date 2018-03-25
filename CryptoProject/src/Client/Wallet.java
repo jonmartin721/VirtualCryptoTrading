@@ -5,23 +5,39 @@ The wallet is a the class that is essentially the user profile; it is the contai
 Each wallet object has funding, holdings, personal information, trade history, and goals.
  */
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
 
 public class Wallet {
 
     private ArrayList<Cryptocurrency> holdings;
-    private double usdBalance;
+    private BigDecimal usdBalance;
     private UUID walletID;
     private String username;
+    private EncryptionService encryption;
+    private String firstName;
+    private String lastName;
+    private ArrayList<Trade> trades;
+    private byte[] password;
+    private BigDecimal traded24Hours;
+
 
     public Wallet() {
-        holdings = new ArrayList<>();
-        usdBalance = 0.0;
-        username = "";
+        holdings = new ArrayList<Cryptocurrency>();
+        usdBalance =  new BigDecimal(0);
         walletID = UUID.randomUUID();
-    }
+        username = "";
+        encryption = new EncryptionService();
+        firstName = "";
+        lastName = "";
+        trades = new ArrayList<Trade>();
+        password = new byte[0];
+        traded24Hours = new BigDecimal(0);
 
+
+    }
+// *** STOPPED HERE @ 12:43PM 3/25 ***
     public double getTotalValue(){
         // I'M NOT SURE HOW getTotalValue calculates yet.
         return 0.0;
@@ -43,11 +59,11 @@ public class Wallet {
         this.holdings = holdings;
     }
 
-    public double getUsdBalance() {
+    public BigDecimal getUsdBalance() {
         return usdBalance;
     }
 
-    public void setUsdBalance(double usdBalance) {
+    public void setUsdBalance(BigDecimal usdBalance) {
         this.usdBalance = usdBalance;
     }
 
