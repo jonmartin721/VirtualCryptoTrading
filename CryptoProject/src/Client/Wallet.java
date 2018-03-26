@@ -20,37 +20,70 @@ public class Wallet {
     private String lastName;
     private ArrayList<Trade> trades;
     private byte[] password;
+    private BigDecimal totalAmountTraded;
     private BigDecimal traded24Hours;
+    //private BigDecimal initialAmount;
 
 
     public Wallet() {
-        holdings = new ArrayList<Cryptocurrency>();
-        usdBalance =  new BigDecimal(0);
+        holdings = new ArrayList<Cryptocurrency>();  // I'M UNSURE WHAT TO INITIALISE
+        usdBalance =  new BigDecimal("");
         walletID = UUID.randomUUID();
         username = "";
         encryption = new EncryptionService();
         firstName = "";
         lastName = "";
-        trades = new ArrayList<Trade>();
+        trades = new ArrayList<Trade>();    // I'M UNSURE WHAT TO INITIALISE
         password = new byte[0];
-        traded24Hours = new BigDecimal(0);
+        totalAmountTraded = new BigDecimal("");
+        traded24Hours = new BigDecimal("");
 
 
     }
-// *** STOPPED HERE @ 12:43PM 3/25 ***
-    public double getTotalValue(){
-        // I'M NOT SURE HOW getTotalValue calculates yet.
-        return 0.0;
+
+    public BigDecimal getTotalValue(){
+        // QUESTION: getTotalValue of totalAmountTraded or
+        // what was traded24Hours??
+        return totalAmountTraded;
     }
 
-    public void setPassword(){
+    public boolean addAmount(BigDecimal initialAmount){
+        usdBalance = usdBalance.add(initialAmount);
+        return usdBalance.compareTo(usdBalance) < 0;
+    }
+
+    public ArrayList<Trade> showTrades() {
+        //ArrayList<Trade> var = getTrades();
+        // return var;
+        // BUT IF IT'S showTrades(), then should I use a
+        // System.out.println(var); ?
+    }
+
+    public boolean setPassword(EncryptionService object){
+        // this.password = new byte[object.getEncryptedAttemptedPassword()]; ??
+        // return true;
+        // return false;
+
+    }
+
+    public boolean changePassword(){
         // ASSUMING THIS WILL CONNECT WITH PasswordEncryptionService class?
+        // COME BACK TO THIS
     }
 
-    public void changePassword(){
-        // ASSUMING THIS WILL CONNECT WITH PasswordEncryptionService class?
+    public boolean setGoal(){
+        // NEED TO DEFINE WHAT THE GOAL IS
+        // IS IT MONETARY, IT IS A PERCENTAGE OF MONETARY
+        // WHAT IS THE CONDITIONAL AMOUNT?
     }
 
+    public void shotWalletData(){
+        // CONFIRM void IS THE RETURN TYPE
+        // LOTS OF System.out.println() STATEMENTS HERE?
+        // WHAT WALLET DATA CONTENTS EXACTLY?
+    }
+
+    // **I'M GOING TO LEAVE THESE IN HERE TEMPORARILY UNTIL IMPLEMENTATION IS FIRM**
     public ArrayList<Cryptocurrency> getHoldings() {
         return holdings;
     }
