@@ -8,64 +8,43 @@ on each cryptocurrency.
 import jdk.jfr.Percentage;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 public class Cryptocurrency extends Currency {
 
 
-    private String tag;
-    private UUID cryptoID;
+    private String symbol;
     private BigDecimal currentValue;
     private Percentage last4Hours;
 
-    public String getTag() {
-        return tag;
+    //this method returns from the API what the current value of this crypto is
+    public BigDecimal getCurrentCryptoValue() {
+
+        return new BigDecimal(0); //0 for now
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    //this methods multiplies current crypto value by amountHeld and returns the value in USD of this holding
+    public BigDecimal getCurrentHoldingValue() {
+
+        BigDecimal holdingValue;
+        holdingValue = this.getCurrentCryptoValue();
+        holdingValue = holdingValue.multiply(BigDecimal.valueOf(getAmountHeld()));
+        return holdingValue;
+
     }
 
-
-    private UUID getCryptoID() {
-        return cryptoID;// Unique identifier
-    }
-
-    public void setCryptoID(UUID cryptoID) {
-        this.cryptoID = cryptoID;
-    }
-
-    public String getName() {
-        return name;// gets the names of the three CryptoCurrencies
-    }
-
-    public void setName(String name) {
-        this.name = name;// returns the names of the CryptoCurrencies
-    }
-
-    public BigDecimal getCurrentValue() {
-        return currentValue;
-    }
-
-    public void setCurrentValue(BigDecimal currentValue) {
-        this.currentValue = currentValue;
-    }
-
-    public BigDecimal getAmountHeld() {
+    public Double getAmountHeld() {
         return amountHeld;
     }
 
-    public void setAmountHeld(BigDecimal amountHeld) {
+    public void setAmountHeld(Double amountHeld) {
         this.amountHeld = amountHeld;
     }
 
-    public Percentage getLast4Hours() {
-        return last4Hours;
+    public String getSymbol() {
+        return symbol;
     }
 
-    public void setLast4Hours(Percentage last4Hours) {
-        this.last4Hours = last4Hours;
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
     }
-
-
 }

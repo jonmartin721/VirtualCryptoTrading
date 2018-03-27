@@ -12,7 +12,6 @@ import java.util.UUID;
 public class Wallet {
 
     private ArrayList<Cryptocurrency> holdings;
-    private BigDecimal usdBalance;
     private UUID walletID;
     private String username;
     private EncryptionService encryption;
@@ -21,49 +20,62 @@ public class Wallet {
     private ArrayList<Trade> trades;
     private byte[] password;
     private BigDecimal totalAmountTraded;
-    private BigDecimal traded24Hours;
+    private BigDecimal totalUSDdeposited;
+    private BigDecimal totalUSDwithdrawn;
+    private BigDecimal USDBalance;
 
-
-    public Wallet() {
-        holdings = new ArrayList<>();  // I'M UNSURE WHAT TO INITIALISE Jon - an empty list of cryptos
-        usdBalance = new BigDecimal(0);
+    //the user will always supply a username, first name, and last name
+    public Wallet(String firstName, String lastName, String username) {
+        holdings = new ArrayList<>();
         walletID = UUID.randomUUID();
-        username = "";
+        this.username = username;
         encryption = new EncryptionService();
-        firstName = "";
-        lastName = "";
-        trades = new ArrayList<>();    // I'M UNSURE WHAT TO INITIALISE Jon- an empty list of trades just like that
+        this.firstName = firstName;
+        this.lastName = lastName;
+        trades = new ArrayList<>();
         password = new byte[0];
-        totalAmountTraded = new BigDecimal("");
-        traded24Hours = new BigDecimal("");
-
+        USDBalance = new BigDecimal(0);
+        totalAmountTraded = new BigDecimal(0);
+        totalUSDdeposited = new BigDecimal(0);
+        totalUSDwithdrawn = new BigDecimal(0);
 
     }
 
-    public BigDecimal getTotalValue(){
-        // QUESTION: getTotalValue of totalAmountTraded or
-        // what was traded24Hours??
-        // Jon - this goes through their holdings one by one, converts to USD, and adds them all together, returning
-        // essentially the total worth of their wallet. This will not include their USD balance.
-        return totalAmountTraded;
+    // this method adds up the usd value of each cryptocurrency (current value * amount held) and returns it. it does NOT
+    // include USD.
+    public BigDecimal getTotalHoldings() {
+
+        BigDecimal totalValue = new BigDecimal(0);
+
+        for (Cryptocurrency holding : holdings) {
+            totalValue = totalValue.add(holding.getCurrentHoldingValue());
+        }
+        return totalValue;
     }
 
-    public boolean addAmount(BigDecimal initialAmount){
-        usdBalance = usdBalance.add(initialAmount);
-        //return usdBalance.compareTo(usdBalance) < 0; //You're comparing the exact same variable to itself.
+    // this method adds an amount to the usd. They can always add money.
+    public boolean deposit(BigDecimal addAmount) {
+        USDBalance = USDBalance.add(addAmount);
         return true;
     }
 
-    public ArrayList<Trade> showTrades() {
-        //ArrayList<Trade> var = getTrades();
-        // return var;
-        // BUT IF IT'S showTrades(), then should I use a
-        // System.out.println(var); ?
-
-        return new ArrayList<>();
+    // this method checks that the user can withdraw, then if they can it does it. otherwise returns false.
+    public boolean withdraw(BigDecimal withdrawAmount) {
+        if (USDBalance.compareTo(withdrawAmount) >= 0) {
+            USDBalance = USDBalance.subtract(withdrawAmount);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public boolean setPassword(EncryptionService object){
+    public void showTrades() {
+
+        //TODO BG - Write code here to System.out.println() the variables that make up each trade. Use a loop.
+
+    }
+
+    public boolean setPassword(EncryptionService object) {
         // this.password = new byte[object.getEncryptedAttemptedPassword()]; ??
         // return true;
         // return false;
@@ -72,7 +84,7 @@ public class Wallet {
 
     }
 
-    public boolean changePassword(){
+    public boolean changePassword() {
         // ASSUMING THIS WILL CONNECT WITH PasswordEncryptionService class?
         // COME BACK TO THIS
         // Jon - this calls its own object of the PasswordEncryptionService. This will simply ask for and set a new pass.
@@ -109,12 +121,12 @@ public class Wallet {
         this.holdings = holdings;
     }
 
-    public BigDecimal getUsdBalance() {
-        return usdBalance;
+    public BigDecimal getUSDBalance() {
+        return USDBalance;
     }
 
-    public void setUsdBalance(BigDecimal usdBalance) {
-        this.usdBalance = usdBalance;
+    public void setUSDBalance(BigDecimal USDBalance) {
+        this.USDBalance = USDBalance;
     }
 
     public UUID getWalletID() {
