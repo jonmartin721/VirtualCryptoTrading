@@ -72,6 +72,15 @@ public class Wallet {
     public void showTrades() {
 
         //TODO BG - Write code here to System.out.println() the variables that make up each trade. Use a loop.
+        trades.forEach(trade->{
+            System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
+            System.out.println("Date of Trade: " + String.valueOf(trade.getDateTime()));
+            System.out.println("From: " + String.valueOf(trade.getFromSymbol()));
+            System.out.println("To: " + String.valueOf(trade.getToSymbol()));
+            System.out.println("Amount: " + String.valueOf(trade.getFromAmount().subtract(trade.getToAmount())));
+
+        });
+
 
     }
 

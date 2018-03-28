@@ -23,7 +23,7 @@ public class FileOperations {
     public Wallet loadWallet() {
 
 
-        return new Wallet();
+        return new Wallet("Bob", "Bobby", "Bob123");
 
     }
 
