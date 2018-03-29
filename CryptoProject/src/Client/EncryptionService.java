@@ -12,8 +12,9 @@ public class EncryptionService {
     private byte[] encryptedAttemptedPassword;
 
 
+    //TODO implement checking password
     //    This method returns the attempted password encrypted to be compared to a existing encrypted passwords.
-//    There is no need to do 2 way encryption, we will never need to see the plaintext password again.
+    //    There is no need to do 2 way encryption, we will never need to see the plaintext password again.
     public byte[] getEncryptedAttemptedPassword(String password, byte[] salt) {
 
         return "Attempted password".getBytes();
@@ -21,6 +22,7 @@ public class EncryptionService {
     }
 
 
+    //TODO implement salt generation
     //This generates a salt for applying onto the password.
     public byte[] generateSalt() {
 
@@ -28,6 +30,8 @@ public class EncryptionService {
 
     }
 
+
+    //TODO implement authentication
     public boolean authenticate(String attemptedPassword, byte[] encryptedPassword, byte[] salt) {
 
 

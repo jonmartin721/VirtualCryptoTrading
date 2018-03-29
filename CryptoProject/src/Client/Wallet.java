@@ -24,7 +24,8 @@ public class Wallet {
     private BigDecimal totalUSDwithdrawn;
     private BigDecimal USDBalance;
 
-    //the user will always supply a username, first name, and last name
+    // Parameterized constructor
+    // The user will always supply a username, first name, and last name.
     public Wallet(String firstName, String lastName, String username) {
         holdings = new ArrayList<>();
         walletID = UUID.randomUUID();
@@ -53,7 +54,7 @@ public class Wallet {
         return totalValue;
     }
 
-    // this method adds an amount to the usd. They can always add money.
+    // this method adds an amount to the usd. They can always add money, no check needed.
     public boolean deposit(BigDecimal addAmount) {
         USDBalance = USDBalance.add(addAmount);
         return true;
@@ -69,6 +70,7 @@ public class Wallet {
         }
     }
 
+    // This method shows basic info on each trade.
     public void showTrades() {
 
         trades.forEach(trade->{
@@ -83,6 +85,7 @@ public class Wallet {
 
     }
 
+    //TODO Set password in Wallet using this
     public boolean setPassword(EncryptionService object) {
         // this.password = new byte[object.getEncryptedAttemptedPassword()]; ??
         // return true;
@@ -92,6 +95,7 @@ public class Wallet {
 
     }
 
+    //TODO Change password (no confirmation required)
     public boolean changePassword() {
         // ASSUMING THIS WILL CONNECT WITH PasswordEncryptionService class?
         // COME BACK TO THIS
@@ -100,27 +104,24 @@ public class Wallet {
         return true;
     }
 
+    //TODO Set goals based on comments below.
+    // Jon - Let's add up the USD value of all of their holdings sometimes. Compare that to the amount they put in, in USD,
+    // and you have a net profit amount. They can set 200, and if they invest 200 and have 400, their goal would have
+    // been met. You can add more variables if you need in order to track this.
     public boolean setGoal(BigDecimal goal) {
-        // NEED TO DEFINE WHAT THE GOAL IS
-        // IS IT MONETARY, IT IS A PERCENTAGE OF MONETARY
-        // WHAT IS THE CONDITIONAL AMOUNT?
-        // Jon - Let's add up the USD value of all of their holdings sometimes. Compare that to the amount they put in, in USD,
-        // and you have a net profit amount. They can set 200, and if they invest 200 and have 400, their goal would have
-        // been met. You can add more variables if you need in order to track this.
+
         return true;
     }
 
 
+    //TODO Show important wallet data. You decide what is important. You don't need to show everything.
     public void showWalletData() {
-        // CONFIRM void IS THE RETURN TYPE
-        // LOTS OF System.out.println() STATEMENTS HERE?
-        // WHAT WALLET DATA CONTENTS EXACTLY?
+
         // Jon - any method that outputs to sout doesn't need a return type: we can see if it is successful without
         // needing boolean. It's kind of up to you what you want to display, I recommend using almost every bit of data
         // and outputting it in some way with pretty tables.
     }
 
-    // **I'M GOING TO LEAVE THESE IN HERE TEMPORARILY UNTIL IMPLEMENTATION IS FIRM**
     public ArrayList<Cryptocurrency> getHoldings() {
         return new ArrayList<>();
     }
@@ -133,23 +134,14 @@ public class Wallet {
         return USDBalance;
     }
 
-    public void setUSDBalance(BigDecimal USDBalance) {
-        this.USDBalance = USDBalance;
-    }
 
     public UUID getWalletID() {
         return walletID;
     }
 
-    public void setWalletID(UUID walletID) {
-        this.walletID = walletID;
-    }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }
