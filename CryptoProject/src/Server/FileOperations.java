@@ -10,7 +10,7 @@ import Client.Wallet;
 
 public class FileOperations {
 
-    private Wallet saveData; //TODO Decide if this class needs to be instantiated at all, or can be a static utility class.
+    private Wallet saveData;
 
     //this method will save the wallet passed into it as a serialized object
     public boolean saveWallet(Wallet wallet) {

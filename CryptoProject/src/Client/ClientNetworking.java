@@ -10,8 +10,6 @@ public class ClientNetworking {
 
     //This method sends data of some kind to the server, any kind but save data.
     public static boolean sendData(int data) {
-        //TODO Add a data being sent int type parameter. IE 0 - Test, 1 - Save, etc
-
         return true;
 
     }

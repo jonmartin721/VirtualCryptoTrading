@@ -16,7 +16,6 @@ public class Driver {
     }
 
     //has the user choose what they want to do
-    //TODO Move the menu and related features into a convenience class.
     private static void menu() {
 
         //creates objects and variables for menu system
