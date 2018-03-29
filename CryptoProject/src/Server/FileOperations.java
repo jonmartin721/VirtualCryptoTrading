@@ -10,6 +10,7 @@ import Client.Wallet;
 
 public class FileOperations {
 
+    //TODO Serialize the wallet out to a file
     private Wallet saveData;
 
     //this method will save the wallet passed into it as a serialized object
@@ -19,7 +20,7 @@ public class FileOperations {
 
     }
 
-    //this method will load a wallet.
+    //TODO Deserialize a wallet from file into an object.
     public Wallet loadWallet() {
 
 

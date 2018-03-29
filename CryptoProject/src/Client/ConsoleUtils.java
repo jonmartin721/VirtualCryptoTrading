@@ -24,12 +24,13 @@ public class ConsoleUtils {
         System.out.println();
     }
 
-    //this makes the function continue when enter is pressed
+    //This makes the method continue when enter is pressed.
     public static void promptEnterKey() {
         Scanner keyboard = new Scanner(System.in);
         keyboard.nextLine();
     }
 
+    //This method is a stub for areas under construction.
     public static void underConstruction() {
         System.out.println("UNDER CONSTRUCTION!");
     }
