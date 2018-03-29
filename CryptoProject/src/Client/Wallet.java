@@ -105,21 +105,15 @@ public class Wallet {
     }
 
     //TODO Set goals based on comments below.
-    // Jon - Let's add up the USD value of all of their holdings sometimes. Compare that to the amount they put in, in USD,
-    // and you have a net profit amount. They can set 200, and if they invest 200 and have 400, their goal would have
-    // been met. You can add more variables if you need in order to track this.
     public boolean setGoal(BigDecimal goal) {
 
         return true;
     }
 
 
-    //TODO Show important wallet data. You decide what is important. You don't need to show everything.
+    //TODO Show important wallet data.
     public void showWalletData() {
 
-        // Jon - any method that outputs to sout doesn't need a return type: we can see if it is successful without
-        // needing boolean. It's kind of up to you what you want to display, I recommend using almost every bit of data
-        // and outputting it in some way with pretty tables.
     }
 
     public ArrayList<Cryptocurrency> getHoldings() {
