@@ -11,6 +11,9 @@ import java.util.UUID;
 
 public class Trade {
 
+
+
+=======
     private UUID tradeID;
     private LocalDateTime dateTime;
     private BigDecimal fromAmount;
@@ -131,5 +134,6 @@ public class Trade {
     public void setDateTime(LocalDateTime dateTime) {
         this.dateTime = dateTime;
     }
+
 }
 
