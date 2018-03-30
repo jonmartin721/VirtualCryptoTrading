@@ -29,20 +29,20 @@ services:
   - <service name>
 
 env:
-  - ENV1: "foo" <environment variables in dictionary format>
-    ENV2: "moo"
-  - ENV1: "foo" <environment variables in dictionary format>
-    ENV2: "boo"
+  - ENV1:
+    ENV2:
+  - ENV1:
+    ENV2:
   global:
-  - ENVG1: "goo"
-  - ENVG2: "doo"
+  - ENVG1:
+  - ENVG2:
 
 matrix:
   include:
-    - ENV1: "foo"
+    - ENV1:
       <language version>: <version>
   exclude:
-    - ENVG2: "doo"
+    - ENVG2:
       <language version>: <version2>
   allow_failures:
     - <language version>: <version2>
