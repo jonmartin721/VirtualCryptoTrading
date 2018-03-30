@@ -47,9 +47,9 @@ build:
   post_ci:
   on_success:
   on_failure:
-  cache: <boolean>
+  cache:
   cache_dir_list:
-  advancedReporting: <boolean>
+  advancedReporting:
   push:
 
 integrations:
