@@ -1,0 +1,184 @@
+#### CI CONFIG
+
+language:   Java
+
+<language version>: #depending on language
+  - oraclejdk8
+  - openjdk8
+
+#### special tags for ruby language ####
+gemfile:
+  - <version>
+  - <version 2>
+bundler_args: arg 1
+#### end special tags for ruby language ####
+
+branches:
+  only:
+    - master
+    - release/*
+    - basicImplementatinTODO
+  except:
+    - feat*
+
+git:
+   submodules: false
+
+services:
+  - <service name>
+  - <service name>
+
+env:
+  - ENV1: "foo" <environment variables in dictionary format>
+    ENV2: "moo"
+  - ENV1: "foo" <environment variables in dictionary format>
+    ENV2: "boo"
+  global:
+  - ENVG1: "goo"
+  - ENVG2: "doo"
+
+matrix:
+  include:
+    - ENV1: "foo"
+      <language version>: <version>
+  exclude:
+    - ENVG2: "doo"
+      <language version>: <version2>
+  allow_failures:
+    - <language version>: <version2>
+
+build:
+  pre_ci:
+    - #command1
+    - #command2
+  pre_ci_boot:
+    image_name: <name of the image to boot>
+    image_tag: <tag of the image to boot>
+    env: <list of environment variables while booting the container>
+    pull: <boolean>
+    options: <docker options arguments>
+  ci:
+    - #command1
+    - #command2
+  post_ci:
+    - command1
+    - command2
+  on_success:
+    - command1
+    - command2
+  on_failure:
+    - command1
+    - command2
+  cache: <boolean>
+  cache_dir_list:
+    - dir1
+    - dir2
+  advancedReporting: <boolean>
+  ## commands in push run outside the build container
+  push:
+    - #command1
+
+integrations:
+  notifications:
+    - integrationName: <name of your subscription integration>
+      type: <type of notification>
+      recipients:
+        - #recp1
+        - #recp2
+      branches:
+        only:
+          - master
+      on_success: always | change | never
+      on_failure: always | change | never
+      on_cancel: always | change | never
+      on_start: always | never
+      on_pull_request: always | never
+       #### special tags for email type ####
+      sendConsoleLogs: <boolean>
+      sendCoverageReports: <boolean>
+      #### special tags for email type ####
+
+  hub:
+    - integrationName:
+      type: <type of hub>
+      agent_only:
+      branches:
+        only:
+          - master
+  key:
+    - integrationName: my_custom_key
+      type: sshKey
+
+  deploy:                                   # deprecated
+    - integrationName: "aws-eb-integration"
+      type: aws
+      target: eb_paas
+      platform: <EBS platform>
+      application_name: <EBS app>
+      env_name: <EBS environment>
+      region: <aws region>
+      #### special tags for docker app ####
+      image_name: <image name>
+      image_tag: <image tag>
+      bucket_name: <s3 bucket>
+      #### special tags for docker app ####
+
+#### END CI CONFIG
+
+#### RESOURCES CONFIG (GLOBAL ACROSS SUBSCRIPTION)
+
+resources:
+  - name:           <string>
+    type:           <resource type name>
+    integration:    <string>
+    pointer:        <object>
+    seed:           <object>
+    version:        <object>
+
+#### END RESOURCES CONFIG
+
+#### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
+
+jobs:
+  - name:           <string>
+    type:           <job type name>
+    on_start:
+      - NOTIFY:     <notification resource name>
+    steps:
+      - IN:         <resource>
+        switch:     off
+      - IN:         <job>
+      - IN:         <resource>
+        versionName: <name of the version you want to pin>
+      - IN:         <resource>
+        versionNumber: <number of the version you want to pin>
+      - IN:         <params/dockerOption/replicas resource>
+        applyTo:
+          - <image/manifest/release>
+          - <image/manifest/release>
+      - IN:         <loadBalancer resource>
+        applyTo:
+          - manifest: <manifest>
+            image:    <image>
+            port:     <number>
+      - IN:         <gitRepo resource with buildOnPullRequest: true>
+        showBuildStatus: true
+      - IN:         <manifest/release>
+        force:      true
+      - TASK:
+        - script:   <any shell command>
+        - script:   <any shell command>
+      - OUT:        <resource>
+      - OUT:        <resource>
+        replicate:  <IN resource>
+    on_success:
+      - script:     echo "SUCCESS"
+    on_failure:
+      - script:     echo "FAILED"
+      - NOTIFY:     <notification resource name>
+    on_cancel:
+      - script:     echo "CANCEL"
+    always:
+      - script:     pwd
+
+#### END JOBS CONFIG
