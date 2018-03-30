@@ -73,7 +73,7 @@ public class Wallet {
     // This method shows basic info on each trade.
     public void showTrades() {
 
-        trades.forEach(trade->{
+        trades.forEach(trade -> {
             System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
             System.out.println("Date of Trade: " + String.valueOf(trade.getDateTime()));
             System.out.println("From: " + String.valueOf(trade.getFromSymbol()));
