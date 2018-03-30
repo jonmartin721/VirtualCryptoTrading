@@ -1,6 +1,6 @@
 #### CI CONFIG
 
-language:   Java
+language:   java
 
 <language version>: #depending on language
   - oraclejdk8
