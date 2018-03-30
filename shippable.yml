@@ -49,8 +49,6 @@ matrix:
 
 build:
   pre_ci:
-    - #command1
-    - #command2
   pre_ci_boot:
     image_name: <name of the image to boot>
     image_tag: <tag of the image to boot>
