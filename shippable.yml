@@ -70,13 +70,6 @@ integrations:
       sendCoverageReports: true
       #### special tags for email type ####
 
-  hub:
-    - integrationName:
-      type:
-      agent_only:
-      branches:
-        only:
-          - master
   key:
     - integrationName: my_custom_key
       type: sshKey
