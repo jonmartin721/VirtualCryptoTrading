@@ -8,8 +8,6 @@ language:   java
 
 #### special tags for ruby language ####
 gemfile:
-  - <version>
-  - <version 2>
 bundler_args: arg 1
 #### end special tags for ruby language ####
 
@@ -25,8 +23,6 @@ git:
    submodules: false
 
 services:
-  - <service name>
-  - <service name>
 
 env:
   - ENV1:
@@ -40,12 +36,9 @@ global:
 matrix:
   include:
     - ENV1:
-      <language version>: <version>
   exclude:
     - ENVG2:
-      <language version>: <version2>
   allow_failures:
-    - <language version>: <version2>
 
 build:
   pre_ci:
@@ -61,11 +54,9 @@ build:
 
 integrations:
   notifications:
-    - integrationName: <name of your subscription integration>
-      type: <type of notification>
+    - integrationName:
+      type:
       recipients:
-        - #recp1
-        - #recp2
       branches:
         only:
           - master
@@ -75,13 +66,13 @@ integrations:
       on_start: always | never
       on_pull_request: always | never
        #### special tags for email type ####
-      sendConsoleLogs: <boolean>
-      sendCoverageReports: <boolean>
+      sendConsoleLogs: true
+      sendCoverageReports: true
       #### special tags for email type ####
 
   hub:
     - integrationName:
-      type: <type of hub>
+      type:
       agent_only:
       branches:
         only:
@@ -94,14 +85,14 @@ integrations:
     - integrationName: "aws-eb-integration"
       type: aws
       target: eb_paas
-      platform: <EBS platform>
-      application_name: <EBS app>
-      env_name: <EBS environment>
-      region: <aws region>
+      platform:
+      application_name:
+      env_name:
+      region:
       #### special tags for docker app ####
-      image_name: <image name>
-      image_tag: <image tag>
-      bucket_name: <s3 bucket>
+      image_name:
+      image_tag:
+      bucket_name:
       #### special tags for docker app ####
 
 #### END CI CONFIG
@@ -109,54 +100,53 @@ integrations:
 #### RESOURCES CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
 resources:
-  - name:           <string>
-    type:           <resource type name>
-    integration:    <string>
-    pointer:        <object>
-    seed:           <object>
-    version:        <object>
+  - name:
+    type:
+    integration:
+    pointer:
+    seed:
+    version:
 
 #### END RESOURCES CONFIG
 
 #### JOBS CONFIG (GLOBAL ACROSS SUBSCRIPTION)
 
 jobs:
-  - name:           <string>
-    type:           <job type name>
+  - name: 
+    type:          
     on_start:
-      - NOTIFY:     <notification resource name>
+      - NOTIFY:    
     steps:
-      - IN:         <resource>
+      - IN:       
         switch:     off
-      - IN:         <job>
-      - IN:         <resource>
-        versionName: <name of the version you want to pin>
-      - IN:         <resource>
-        versionNumber: <number of the version you want to pin>
-      - IN:         <params/dockerOption/replicas resource>
+      - IN:        
+      - IN:         
+        versionName: 
+      - IN:         
+        versionNumber: 
+      - IN:         
         applyTo:
-          - <image/manifest/release>
-          - <image/manifest/release>
-      - IN:         <loadBalancer resource>
+
+      - IN:         
         applyTo:
-          - manifest: <manifest>
-            image:    <image>
-            port:     <number>
-      - IN:         <gitRepo resource with buildOnPullRequest:true>
+          - manifest:
+            image:    
+            port:     
+      - IN:         
         showBuildStatus: true
-      - IN:         <manifest/release>
+      - IN:         
         force:      true
       - TASK:
-        - script:   <any shell command>
-        - script:   <any shell command>
-      - OUT:        <resource>
-      - OUT:        <resource>
-        replicate:  <IN resource>
+        - script:   
+        - script:   
+      - OUT:      
+      - OUT:       
+        replicate: 
     on_success:
       - script:     echo "SUCCESS"
     on_failure:
       - script:     echo "FAILED"
-      - NOTIFY:     <notification resource name>
+      - NOTIFY:     
     on_cancel:
       - script:     echo "CANCEL"
     always:
