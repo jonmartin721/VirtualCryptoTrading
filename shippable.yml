@@ -50,11 +50,11 @@ matrix:
 build:
   pre_ci:
   pre_ci_boot:
-    image_name: <name of the image to boot>
-    image_tag: <tag of the image to boot>
-    env: <list of environment variables while booting the container>
-    pull: <boolean>
-    options: <docker options arguments>
+    #image_name: <name of the image to boot>
+    #image_tag: <tag of the image to boot>
+    #env: <list of environment variables while booting the container>
+    #pull: <boolean>
+    #options: <docker options arguments>
   ci:
   post_ci:
   on_success:
