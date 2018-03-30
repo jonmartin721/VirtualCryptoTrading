@@ -58,25 +58,13 @@ build:
     pull: <boolean>
     options: <docker options arguments>
   ci:
-    - #command1
-    - #command2
   post_ci:
-    - command1
-    - command2
   on_success:
-    - command1
-    - command2
   on_failure:
-    - command1
-    - command2
   cache: <boolean>
   cache_dir_list:
-    - dir1
-    - dir2
   advancedReporting: <boolean>
-  ## commands in push run outside the build container
   push:
-    - #command1
 
 integrations:
   notifications:
