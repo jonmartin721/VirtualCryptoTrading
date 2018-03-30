@@ -33,7 +33,7 @@ env:
     ENV2:
   - ENV1:
     ENV2:
-  global:
+ global:
   - ENVG1:
   - ENVG2:
 
