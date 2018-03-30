@@ -161,7 +161,7 @@ jobs:
           - manifest: <manifest>
             image:    <image>
             port:     <number>
-      - IN:         <gitRepo resource with buildOnPullRequest: true>
+      - IN:         <gitRepo resource with buildOnPullRequest:true>
         showBuildStatus: true
       - IN:         <manifest/release>
         force:      true
