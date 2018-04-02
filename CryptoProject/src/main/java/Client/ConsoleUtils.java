@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class ConsoleUtils {
 
     //adds a nice separator to different activities, doesn't clear the screen
-    public static void lineBreak() {
+    private static void lineBreak() {
 
         System.out.println("\n-----------------------------------------------------------");
         System.out.println("///////////////////////////////////////////////////////////");
@@ -20,7 +20,7 @@ public class ConsoleUtils {
 
 
     //has the user choose what they want to do
-    private static void menu() {
+    public static void menu() {
 
         //creates objects and variables for menu system
         int selection;
@@ -151,13 +151,13 @@ public class ConsoleUtils {
     }
 
     //This makes the method continue when enter is pressed.
-    public static void promptEnterKey() {
+    private static void promptEnterKey() {
         Scanner keyboard = new Scanner(System.in);
         keyboard.nextLine();
     }
 
     //This method is a stub for areas under construction.
-    public static void underConstruction() {
+    private static void underConstruction() {
         System.out.println("UNDER CONSTRUCTION!");
     }
 
