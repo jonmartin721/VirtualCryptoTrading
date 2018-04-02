@@ -28,7 +28,7 @@ public class ConsoleUtils {
 
         //outputs the menu options
         ConsoleUtils.lineBreak();
-        System.out.println("Simulated Client.Cryptocurrency Client.Wallet and Trading v0.01");
+        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.01");
         System.out.println("\nChoose an option below by typing the number:");
         System.out.println("1) Browse Currencies");
         System.out.println("2) View Client.Wallet");
