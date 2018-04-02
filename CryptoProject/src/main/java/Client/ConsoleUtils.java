@@ -7,7 +7,7 @@ to be easy to use and the interface to be uncluttered.
 
 import java.util.Scanner;
 
-public class ConsoleUtils {
+class ConsoleUtils {
 
     //adds a nice separator to different activities, doesn't clear the screen
     private static void lineBreak() {
@@ -20,7 +20,7 @@ public class ConsoleUtils {
 
 
     //has the user choose what they want to do
-    public static void menu() {
+    static void menu() {
 
         //creates objects and variables for menu system
         int selection;
@@ -142,12 +142,6 @@ public class ConsoleUtils {
         promptEnterKey();
         menu();
 
-    }
-    //this method will help the user to browse historical and current values of cryptocurrencies using CCXT
-
-    //this will eventually have code for a loading cursor when the program is fetching info
-    public static void loadingCursor() {
-        System.out.println();
     }
 
     //This makes the method continue when enter is pressed.
