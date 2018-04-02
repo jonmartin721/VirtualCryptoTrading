@@ -16,6 +16,7 @@ public class Driver {
     }
 
     //has the user choose what they want to do
+    //TODO move menu choosing into ConsoleUtils
     private static void menu() {
 
         //creates objects and variables for menu system
@@ -81,6 +82,7 @@ public class Driver {
 
     }
 
+    //TODO move all the below methods into ConsoleUtils
     //this method will help the user to browse historical and current values of cryptocurrencies using CCXT
     private static void browse() {
 

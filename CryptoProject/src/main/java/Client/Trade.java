@@ -11,9 +11,6 @@ import java.util.UUID;
 
 public class Trade {
 
-
-
-=======
     private UUID tradeID;
     private LocalDateTime dateTime;
     private BigDecimal fromAmount;
@@ -43,23 +40,26 @@ public class Trade {
     }
 
 
-    // METHODS
+    //TODO trade Crypto -> Crypto, remember to checkTrade first and continue if true
+    public boolean tradeCryptoToCrypto(Cryptocurrency fromCrypto, Cryptocurrency toCrypto, Wallet wallet) {
+
+        return true;
+    }
+
+    //TODO trade Crypto -> USD, remember to checkTrade first and continue if true
     public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Currency toUSD, Wallet wallet) {
 
         return true;
     }
 
+    //TODO trade USD -> Crypto, remember to checkTrade first and continue if true
     public boolean tradeUSDToCrypto(Currency fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
         // CONVERTING FROM USD TO CRYPTO AND ADDING THAT AMOUNT TO MY WALLET OF TYPE WALLET
 
         return true;
     }
 
-    public boolean tradeCryptoToCrypto(Cryptocurrency fromCrypto, Cryptocurrency toCrypto, Wallet wallet) {
-
-        return true;
-    }
-
+    //TODO check if Crypto -> Crypto trades are possible, return true if possible
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeCryptoToCrypto(Wallet wallet, Cryptocurrency fromCrypto, Cryptocurrency toCrypto) {
 
@@ -67,23 +67,18 @@ public class Trade {
 
     }
 
+    //TODO check if Crypto -> USD trades are possible, return true if possible
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeCryptoToUSD(Wallet wallet, Cryptocurrency fromCrypto, BigDecimal toUSD) {
 
         return true;
     }
 
+    //TODO check if USD -> Crypto trades are possible, return true if possible
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeUSDToCrypto(Wallet wallet, BigDecimal fromUSD, Cryptocurrency toCrypto) {
 
         return true;
-    }
-
-    // This method will output trade data
-    public void showTradeData() {
-        // CONFIRM WHAT System.out.println() JON WANTS TO SHOW.
-        // SHOW ALL INSTANCE VARIABLES COMPRISES tradeData?
-        // Jon - That's correct, use this to simply output all useful variables.
     }
 
     // SETTERS AND GETTERS

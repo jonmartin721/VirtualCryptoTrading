@@ -16,6 +16,7 @@ public class Cryptocurrency extends Currency {
     private BigDecimal currentValue;
     private Percentage last4Hours;
 
+    //TODO Implement API (XChange)
     //this method returns from the API what the current value of this crypto is
     public BigDecimal getCurrentCryptoValue() {
 
