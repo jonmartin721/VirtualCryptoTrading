@@ -20,13 +20,17 @@ class ConsoleUtils {
     //has the user choose what they want to do
     static void menu() {
 
+        if (logIn()) {
+            System.out.println();
+        }
+
         //creates objects and variables for menu system
         int selection;
         Scanner keyboard = new Scanner(System.in);
 
         //outputs the menu options
         ConsoleUtils.lineBreak();
-        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.01");
+        ConsoleUtils.title();
         System.out.println("\nChoose an option below by typing the number:");
         System.out.println("1) Browse Currencies");
         System.out.println("2) View Wallet");
@@ -81,6 +85,10 @@ class ConsoleUtils {
         }
 
 
+    }
+
+    private static void title() {
+        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.01");
     }
 
 
@@ -153,5 +161,38 @@ class ConsoleUtils {
         System.out.println("UNDER CONSTRUCTION!");
     }
 
+    //This method is called by menu before showing the menu to make sure the user has an account (wallet)
+    //If not, they can create it here.
+    private static boolean logIn() {
 
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Do you have a wallet already?");
+        System.out.println("1) Yes");
+        System.out.println("2) No");
+
+        int response = keyboard.nextInt();
+
+        //Input validation
+        while (response != 1 && response != 2) {
+
+            lineBreak();
+            System.out.println("Invalid response!");
+            System.out.println("Do you have a wallet already?");
+            System.out.println("1) Yes");
+            System.out.println("2) No");
+
+            response = keyboard.nextInt();
+        }
+
+        //If they pass input validation, they will be directed to the next area.
+        if (response == 1) {
+
+            System.out.println();
+            System.out.print("Username: ");
+
+        }
+
+        return true;
+
+    }
 }
