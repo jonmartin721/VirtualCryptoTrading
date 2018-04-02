@@ -80,11 +80,10 @@ public class Trade {
            return false;
     }
 
-    //TODO check if Crypto -> USD trades are possible, return true if possible
+    //TODO- Review check if Crypto -> USD trades are possible, return true if possible
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeCryptoToUSD(Wallet wallet, Cryptocurrency fromCrypto, BigDecimal toUSD) {
-
-        return true;
+        return fromCrypto.getCurrentHoldingValue().compareTo(toUSD) == 1;
     }
 
     //TODO check if USD -> Crypto trades are possible, return true if possible

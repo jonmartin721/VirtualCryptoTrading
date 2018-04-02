@@ -111,10 +111,23 @@ public class Wallet {
     }
 
 
-    //TODO Show important wallet data.
+    //TODO- Review Show important wallet data.
     public void showWalletData() {
 
-    }
+        System.out.println("Hello "+ firstName+" "+ lastName);
+
+
+        System.out.println("Wallet ID: " + walletID);
+        System.out.println("Balance: " + USDBalance);
+        System.out.println("Total USD Deposited: "+ totalUSDdeposited);
+        System.out.println("Total USD Withdrawn: "+ totalUSDwithdrawn);
+        System.out.println("Total amount traded: " + totalAmountTraded);
+
+        System.out.println("You have traded in the following: ");
+        showTrades();
+
+        }
+
 
     public ArrayList<Cryptocurrency> getHoldings() {
         return new ArrayList<>();
