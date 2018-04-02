@@ -5,4 +5,4 @@ jdk: oraclejdk8
 
 build:
   ci:
-    - ant build
+    - ant all
