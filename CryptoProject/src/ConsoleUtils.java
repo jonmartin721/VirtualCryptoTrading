@@ -165,6 +165,7 @@ class ConsoleUtils {
     //If not, they can create it here.
     private static boolean logIn() {
 
+        title();
         Scanner keyboard = new Scanner(System.in);
         System.out.println("Do you have a wallet already?");
         System.out.println("1) Yes");
@@ -185,10 +186,24 @@ class ConsoleUtils {
         }
 
         //If they pass input validation, they will be directed to the next area.
+
+        //If they chose that they have a wallet already,
         if (response == 1) {
 
-            System.out.println();
+            lineBreak();
+            title();
+
             System.out.print("Username: ");
+            String username = keyboard.next();
+            System.out.println("Password: ");
+            String password = keyboard.next();
+
+            //TODO Jon - Finish login code
+            //Check if the username and password serialized file exists
+            //If so, make it an object and read it to see if the entered username and pass exist.
+            //If not, create it, then open it to see if username and pass exist. (Which will fail of course, the user should
+            //have chosen option 2).
+
 
         }
 
