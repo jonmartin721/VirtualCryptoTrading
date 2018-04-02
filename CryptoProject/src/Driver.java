@@ -1,5 +1,3 @@
-package Client;
-
 /*
 This class should be the driver and contains code that uses the other classes in the application.
  */
