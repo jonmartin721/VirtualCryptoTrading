@@ -9,6 +9,8 @@ be put into one file.
 import Client.Wallet;
 
 import java.io.*;
+import java.util.Scanner;
+import java.util.UUID;
 
 
 public class FileOperations implements java.io.Serializable{
@@ -21,14 +23,12 @@ public class FileOperations implements java.io.Serializable{
     public boolean saveWallet(Wallet wallet) {
         // created a file object from FileOutputStream class to write the object into
         // created an ObjectOutputStream
+
         try{
-            FileOutputStream fileout = new FileOutputStream("walletFile.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileout);
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("walletFile.ser"));
             out.writeObject(wallet);
 
-            // closing all resources
             out.close();
-            fileout.close();
             System.out.println("Serialized data is saved in walletFile.ser");
             return true;
         }
@@ -40,30 +40,33 @@ public class FileOperations implements java.io.Serializable{
     }
 
     //TODO -Amee-Deserialize a wallet from file into an object.
-    public Wallet loadWallet() {
-        // created a FileInputStream object and set it to the serialized file we want to pull from
-        // created an ObjectInputstream
-        Wallet obj;
-        try {
-            FileInputStream fileIn = new FileInputStream("walletFile.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            obj = (Wallet) in.readObject();
+    public Wallet loadWallet(Wallet walletToLoad) {
+        this.saveData = null;
 
-            // closing all resources
-            in.close();
-            fileIn.close();
-            return obj;
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("walletFile.ser"));
+            UUID check = walletToLoad.getWalletID();
+
+            //read in objects and compare til we find specific UUID
+            this.saveData = (Wallet) in.readObject();
+            if (saveData instanceof Wallet){
+                //Wallet retrieveWallet = (Wallet) saveData;
+                System.out.println("Found UUID");
+            }
+            return saveData;
+
+
         }
         catch (IOException i){
-            System.out.println("Error: ### Wallet not found ####");
+            System.err.println("### Error opening file. ###");
         }
         catch (ClassNotFoundException c){
-            System.out.println();
+            System.err.println("### Object creation failed. ###");
         }
-        System.out.println();
+
+        // Jon if code makes it down here then it returns a new Wallet as you originally implemented
+        System.out.println("*** Returning a new Wallet ***");
         return new Wallet("Bob", "Bobby", "Bob123");
-        // **JON-Need to confirm this line above with Jon- so if nothing comes out of the .ser file,
-        // then a new Wallet is created?
 
     }
 
