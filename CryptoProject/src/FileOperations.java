@@ -6,11 +6,9 @@ Data will be serialized out to a file. I'm not sure yet if each wallet will be i
 be put into one file.
  */
 
-import Client.Wallet;
+import Wallet;
 
 import java.io.*;
-import java.util.Scanner;
-import java.util.UUID;
 
 
 public class FileOperations implements java.io.Serializable{
