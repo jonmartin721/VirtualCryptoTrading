@@ -167,9 +167,8 @@ class ConsoleUtils {
 
         title();
         Scanner keyboard = new Scanner(System.in);
-        System.out.println("Do you have a wallet already?");
-        System.out.println("1) Yes");
-        System.out.println("2) No");
+        System.out.println("1) Login");
+        System.out.println("2) Create Wallet");
 
         int response = keyboard.nextInt();
 
@@ -177,25 +176,22 @@ class ConsoleUtils {
         while (response != 1 && response != 2) {
 
             lineBreak();
+            title();
             System.out.println("Invalid response!");
-            System.out.println("Do you have a wallet already?");
-            System.out.println("1) Yes");
-            System.out.println("2) No");
+            System.out.println("1) Login");
+            System.out.println("2) Create Wallet");
 
             response = keyboard.nextInt();
         }
 
         //If they pass input validation, they will be directed to the next area.
 
-        //If they chose that they have a wallet already,
+        //If they chose to login:
         if (response == 1) {
 
-            lineBreak();
-            title();
-
-            System.out.print("Username: ");
+            System.out.print("\nUsername: ");
             String username = keyboard.next();
-            System.out.println("Password: ");
+            System.out.print("Password: ");
             String password = keyboard.next();
 
             //TODO Jon - Finish login code
