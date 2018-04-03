@@ -18,7 +18,6 @@ public class Driver {
         // Test serializing
         LoginInfo testingLoginInfo = new LoginInfo();
         testingLoginInfo.addUserAndPassword(testingUsername, testingPassword);
-        testingLoginInfo.addUserAndPassword(testingUsername, testingPassword);
         try {
             FileOperations.saveLoginInfo(testingLoginInfo);
         } catch (IOException e) {
