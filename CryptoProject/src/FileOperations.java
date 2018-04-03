@@ -5,8 +5,11 @@ Data will be serialized out to a file. I'm not sure yet if each wallet will be i
 be put into one file.
  */
 
+import java.io.*;
+
 public class FileOperations {
 
+    //TODO -Amee-Serialize the wallet out to a file
     private Wallet saveData;
 
     //this method will save the wallet passed into it as a serialized object
@@ -20,7 +23,54 @@ public class FileOperations {
     public Wallet loadWallet() {// TODO BG- change this back later (delete the firstname, lastname and the username) once the rest of the code is completed
 
 
+
         return new Wallet("Bob", "Bobby", "Bob123");
+
+    }
+
+
+    // This method saves login information to a "loginInfo.ser"
+    static boolean saveLoginInfo(LoginInfo loginInfo) throws IOException {
+
+        FileOutputStream fileOutputStream = new FileOutputStream("loginInfo.ser", false);
+        try (ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
+            oos.writeObject(loginInfo);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+        fileOutputStream.close();
+
+        return true;
+    }
+
+    // This method loads login information (usernames and passwords) from a serialized LoginInfo object
+    static LoginInfo loadLoginInfo() {
+
+
+        LoginInfo loginInfo = null;
+
+        try {
+
+            FileInputStream file = new FileInputStream("loginInfo.ser");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            loginInfo = (LoginInfo) in.readObject();
+
+            in.close();
+            file.close();
+
+        } catch (IOException ex) {
+            System.out.println("IO Exception.");
+            System.out.println("Serial UID may have changed.");
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Class not found.");
+        }
+
+
+        return loginInfo;
 
     }
 

@@ -1,4 +1,3 @@
-
 /*
 This class is instantiated and put in every Wallet as a cryptocurrency held by that user. It contains all the info needed
 on each cryptocurrency.
@@ -17,7 +16,9 @@ public class Cryptocurrency extends Currency {
 
     //TODO Implement API (XChange)
     //this method returns from the API what the current value of this crypto is
-    public BigDecimal getCurrentCryptoValue() {
+    
+  public BigDecimal getCurrentCryptoValue() {
+
 
         return new BigDecimal(0); //0 for now
     }
@@ -33,6 +34,7 @@ public class Cryptocurrency extends Currency {
     }
 
     public Double getAmountHeld() {
+
         return amountHeld;
     }
 
