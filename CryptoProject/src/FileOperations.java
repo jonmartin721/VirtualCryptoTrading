@@ -5,28 +5,66 @@ Data will be serialized out to a file. I'm not sure yet if each wallet will be i
 be put into one file.
  */
 
+import Wallet;
+
 import java.io.*;
 
-public class FileOperations {
+
+public class FileOperations implements java.io.Serializable{
 
     //TODO -Amee-Serialize the wallet out to a file
-    private Wallet saveData;
+
+    private Wallet saveData;    // variable
 
     //this method will save the wallet passed into it as a serialized object
     public boolean saveWallet(Wallet wallet) {
+        // created a file object from FileOutputStream class to write the object into
+        // created an ObjectOutputStream
 
-        return true;
+        try{
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("walletFile.ser"));
+            out.writeObject(wallet);
+
+            out.close();
+            System.out.println("Serialized data is saved in walletFile.ser");
+            return true;
+        }
+        catch (IOException i){
+            i.printStackTrace();
+            return false;
+        }
 
     }
 
-    //this method will load a wallet.
-    public Wallet loadWallet() {// TODO BG- change this back later (delete the firstname, lastname and the username) once the rest of the code is completed
+    //TODO -Amee-Deserialize a wallet from file into an object.
+    public Wallet loadWallet(Wallet walletToLoad) {
+        this.saveData = null;
+
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream("walletFile.ser"));
+
+            //read in objects and compare til we find specific UUID
+            this.saveData = (Wallet) in.readObject();
+            if (saveData instanceof Wallet){
+                //Wallet retrieveWallet = (Wallet) saveData;
+                System.out.println("Found UUID");
+            }
+            return saveData;
 
 
+        }
+        catch (IOException i){
+            System.err.println("### Error opening file. ###");
+        }
+        catch (ClassNotFoundException c){
+            System.err.println("### Object creation failed. ###");
+        }
 
+        // Jon if code makes it down here then it returns a new Wallet as you originally implemented
+        System.out.println("*** Returning a new Wallet ***");
         return new Wallet("Bob", "Bobby", "Bob123");
-
     }
+  
 
 
     // This method saves login information to a "loginInfo.ser"
