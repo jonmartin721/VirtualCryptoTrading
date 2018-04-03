@@ -33,7 +33,7 @@ public class FileOperations implements java.io.Serializable {
 
     }
 
-    //TODO -Amee-Deserialize a wallet from file into an object.
+    //TODO Amee-Deserialize a wallet from file into an object.
     public Wallet loadWallet(Wallet walletToLoad) {
         this.saveData = null;
 
@@ -42,7 +42,7 @@ public class FileOperations implements java.io.Serializable {
 
             //read in objects and compare til we find specific UUID
             this.saveData = (Wallet) in.readObject();
-            if (saveData instanceof Wallet) {
+            if (saveData != null) {
                 //Wallet retrieveWallet = (Wallet) saveData;
                 System.out.println("Found UUID");
             }
