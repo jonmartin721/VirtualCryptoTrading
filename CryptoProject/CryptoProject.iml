@@ -15,5 +15,14 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.knowm.xchange:xchange-core:4.3.3" level="project" />
     <orderEntry type="library" name="org.knowm.xchange:xchange-coinbase:4.2.0" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$APPLICATION_HOME_DIR$/redist/annotations-java8.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

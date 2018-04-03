@@ -9,28 +9,28 @@ public class ServerNetworking {
     private int networkData;
     private FileOperations fileOperations;
 
-    //This method may be combined with the one above, the purpose of this method is to send save data.
+    // Sends save data.
     public static boolean receiveSaveData(int data) {
 
         return true;
 
     }
 
-    //This method sends data of some kind to the server, any kind but save data.
+    // Sends data of some kind to the server, any kind but save data.
     public boolean sendData(int data) {
 
         return true;
 
     }
 
-    //This method will return the data being sent by the server.
+    // Returns the data being sent by the server.
     public int receiveData() {
 
         return 0;
 
     }
 
-    //This method will regularly check for connection status with the server.
+    // Can be used to regularly checks for connection status with the server.
     public int getConnectionStatus() {
 
         return 0;

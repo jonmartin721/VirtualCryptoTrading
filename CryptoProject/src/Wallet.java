@@ -177,4 +177,9 @@ public class Wallet {
         return username;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+
 }
