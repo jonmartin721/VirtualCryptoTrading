@@ -60,7 +60,9 @@ public class FileOperations {
             file.close();
 
         } catch (IOException ex) {
-            System.out.println("Can't find the file.");
+            System.out.println("IO Exception.");
+            System.out.println("Serial UID may have changed.");
+
         } catch (ClassNotFoundException ex) {
             System.out.println("Class not found.");
         }

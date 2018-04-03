@@ -20,6 +20,8 @@ public class Driver {
             FileOperations.saveLoginInfo(testingLoginInfo);
         } catch (IOException e) {
             System.out.println("ERROR: Cannot write to file.");
+        } finally {
+            System.out.println("Successfully wrote login information to file.");
         }
 
 
