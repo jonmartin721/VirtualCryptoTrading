@@ -5,6 +5,7 @@ to be easy to use and the interface to be uncluttered.
 
 import java.util.Scanner;
 
+
 class ConsoleUtils {
 
     //adds a nice separator to different activities, doesn't clear the screen
@@ -15,7 +16,6 @@ class ConsoleUtils {
         System.out.println("-----------------------------------------------------------\n");
 
     }
-
 
     //has the user choose what they want to do
     static void menu() {
@@ -152,7 +152,8 @@ class ConsoleUtils {
 
     //This makes the method continue when enter is pressed.
     private static void promptEnterKey() {
-        Scanner keyboard = new Scanner(System.in);
+
+      Scanner keyboard = new Scanner(System.in);
         keyboard.nextLine();
     }
 

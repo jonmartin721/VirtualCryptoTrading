@@ -16,13 +16,15 @@ public class Cryptocurrency extends Currency {
 
     //TODO Implement API (XChange)
     //this method returns from the API what the current value of this crypto is
-    private BigDecimal getCurrentCryptoValue() {
+    
+  public BigDecimal getCurrentCryptoValue() {
+
 
         return new BigDecimal(0); //0 for now
     }
 
     //this methods multiplies current crypto value by amountHeld and returns the value in USD of this holding
-    BigDecimal getCurrentHoldingValue() {
+    public BigDecimal getCurrentHoldingValue() {
 
         BigDecimal holdingValue;
         holdingValue = this.getCurrentCryptoValue();
@@ -31,7 +33,8 @@ public class Cryptocurrency extends Currency {
 
     }
 
-    private Double getAmountHeld() {
+    public Double getAmountHeld() {
+
         return amountHeld;
     }
 

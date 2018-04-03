@@ -57,19 +57,26 @@ public class Trade {
         return true;
     }
 
-    //TODO check if Crypto -> Crypto trades are possible, return true if possible
+    //TODO- Review check if Crypto -> Crypto trades are possible, return true if possible
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeCryptoToCrypto(Wallet wallet, Cryptocurrency fromCrypto, Cryptocurrency toCrypto) {
-
-        return true;
-
+        //This is just a double check to see if the if the trade is valid. If not then the function returns false
+        // checks that the cryptocurrency being traded is not that same
+//            if (fromCrypto.getAmountHeld().equals(toCrypto.getCurrentCryptoValue()))//checks if the amount being traded is valid
+//            {
+//                {
+//                    return true;
+//                }
+//          }
+//                else
+//                return false;
+        return !(fromCrypto.equals(toCrypto));
     }
 
-    //TODO check if Crypto -> USD trades are possible, return true if possible
+    //TODO- Review check if Crypto -> USD trades are possible, return true if possible
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeCryptoToUSD(Wallet wallet, Cryptocurrency fromCrypto, BigDecimal toUSD) {
-
-        return true;
+        return fromCrypto.getCurrentHoldingValue().compareTo(toUSD) == 1;
     }
 
     //TODO check if USD -> Crypto trades are possible, return true if possible
