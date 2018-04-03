@@ -4,9 +4,7 @@ Data will be serialized out to a file. I'm not sure yet if each wallet will be i
 be put into one file.
  */
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class FileOperations {
 
@@ -28,20 +26,48 @@ public class FileOperations {
 
     }
 
-    public static boolean saveLoginInfo(LoginInfo loginInfo) throws IOException {
 
-        FileOutputStream fout = null;
-        fout = new FileOutputStream("loginInfo.ser", true);
-        try (ObjectOutputStream oos = new ObjectOutputStream(fout)) {
+    // This method saves login information to a "loginInfo.ser"
+    static boolean saveLoginInfo(LoginInfo loginInfo) throws IOException {
+
+        FileOutputStream fileOutputStream = new FileOutputStream("loginInfo.ser", true);
+        try (ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
             oos.writeObject(loginInfo);
         } catch (Exception ex) {
             ex.printStackTrace();
             return false;
         }
 
-        fout.close();
+        fileOutputStream.close();
 
         return true;
+    }
+
+    // This method loads login information (usernames and passwords) from a serialized LoginInfo object
+    static LoginInfo loadLoginInfo() {
+
+
+        LoginInfo loginInfo = null;
+
+        try {
+
+            FileInputStream file = new FileInputStream("loginInfo.ser");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            loginInfo = (LoginInfo) in.readObject();
+
+            in.close();
+            file.close();
+
+        } catch (IOException ex) {
+            System.out.println("Can't find the file.");
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Class not found.");
+        }
+
+
+        return loginInfo;
+
     }
 
 }

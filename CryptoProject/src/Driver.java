@@ -13,13 +13,19 @@ public class Driver {
         String testingUsername = "admin";
         String testingPassword = "popcorn";
 
+        // Test serializing
         LoginInfo testingLoginInfo = new LoginInfo();
         testingLoginInfo.addUserAndPassword(testingUsername, testingPassword);
         try {
             FileOperations.saveLoginInfo(testingLoginInfo);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("ERROR: Cannot write to file.");
         }
+
+
+        // Test deserializing
+        LoginInfo loginInfo = FileOperations.loadLoginInfo();
+        loginInfo.displayContents();
 
         // Actual program starts here
         ConsoleUtils.menu();
