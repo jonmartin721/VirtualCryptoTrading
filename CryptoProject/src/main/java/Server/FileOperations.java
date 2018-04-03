@@ -25,7 +25,7 @@ public class FileOperations implements java.io.Serializable{
         // created an ObjectOutputStream
 
         try{
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("walletFile.ser", true));
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("walletFile.ser"));
             out.writeObject(wallet);
 
             out.close();
@@ -45,7 +45,6 @@ public class FileOperations implements java.io.Serializable{
 
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream("walletFile.ser"));
-            //UUID check = walletToLoad.getWalletID();
 
             //read in objects and compare til we find specific UUID
             this.saveData = (Wallet) in.readObject();
