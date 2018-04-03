@@ -4,7 +4,9 @@ The purpose of this class is to provide encryption services for each wallet.
 It uses the techniques and most code from here: https://goo.gl/SSuy6a
  */
 
-public class EncryptionService {
+import java.io.Serializable;
+
+public class EncryptionService implements Serializable {
 
     private byte[] salt;
     private int derivedKeyLength;

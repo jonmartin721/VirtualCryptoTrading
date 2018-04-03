@@ -3,12 +3,12 @@ The wallet is a the class that is essentially the user profile; it is the contai
 Each wallet object has funding, holdings, personal information, trade history, and goals.
  */
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
-import java.util.Scanner;
 
-public class Wallet {
+public class Wallet implements Serializable {
 
     private ArrayList<Cryptocurrency> holdings;
     private UUID walletID;
@@ -43,7 +43,7 @@ public class Wallet {
 
     // this method adds up the usd value of each cryptocurrency (current value * amount held) and returns it. it does NOT
     // include USD.
-    public BigDecimal getTotalHoldings() {
+    private BigDecimal getTotalHoldings() {
 
         BigDecimal totalValue = new BigDecimal(0);
 
@@ -121,18 +121,12 @@ public class Wallet {
 
         BigDecimal netprofit= total.subtract(totalUSDdeposited);
 
-        if (netprofit.compareTo(goal)==1) {
+        if (goal != null) {
+            if (netprofit.compareTo(goal) > 0) {
 
-            return true;
+                return true;
 
-        }
-        else if (netprofit.compareTo(goal)==0){
-            return true;
-        }
-
-        else
-        {
-            return false;
+            } else return netprofit.compareTo(goal) == 0;
         }
 
     }
@@ -163,7 +157,7 @@ public class Wallet {
         this.holdings = holdings;
     }
 
-    public BigDecimal getUSDBalance() {
+    BigDecimal getUSDBalance() {
         return USDBalance;
     }
 
@@ -173,11 +167,11 @@ public class Wallet {
     }
 
 
-    public String getUsername() {
+    String getUsername() {
         return username;
     }
 
-    public String getFirstName() {
+    String getFirstName() {
         return firstName;
     }
 

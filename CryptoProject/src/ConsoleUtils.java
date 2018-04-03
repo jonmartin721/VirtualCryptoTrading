@@ -27,7 +27,7 @@ class ConsoleUtils {
         //outputs the menu options
         ConsoleUtils.lineBreak();
         ConsoleUtils.title();
-        System.out.println("\nWelcome " + wallet.getFirstName() + " or should I say: " + wallet.getUsername());
+        System.out.println("\nWelcome " + wallet.getFirstName() + ", or should I say: " + wallet.getUsername());
         System.out.println("\nChoose an option below by typing the number:");
         System.out.println("1) View Wallet");
         System.out.println("2) Browse Currencies");
@@ -169,7 +169,19 @@ class ConsoleUtils {
     // If not, they can create it here.
     static void launchScreen() {
 
+
         title();
+
+        //if the loginInfo.ser file doesn't exist, create a blank one, save it, and send user to account creation
+        if (!FileOperations.checkLoginInfoExists()) {
+
+            LoginInfo loginInfo = new LoginInfo();
+            FileOperations.saveLoginInfo(loginInfo);
+            createNewAccount();
+        }
+
+
+
         Scanner keyboard = new Scanner(System.in);
         System.out.println("1) Login");
         System.out.println("2) Create Wallet");

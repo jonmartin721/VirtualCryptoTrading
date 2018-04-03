@@ -1,8 +1,7 @@
 
 /*
-This class is the driver and contains code that uses the other classes in the application.
+This class is the driver and nothing else.
  */
-
 
 public class Driver {
 

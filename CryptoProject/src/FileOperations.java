@@ -8,12 +8,12 @@ Exceptions are handled here, so as to be easy to consume and process.
 
 import java.io.*;
 
-public class FileOperations {
+class FileOperations {
 
     // Saves the wallet passed into it as a serialized object
-    public static boolean saveWallet(Wallet wallet) {
+    static boolean saveWallet(Wallet wallet) {
 
-        String fileName = wallet.getUsername() + "wallet.ser";
+        String fileName = wallet.getUsername() + "_wallet.ser";
 
         try (FileOutputStream fileOutputStream = new FileOutputStream(fileName, false)) {
             try (ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
@@ -34,9 +34,9 @@ public class FileOperations {
     }
 
     // Loads a wallet from file. To reach this method in normal flow, it SHOULD exist.
-    public static Wallet loadWallet(String username) {
+    static Wallet loadWallet(String username) {
 
-        String fileName = username + "wallet.ser";
+        String fileName = username + "_wallet.ser";
 
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
 
@@ -74,7 +74,6 @@ public class FileOperations {
     // This method loads login information (usernames and passwords) from a serialized LoginInfo object
     static LoginInfo loadLoginInfo() {
 
-
         LoginInfo loginInfo = null;
 
         try {
@@ -93,6 +92,14 @@ public class FileOperations {
 
 
         return loginInfo;
+
+    }
+
+    static boolean checkLoginInfoExists() {
+
+        String filePathString = "loginInfo.ser";
+        File f = new File(filePathString);
+        return f.exists() && !f.isDirectory();
 
     }
 
