@@ -16,6 +16,7 @@ public class LoginInfo implements Serializable {
 
         usersAndPasswords.put(username, password);
 
+
     }
 
     // This method displays all key/value pairs in the loginInfo map.

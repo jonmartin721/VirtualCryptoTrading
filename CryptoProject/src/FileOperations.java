@@ -30,7 +30,7 @@ public class FileOperations {
     // This method saves login information to a "loginInfo.ser"
     static boolean saveLoginInfo(LoginInfo loginInfo) throws IOException {
 
-        FileOutputStream fileOutputStream = new FileOutputStream("loginInfo.ser", true);
+        FileOutputStream fileOutputStream = new FileOutputStream("loginInfo.ser", false);
         try (ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
             oos.writeObject(loginInfo);
         } catch (Exception ex) {
