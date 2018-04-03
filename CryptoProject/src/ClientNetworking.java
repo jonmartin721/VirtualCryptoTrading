@@ -3,7 +3,7 @@ The purpose of this class is to be a purely static class used by the program to 
 and to send data to save. We don't know yet what kind of data this will be, so for now I'll make data an int.
  */
 
-public class ClientNetworking {
+class ClientNetworking {
 
 
     //This method sends data of some kind to the server, any kind but save data.

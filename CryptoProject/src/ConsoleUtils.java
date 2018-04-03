@@ -88,7 +88,7 @@ class ConsoleUtils {
     }
 
     private static void title() {
-        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.01");
+        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.10");
     }
 
 

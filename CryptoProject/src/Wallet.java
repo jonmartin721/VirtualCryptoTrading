@@ -24,7 +24,7 @@ public class Wallet {
 
     // Parameterized constructor
     // The user will always supply a username, first name, and last name.
-    public Wallet(String firstName, String lastName, String username) {
+    Wallet(String firstName, String lastName, String username) {
         holdings = new ArrayList<>();
         walletID = UUID.randomUUID();
         this.username = username;
@@ -69,7 +69,7 @@ public class Wallet {
     }
 
     // This method shows basic info on each trade.
-    public void showTrades() {
+    private void showTrades() {
 
         trades.forEach(trade -> {
             System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
@@ -108,8 +108,7 @@ public class Wallet {
         return true;
     }
 
-
-    //TODO- Review Show important wallet data.
+    // This class shows general Wallet data.
     public void showWalletData() {
 
         System.out.println("Hello "+ firstName+" "+ lastName);
