@@ -19,14 +19,12 @@ public class FileOperations implements java.io.Serializable {
         // created a file object from FileOutputStream class to write the object into
         // created an ObjectOutputStream
 
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("walletFile.ser"));
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(wallet.getUsername() + ".ser"))){
+            System.out.println("Serialized " + wallet.getUsername());
             out.writeObject(wallet);
-
-            out.close();
-            System.out.println("Serialized data is saved in walletFile.ser");
             return true;
         } catch (IOException i) {
+            System.out.println("IOException thrown writting serialized object: ");
             i.printStackTrace();
             return false;
         }
@@ -37,23 +35,18 @@ public class FileOperations implements java.io.Serializable {
     public Wallet loadWallet(Wallet walletToLoad) {
         this.saveData = null;
 
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("walletFile.ser"));
-
-            //read in objects and compare til we find specific UUID
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(walletToLoad.getUsername()+ ".ser"))){
             this.saveData = (Wallet) in.readObject();
-            if (saveData instanceof Wallet) {
-                //Wallet retrieveWallet = (Wallet) saveData;
-                System.out.println("Found UUID");
-            }
+            System.out.println("Found User");
             return saveData;
-
-
-        } catch (IOException i) {
-            System.err.println("### Error opening file. ###");
-        } catch (ClassNotFoundException c) {
-            System.err.println("### Object creation failed. ###");
         }
+        catch (IOException i) {
+            System.err.println("### Error opening file. ###");
+        }
+        catch (ClassNotFoundException e){
+            System.err.println("### Error ClassNotFoundException ###");
+        }
+
 
         // Jon if code makes it down here then it returns a new Wallet as you originally implemented
         System.out.println("*** Returning a new Wallet ***");
