@@ -1,4 +1,3 @@
-package Server;
 
 /*
 This class handles saving and loading data from file. It will be done on the server side and sent to the clients.
@@ -64,6 +63,52 @@ public class FileOperations implements java.io.Serializable{
         // Jon if code makes it down here then it returns a new Wallet as you originally implemented
         System.out.println("*** Returning a new Wallet ***");
         return new Wallet("Bob", "Bobby", "Bob123");
+    }
+  
+
+
+    // This method saves login information to a "loginInfo.ser"
+    static boolean saveLoginInfo(LoginInfo loginInfo) throws IOException {
+
+        FileOutputStream fileOutputStream = new FileOutputStream("loginInfo.ser", false);
+        try (ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
+            oos.writeObject(loginInfo);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+
+        fileOutputStream.close();
+
+        return true;
+    }
+
+    // This method loads login information (usernames and passwords) from a serialized LoginInfo object
+    static LoginInfo loadLoginInfo() {
+
+
+        LoginInfo loginInfo = null;
+
+        try {
+
+            FileInputStream file = new FileInputStream("loginInfo.ser");
+            ObjectInputStream in = new ObjectInputStream(file);
+
+            loginInfo = (LoginInfo) in.readObject();
+
+            in.close();
+            file.close();
+
+        } catch (IOException ex) {
+            System.out.println("IO Exception.");
+            System.out.println("Serial UID may have changed.");
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println("Class not found.");
+        }
+
+
+        return loginInfo;
 
     }
 
