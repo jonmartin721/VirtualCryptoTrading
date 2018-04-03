@@ -1,77 +1,72 @@
 
 /*
-This class handles saving and loading data from file. It will be done on the server side and sent to the clients.
-Data will be serialized out to a file. I'm not sure yet if each wallet will be its own file, or if all wallets will
-be put into one file.
+This static utility class handles saving and loading data from file. It will be done on the server side and sent to the clients.
+Data will be serialized out to a file. Each user will have one wallet file. This also handles saving and loading login information.
+
+Exceptions are handled here, so as to be easy to consume and process.
  */
 
 import java.io.*;
 
+public class FileOperations {
 
-public class FileOperations implements java.io.Serializable {
+    // Saves the wallet passed into it as a serialized object
+    public static boolean saveWallet(Wallet wallet) {
 
-    //TODO -Amee-Serialize the wallet out to a file
+        String fileName = wallet.getUsername() + "wallet.ser";
 
-    private Wallet saveData;    // variable
+        try (FileOutputStream fileOutputStream = new FileOutputStream(fileName, false)) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
+                oos.writeObject(wallet);
+            } catch (Exception ex) {
+                printException();
+                ex.printStackTrace();
+                return false;
+            }
 
-    //this method will save the wallet passed into it as a serialized object
-    public boolean saveWallet(Wallet wallet) {
-        // created a file object from FileOutputStream class to write the object into
-        // created an ObjectOutputStream
-
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("walletFile.ser"));
-            out.writeObject(wallet);
-
-            out.close();
-            System.out.println("Serialized data is saved in walletFile.ser");
-            return true;
-        } catch (IOException i) {
-            i.printStackTrace();
-            return false;
+        } catch (IOException e) {
+            printIoException();
+            e.printStackTrace();
         }
+
+        return true;
 
     }
 
-    //TODO Amee-Deserialize a wallet from file into an object.
-    public Wallet loadWallet(Wallet walletToLoad) {
-        this.saveData = null;
+    // Loads a wallet from file. To reach this method in normal flow, it SHOULD exist.
+    public static Wallet loadWallet(String username) {
 
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream("walletFile.ser"));
+        String fileName = username + "wallet.ser";
 
-            //read in objects and compare til we find specific UUID
-            this.saveData = (Wallet) in.readObject();
-            if (saveData != null) {
-                //Wallet retrieveWallet = (Wallet) saveData;
-                System.out.println("Found UUID");
-            }
-            return saveData;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
 
-
-        } catch (IOException i) {
-            System.err.println("### Error opening file. ###");
-        } catch (ClassNotFoundException c) {
-            System.err.println("### Object creation failed. ###");
+            // Read and return the specific wallet with the username
+            return (Wallet) in.readObject();
+        } catch (ClassNotFoundException | IOException e) {
+            printIoException();
+            e.printStackTrace();
         }
 
-        // Jon if code makes it down here then it returns a new Wallet as you originally implemented
-        System.out.println("*** Returning a new Wallet ***");
-        return new Wallet("Bob", "Bobby", "Bob123");
+        return null;
+
     }
 
     // This method saves login information to a "loginInfo.ser"
-    static boolean saveLoginInfo(LoginInfo loginInfo) throws IOException {
+    static boolean saveLoginInfo(LoginInfo loginInfo) {
 
-        FileOutputStream fileOutputStream = new FileOutputStream("loginInfo.ser", false);
-        try (ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
-            oos.writeObject(loginInfo);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return false;
+        try (FileOutputStream fileOutputStream = new FileOutputStream("loginInfo.ser", false)) {
+            try (ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
+                oos.writeObject(loginInfo);
+            } catch (Exception ex) {
+                printException();
+                ex.printStackTrace();
+                return false;
+            }
+
+        } catch (IOException e) {
+            printIoException();
+            e.printStackTrace();
         }
-
-        fileOutputStream.close();
 
         return true;
     }
@@ -86,23 +81,27 @@ public class FileOperations implements java.io.Serializable {
 
             FileInputStream file = new FileInputStream("loginInfo.ser");
             ObjectInputStream in = new ObjectInputStream(file);
-
             loginInfo = (LoginInfo) in.readObject();
-
             in.close();
             file.close();
 
-        } catch (IOException ex) {
-            System.out.println("IO Exception.");
-            System.out.println("Serial UID may have changed.");
+        } catch (IOException | ClassNotFoundException ex) {
+            printIoException();
+            ex.printStackTrace();
 
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Class not found.");
         }
 
 
         return loginInfo;
 
+    }
+
+    private static void printIoException() {
+        System.out.println("FileOperations I/O error encountered while trying to read/write:");
+    }
+
+    private static void printException() {
+        System.out.println("FileOperations Exception:");
     }
 
 }

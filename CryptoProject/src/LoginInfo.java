@@ -1,17 +1,18 @@
 import java.io.Serializable;
 import java.util.HashMap;
 
-public class LoginInfo implements Serializable {
+class LoginInfo implements Serializable {
 
 
     private HashMap<String, String> usersAndPasswords = new HashMap<>();
 
-    // This method looks through the map and returns true if the user specified is an authenticated user
-    public boolean isAuthenticated(String username, String password) {
+    // Looks through the map and returns true if the user specified is an authenticated user
+    // That is: if they are a user, and the password entered is correct
+    boolean isAuthenticated(String username, String password) {
         return usersAndPasswords.containsKey(username) && usersAndPasswords.get(username).equals(password);
     }
 
-    // This method lets users add a username and password to the map
+    // Lets users add a username and password to the map
     void addUserAndPassword(String username, String password) {
 
         usersAndPasswords.put(username, password);
@@ -19,7 +20,7 @@ public class LoginInfo implements Serializable {
 
     }
 
-    // This method displays all key/value pairs in the loginInfo map.
+    // Displays all key/value pairs in the loginInfo map. Mostly for testing purposes.
     void displayContents() {
 
         for (String username : usersAndPasswords.keySet()) {
