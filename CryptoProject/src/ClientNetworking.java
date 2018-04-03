@@ -1,4 +1,3 @@
-package Client;
 
 /*
 The purpose of this class is to be a purely static class used by the program to communicate with the server,

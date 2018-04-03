@@ -1,4 +1,3 @@
-package Server;
 
 /*
 This class performs the networking operations on the server side. I'm not sure how this is going to be implemented in

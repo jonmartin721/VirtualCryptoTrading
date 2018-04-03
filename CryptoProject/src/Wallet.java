@@ -1,4 +1,3 @@
-package Client;
 
 /*
 The wallet is a the class that is essentially the user profile; it is the container for this entire application.

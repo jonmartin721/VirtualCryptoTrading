@@ -1,4 +1,3 @@
-package Client;
 
 /*
 This class holds trade objects, these are stored in each Wallet object and represent a history of trades performed
@@ -63,9 +62,7 @@ public class Trade {
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeCryptoToCrypto(Wallet wallet, Cryptocurrency fromCrypto, Cryptocurrency toCrypto) {
         //This is just a double check to see if the if the trade is valid. If not then the function returns false
-       if (!(fromCrypto.equals(toCrypto))){     // checks that the cryptocurrency being traded is not that same
-
-           return true;
+        // checks that the cryptocurrency being traded is not that same
 //            if (fromCrypto.getAmountHeld().equals(toCrypto.getCurrentCryptoValue()))//checks if the amount being traded is valid
 //            {
 //                {
@@ -74,10 +71,7 @@ public class Trade {
 //          }
 //                else
 //                return false;
-
-    }
-      else
-           return false;
+        return !(fromCrypto.equals(toCrypto));
     }
 
     //TODO- Review check if Crypto -> USD trades are possible, return true if possible

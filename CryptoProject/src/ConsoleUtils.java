@@ -1,4 +1,3 @@
-package Client;
 
 /*
 This class contains useful console tools for this project. We need tools because we want this project

@@ -1,4 +1,3 @@
-package Client;
 
 /*
 This class should be the driver and feature methods that use the other classes in the application.

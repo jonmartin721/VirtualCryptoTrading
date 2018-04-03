@@ -1,4 +1,3 @@
-package Client;
 
 /*
 The purpose of this class is to provide encryption services for each wallet.

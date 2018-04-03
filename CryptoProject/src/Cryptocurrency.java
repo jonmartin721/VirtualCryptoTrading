@@ -1,4 +1,3 @@
-package Client;
 
 /*
 This class is instantiated and put in every Wallet as a cryptocurrency held by that user. It contains all the info needed
