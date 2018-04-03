@@ -40,7 +40,7 @@ public class Trade {
 
     //TODO trade Crypto -> Crypto, remember to checkTrade first and continue if true
     public boolean tradeCryptoToCrypto(Cryptocurrency fromCrypto, Cryptocurrency toCrypto, Wallet wallet) {
-
+        // Waiting on the API's
         return true;
     }
 
@@ -76,14 +76,14 @@ public class Trade {
     //TODO- Review check if Crypto -> USD trades are possible, return true if possible
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeCryptoToUSD(Wallet wallet, Cryptocurrency fromCrypto, BigDecimal toUSD) {
-        return fromCrypto.getCurrentHoldingValue().compareTo(toUSD) == 1;
+        return (fromCrypto.getCurrentHoldingValue().compareTo(toUSD) == 1)||(fromCrypto.getCurrentHoldingValue().compareTo(toUSD)==0);
     }
 
-    //TODO check if USD -> Crypto trades are possible, return true if possible
+    //TODO- Review check if USD -> Crypto trades are possible, return true if possible
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeUSDToCrypto(Wallet wallet, BigDecimal fromUSD, Cryptocurrency toCrypto) {
 
-        return true;
+        return (toCrypto.getCurrentHoldingValue().compareTo(fromUSD)==-1)||(toCrypto.getCurrentHoldingValue().compareTo(fromUSD)==0);
     }
 
     // SETTERS AND GETTERS

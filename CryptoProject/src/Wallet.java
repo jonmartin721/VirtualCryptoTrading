@@ -6,6 +6,7 @@ Each wallet object has funding, holdings, personal information, trade history, a
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.Scanner;
 
 public class Wallet {
 
@@ -102,10 +103,38 @@ public class Wallet {
         return true;
     }
 
-    //TODO Set goals based on comments below.
+    //TODO-Review Set goals based on comments below.
     public boolean setGoal(BigDecimal goal) {
+        // This class will add up all the holdings into USD and then display true when the netprofit is higher than the
+        // goal, or equal to the goal
 
-        return true;
+
+        // The user needs to specify what the goal they want to reach is. The program asks for user input. I'm not
+        // sure where to ask for the user input, so I'm putting it here for review. For now, I have set the goal to null.
+
+       /* Scanner scan=   new Scanner(System.in);
+        System.out.println(" Enter your goal: ");
+        goal= scan.nextBigDecimal();*/
+
+        goal=null;
+        BigDecimal total= USDBalance.add(getTotalHoldings());
+
+        BigDecimal netprofit= total.subtract(totalUSDdeposited);
+
+        if (netprofit.compareTo(goal)==1) {
+
+            return true;
+
+        }
+        else if (netprofit.compareTo(goal)==0){
+            return true;
+        }
+
+        else
+        {
+            return false;
+        }
+
     }
 
     // This class shows general Wallet data.
@@ -122,7 +151,8 @@ public class Wallet {
 
         System.out.println("You have traded in the following: ");
         showTrades();
-
+       // ConsoleUtils has a method called viewPerformanceandGoals. Add it here to show the how the user is
+        // performing.
         }
 
     public ArrayList<Cryptocurrency> getHoldings() {
