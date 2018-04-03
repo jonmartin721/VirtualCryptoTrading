@@ -105,7 +105,7 @@ public class Wallet implements Serializable {
 
     //TODO-Review Set goals based on comments below.
     public boolean setGoal(BigDecimal goal) {
-        // This class will add up all the holdings into USD and then display true when the netprofit is higher than the
+        // This class will add up all the holdings into USD and then display true when the netProfit is higher than the
         // goal, or equal to the goal
 
 
@@ -119,15 +119,17 @@ public class Wallet implements Serializable {
         goal=null;
         BigDecimal total= USDBalance.add(getTotalHoldings());
 
-        BigDecimal netprofit= total.subtract(totalUSDdeposited);
+        BigDecimal netProfit = total.subtract(totalUSDdeposited);
 
         if (goal != null) {
-            if (netprofit.compareTo(goal) > 0) {
+            if (netProfit.compareTo(goal) > 0) {
 
                 return true;
 
-            } else return netprofit.compareTo(goal) == 0;
+            } else return netProfit.compareTo(goal) == 0;
         }
+
+        return true;
 
     }
 
