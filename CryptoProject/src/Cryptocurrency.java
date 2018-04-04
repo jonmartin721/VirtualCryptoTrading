@@ -42,7 +42,6 @@ class Cryptocurrency extends Money {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Buy Price for one BTC: " + buyPrice);
 
 
 
