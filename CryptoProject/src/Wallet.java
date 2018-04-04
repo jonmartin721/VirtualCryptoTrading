@@ -70,7 +70,7 @@ public class Wallet implements Serializable {
     }
 
     // This method shows basic info on each trade.
-    private void showTrades() {
+    protected void showTrades() {
 
         trades.forEach(trade -> {
             System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
@@ -84,7 +84,7 @@ public class Wallet implements Serializable {
 
     }
 
-    //TODO Set password in Wallet using this
+    // TODO Set password in Wallet using this
     public boolean setPassword(EncryptionService object) {
         // this.password = new byte[object.getEncryptedAttemptedPassword()]; ??
         // return true;
