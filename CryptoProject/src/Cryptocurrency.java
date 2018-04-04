@@ -21,6 +21,11 @@ class Cryptocurrency extends Money {
     private BigDecimal currentValue;
     private Percentage last4Hours;
 
+    Cryptocurrency() {
+
+
+    }
+
 
     // Returns from the API what the current value of this crypto is
     BigDecimal getCurrentCryptoValue() {

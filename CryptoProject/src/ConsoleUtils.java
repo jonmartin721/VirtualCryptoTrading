@@ -174,9 +174,11 @@ class ConsoleUtils {
         System.out.println("\nResources used:");
         System.out.println("- XChange");
         System.out.println("- Coinbase Exchange API");
-        System.out.println("- ");
-
-
+        System.out.println("- Lots of Google!");
+        System.out.println("\nGroup members:" +
+                "Jonathan Martin" +
+                "Bhagyalakshmi Muthucumar" +
+                "Amee Stevenson");
 
         System.out.println("Press enter to return to the menu.");
         promptEnterKey();
