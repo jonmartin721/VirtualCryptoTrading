@@ -174,6 +174,71 @@ class ConsoleUtils {
     // This method lets users view and set goals as well as view performance.
     private static void goalsAndPerformance(Wallet wallet) {
 
+        // Doing a nested switch statement to break out their Set goal/View goal/View performance options
+        // 'GAP' represents the name of this method Goals And Performance
+        Scanner keyboardGAP = new Scanner(System.in);
+        int selectionGAP;
+        System.out.println("Select your option below");
+        System.out.println("1) Set your goals you'd like to achieve");
+        System.out.println("2) View your goals as they are presently");
+        System.out.println("3) View your performance");
+
+        selectionGAP = keyboardGAP.nextInt();
+
+        switch (selectionGAP) {
+
+            case 1:
+                // User is setting their goals here
+                ConsoleUtils.lineBreak();
+                System.out.println("Let's review some goals you'd like to set.");
+                System.out.println("Enter the percentage of return you'd like to achieve:  ");
+
+                Scanner keyboardGAP1 = new Scanner(System.in);
+                float goal = keyboardGAP1.nextFloat();
+                System.out.println("You input: " + goal + "%");
+                System.out.println("To confirm, select 1-yes  0-no");
+                int confirmInput = keyboardGAP1.nextInt();
+
+                // Confirm user has input the amount of their goal
+                while (confirmInput == 0) {
+                    System.out.println("Re-enter the percentage of return you'd like to achieve:  ");
+                    goal = keyboardGAP.nextFloat();
+                    System.out.println("You input: " + goal + "%");
+                    System.out.println("To confirm, select 1-yes  0-no");
+                    confirmInput = keyboardGAP.nextInt();
+                }
+                // Basically typecasting user's goal to BigDecimal so it can be passed into setGoal() method in Wallet class
+                BigDecimal confirmedUsersGoal = BigDecimal.valueOf(goal);
+                wallet.setGoal(confirmedUsersGoal);
+                break;
+
+            case 2:
+                // User is viewing the goals they set.
+                ConsoleUtils.lineBreak();
+                System.out.println("Let's view the goals you set.");
+                System.out.println("These are your holdings so far:  " + wallet.getHoldings());
+                // JON- I chose getHoldings() because it returns an ArrayList of the Cryptocurriences
+                // which I'm thinking has all the aggregate information they are looking for?
+                break;
+
+            case 3:
+                // User is viewing their performance
+                ConsoleUtils.lineBreak();
+                System.out.println("Let's view the your performance.");
+                System.out.println("These are your holdings so far:  ");
+                wallet.showTrades();
+                break;
+
+            default:
+                System.out.println("\nExiting program...");
+                System.exit(0);
+                break;
+
+        }
+
+
+
+
     }
 
     // Outputs the title and version of the program.
