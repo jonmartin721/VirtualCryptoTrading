@@ -45,13 +45,13 @@ public class Trade {
     }
 
     //TODO trade Crypto -> USD, remember to checkTrade first and continue if true
-    public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Currency toUSD, Wallet wallet) {
+    public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Money toUSD, Wallet wallet) {
 
         return true;
     }
 
     //TODO trade USD -> Crypto, remember to checkTrade first and continue if true
-    public boolean tradeUSDToCrypto(Currency fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
+    public boolean tradeUSDToCrypto(Money fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
         // CONVERTING FROM USD TO CRYPTO AND ADDING THAT AMOUNT TO MY WALLET OF TYPE WALLET
 
         return true;
