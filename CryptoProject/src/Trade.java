@@ -38,23 +38,60 @@ public class Trade {
     }
 
 
-    //TODO trade Crypto -> Crypto, remember to checkTrade first and continue if true
+    //TODO- review trade Crypto -> Crypto, remember to checkTrade first and continue if true
     public boolean tradeCryptoToCrypto(Cryptocurrency fromCrypto, Cryptocurrency toCrypto, Wallet wallet) {
-        // Waiting on the API's
-        return true;
+
+        if (checkTradeCryptoToCrypto(wallet,fromCrypto,toCrypto)==true){
+
+            getFromSymbol();
+            getToSymbol();
+
+            // Convert both crypto's to USD.
+            // left side value is lost. right side value is gained.
+            // update holdings
+
+
+            return true;
+        }
+        else
+            return false;
     }
 
-    //TODO trade Crypto -> USD, remember to checkTrade first and continue if true
+    //TODO-Review trade Crypto -> USD, remember to checkTrade first and continue if true
     public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Currency toUSD, Wallet wallet) {
 
-        return true;
+        if(checkTradeCryptoToUSD(wallet,fromCrypto,toAmount)==true){
+
+            //lose left side value. gain right side value.
+            // calculation is done on server side.
+            wallet.deposit(toAmount);
+
+            return false;
+        }
+        else{
+         return true;
+        }
+
     }
 
-    //TODO trade USD -> Crypto, remember to checkTrade first and continue if true
+    //TODO- Review trade USD -> Crypto, remember to checkTrade first and continue if true
     public boolean tradeUSDToCrypto(Currency fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
         // CONVERTING FROM USD TO CRYPTO AND ADDING THAT AMOUNT TO MY WALLET OF TYPE WALLET
+        if(checkTradeUSDToCrypto(wallet, fromAmount,toCrypto)==true){
+            //calculation is done in server side
+            //left side loses, right side gains
+            // update wallet
 
-        return true;
+            wallet.withdraw(fromAmount);
+            return true;
+        }
+
+        else{
+            return false;
+        }
+
+
+
     }
 
     // This method checks that Crypto - > Crypto trades are possible
