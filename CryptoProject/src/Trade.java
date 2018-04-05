@@ -60,6 +60,7 @@ public class Trade {
     //TODO-Review trade Crypto -> USD, remember to checkTrade first and continue if true
     public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Currency toUSD, Wallet wallet) {
 
+
         if(checkTradeCryptoToUSD(wallet,fromCrypto,toAmount)==true){
 
             //lose left side value. gain right side value.
@@ -76,6 +77,7 @@ public class Trade {
 
     //TODO- Review trade USD -> Crypto, remember to checkTrade first and continue if true
     public boolean tradeUSDToCrypto(Currency fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
+
         // CONVERTING FROM USD TO CRYPTO AND ADDING THAT AMOUNT TO MY WALLET OF TYPE WALLET
         if(checkTradeUSDToCrypto(wallet, fromAmount,toCrypto)==true){
             //calculation is done in server side

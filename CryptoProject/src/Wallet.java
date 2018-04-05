@@ -56,13 +56,15 @@ public class Wallet implements Serializable {
     // this method adds an amount to the usd. They can always add money, no check needed.
     public boolean deposit(BigDecimal addAmount) {
         USDBalance = USDBalance.add(addAmount);
+        totalUSDdeposited = totalUSDwithdrawn.add(addAmount);
         return true;
     }
 
     // this method checks that the user can withdraw, then if they can it does it. otherwise returns false.
-    public boolean withdraw(BigDecimal withdrawAmount) {
+    boolean withdraw(BigDecimal withdrawAmount) {
         if (USDBalance.compareTo(withdrawAmount) >= 0) {
             USDBalance = USDBalance.subtract(withdrawAmount);
+            totalUSDwithdrawn = totalUSDwithdrawn.add(withdrawAmount);
             return true;
         } else {
             return false;
@@ -70,7 +72,7 @@ public class Wallet implements Serializable {
     }
 
     // This method shows basic info on each trade.
-    private void showTrades() {
+    protected void showTrades() {
 
         trades.forEach(trade -> {
             System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
@@ -84,7 +86,7 @@ public class Wallet implements Serializable {
 
     }
 
-    //TODO Set password in Wallet using this
+    // TODO Set password in Wallet using this
     public boolean setPassword(EncryptionService object) {
         // this.password = new byte[object.getEncryptedAttemptedPassword()]; ??
         // return true;
@@ -177,5 +179,19 @@ public class Wallet implements Serializable {
         return firstName;
     }
 
+    public BigDecimal getTotalUSDdeposited() {
+        return totalUSDdeposited;
+    }
 
+    public void setTotalUSDdeposited(BigDecimal totalUSDdeposited) {
+        this.totalUSDdeposited = totalUSDdeposited;
+    }
+
+    public BigDecimal getTotalUSDwithdrawn() {
+        return totalUSDwithdrawn;
+    }
+
+    public void setTotalUSDwithdrawn(BigDecimal totalUSDwithdrawn) {
+        this.totalUSDwithdrawn = totalUSDwithdrawn;
+    }
 }

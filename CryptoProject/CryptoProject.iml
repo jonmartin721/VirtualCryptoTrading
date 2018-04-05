@@ -13,8 +13,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="org.knowm.xchange:xchange-core:4.3.3" level="project" />
-    <orderEntry type="library" name="org.knowm.xchange:xchange-coinbase:4.2.0" level="project" />
     <orderEntry type="module-library">
       <library>
         <CLASSES>
@@ -24,5 +22,8 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="org.knowm.xchange:xchange-core:4.3.4" level="project" />
+    <orderEntry type="library" name="org.knowm.xchange:xchange-coinbase:4.3.4" level="project" />
+    <orderEntry type="library" name="org.slf4j:slf4j-nop:1.7.25" level="project" />
   </component>
 </module>

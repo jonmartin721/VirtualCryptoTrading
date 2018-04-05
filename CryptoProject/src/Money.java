@@ -4,7 +4,7 @@ This class holds the basic object which is later derived from to create Cryptocu
 of how derivation works in OOP.
 */
 
-abstract class Currency {
+abstract class Money {
 
     String name;
     Double amountHeld;

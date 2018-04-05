@@ -3,11 +3,14 @@ This class contains useful console tools for this project. We need tools because
 to be easy to use and the interface to be uncluttered.
 */
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Scanner;
 
 
 class ConsoleUtils {
 
+    //TODO reorder methods here, there are many are they aren't organized well
     // Adds a nice separator to different activities, doesn't clear the screen
     private static void lineBreak() {
 
@@ -33,9 +36,11 @@ class ConsoleUtils {
         System.out.println("2) Browse Currencies");
         System.out.println("3) Trades");
         System.out.println("4) Goals and Performance");
-        System.out.println("5) Help");
+        System.out.println("5) Deposit USD");
+        System.out.println("6) Withdraw USD");
+        System.out.println("7) Help");
         System.out.println("0) Save & Exit");
-        System.out.println("\n USD Balance: " + wallet.getUSDBalance());
+        System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
 
         //captures the user selection
         System.out.print("\nSelection? ");
@@ -44,29 +49,14 @@ class ConsoleUtils {
 
         switch (selection) {
 
-            case 0:
-                ConsoleUtils.lineBreak();
-                System.out.println("Saving wallet to file...");
-
-                if (FileOperations.saveWallet(wallet)) {
-                    System.out.println("Wallet saved!");
-                } else {
-                    System.out.println("Wallet could not be saved.");
-                    System.exit(0);
-                }
-
-                System.out.println("Exiting program...");
-                System.exit(0);
-                break;
-
             case 1:
                 ConsoleUtils.lineBreak();
-                browseCryptocurrencies(wallet);
+                viewWallet(wallet);
                 break;
 
             case 2:
                 ConsoleUtils.lineBreak();
-                viewWallet(wallet);
+                browseCryptocurrencies(wallet);
                 break;
 
             case 3:
@@ -81,7 +71,33 @@ class ConsoleUtils {
 
             case 5:
                 ConsoleUtils.lineBreak();
+                depositUSD(wallet);
+                break;
+
+            case 6:
+                ConsoleUtils.lineBreak();
+                withdrawUSD(wallet);
+                break;
+
+            case 7:
+                ConsoleUtils.lineBreak();
                 help(wallet);
+                break;
+
+            case 0:
+                ConsoleUtils.lineBreak();
+                System.out.println("Saving wallet to file...");
+
+                //saves the wallet
+                if (FileOperations.saveWallet(wallet)) {
+                    System.out.println("Wallet saved!");
+                } else {
+                    System.out.println("Wallet could not be saved.");
+                    System.exit(0);
+                }
+
+                System.out.println("Exiting program...");
+                System.exit(0);
                 break;
 
             default:
@@ -94,9 +110,134 @@ class ConsoleUtils {
 
     }
 
+    // Returns a properly formatted currency string depending on locale.
+    private static String outputMoneyFormat(BigDecimal n) {
+        return NumberFormat.getCurrencyInstance().format(n);
+    }
+
+    // Withdraws USD from the wallet
+    private static void withdrawUSD(Wallet wallet) {
+
+        System.out.println("######################");
+        System.out.println("#       Withdraw     #");
+        System.out.println("######################");
+        BigDecimal previousBalance = wallet.getUSDBalance();
+        System.out.println("\nUSD Balance: " + wallet.getUSDBalance());
+        System.out.print("Enter amount to withdraw: ");
+
+        Scanner keyboard = new Scanner(System.in);
+        BigDecimal amountWithdraw = keyboard.nextBigDecimal();
+        if (wallet.withdraw(amountWithdraw)) {
+            System.out.println("Amount withdrawn successfully!");
+            System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
+            System.out.println("Withdrawn: " + outputMoneyFormat(amountWithdraw));
+            System.out.println("After: " + outputMoneyFormat(wallet.getUSDBalance()));
+            promptEnterKey();
+        } else {
+            System.out.println("Amount not withdrawn, incorrect amount specified. Try again later.");
+        }
+
+        //saving the wallet for safety
+        FileOperations.saveWallet(wallet);
+        menu(wallet);
+    }
+
+    // Deposits USD to the wallet
+    private static void depositUSD(Wallet wallet) {
+
+        System.out.println("######################");
+        System.out.println("#      Deposit       #");
+        System.out.println("######################");
+
+        BigDecimal previousBalance = wallet.getUSDBalance();
+        System.out.println("\nUSD Balance: " + wallet.getUSDBalance());
+        System.out.println("Enter amount to deposit: ");
+
+        Scanner keyboard = new Scanner(System.in);
+        BigDecimal amountDeposit = keyboard.nextBigDecimal();
+        if (wallet.deposit(amountDeposit)) {
+            System.out.println("Amount deposited successfully!");
+            System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
+            System.out.println("Deposited: " + outputMoneyFormat(amountDeposit));
+            System.out.println("After: " + outputMoneyFormat(wallet.getUSDBalance()));
+            promptEnterKey();
+        } else {
+            System.out.println("Amount not deposited, incorrect amount specified. Try again later.");
+        }
+
+        //saving the wallet for safety
+        FileOperations.saveWallet(wallet);
+        menu(wallet);
+    }
+
     //TODO Implement a menu for people to view/edit goals and view performance.
     // This method lets users view and set goals as well as view performance.
     private static void goalsAndPerformance(Wallet wallet) {
+
+        // Doing a nested switch statement to break out their Set goal/View goal/View performance options
+        // 'GAP' represents the name of this method Goals And Performance
+        Scanner keyboardGAP = new Scanner(System.in);
+        int selectionGAP;
+        System.out.println("Select your option below");
+        System.out.println("1) Set your goals you'd like to achieve");
+        System.out.println("2) View your goals as they are presently");
+        System.out.println("3) View your performance");
+
+        selectionGAP = keyboardGAP.nextInt();
+
+        switch (selectionGAP) {
+
+            case 1:
+                // User is setting their goals here
+                ConsoleUtils.lineBreak();
+                System.out.println("Let's review some goals you'd like to set.");
+                System.out.println("Enter the percentage of return you'd like to achieve:  ");
+
+                Scanner keyboardGAP1 = new Scanner(System.in);
+                float goal = keyboardGAP1.nextFloat();
+                System.out.println("You input: " + goal + "%");
+                System.out.println("To confirm, select 1-yes  0-no");
+                int confirmInput = keyboardGAP1.nextInt();
+
+                // Confirm user has input the amount of their goal
+                while (confirmInput == 0) {
+                    System.out.println("Re-enter the percentage of return you'd like to achieve:  ");
+                    goal = keyboardGAP.nextFloat();
+                    System.out.println("You input: " + goal + "%");
+                    System.out.println("To confirm, select 1-yes  0-no");
+                    confirmInput = keyboardGAP.nextInt();
+                }
+                // Basically typecasting user's goal to BigDecimal so it can be passed into setGoal() method in Wallet class
+                BigDecimal confirmedUsersGoal = BigDecimal.valueOf(goal);
+                wallet.setGoal(confirmedUsersGoal);
+                break;
+
+            case 2:
+                // User is viewing the goals they set.
+                ConsoleUtils.lineBreak();
+                System.out.println("Let's view the goals you set.");
+                System.out.println("These are your holdings so far:  " + wallet.getHoldings());
+                // JON- I chose getHoldings() because it returns an ArrayList of the Cryptocurriences
+                // which I'm thinking has all the aggregate information they are looking for?
+                break;
+
+            case 3:
+                // User is viewing their performance
+                ConsoleUtils.lineBreak();
+                System.out.println("Let's view the your performance.");
+                System.out.println("These are your holdings so far:  ");
+                wallet.showTrades();
+                break;
+
+            default:
+                System.out.println("\nExiting program...");
+                System.exit(0);
+                break;
+
+        }
+
+
+
 
     }
 
@@ -105,11 +246,12 @@ class ConsoleUtils {
         System.out.println("Virtual Cryptocurrency Wallet and Trading v0.10");
     }
 
+    // Uses Coinbase exchange to output information
     private static void browseCryptocurrencies(Wallet wallet) {
 
         System.out.println("Loading cryptocurrency browser ...");
-        ConsoleUtils.underConstruction();
-        System.out.println("This section of the program will show current and past cryptocurrency values.");
+
+
         System.out.println("Press enter to return to the menu.");
         promptEnterKey();
         menu(wallet);
@@ -143,10 +285,26 @@ class ConsoleUtils {
     // Information about the program and cryptocurrencies
     private static void help(Wallet wallet) {
 
-        System.out.println("Loading help ...");
-        ConsoleUtils.underConstruction();
-        System.out.println("This section will display About and Help information.");
-        System.out.println("Press enter to return to the menu.");
+        lineBreak();
+        title();
+        System.out.println("######################");
+        System.out.println("#        Help        #");
+        System.out.println("######################");
+        System.out.println("\nThis application is a VIRTUAL trading application that is both a proof of concept, and " +
+                "a working trade application. This application was created for our Java class, but can eventually be" +
+                " adapted to perform a wider variety of tasks.");
+        System.out.println("\nResources used:");
+        System.out.println("- XChange");
+        System.out.println("- Coinbase Exchange API");
+        System.out.println("- Lots of Google!");
+        System.out.println("\n###Group members###" +
+                "\nJonathan Martin - Chief Programmer" +
+                "\nAmee Stevenson - All Purpose Role" +
+                "\nBhagyalakshmi Muthucumar - Documentation and Implementation");
+
+
+        //saving the wallet for safety
+        FileOperations.saveWallet(wallet);
         promptEnterKey();
         menu(wallet);
 
@@ -155,7 +313,7 @@ class ConsoleUtils {
     // This makes the method continue when enter is pressed.
     private static void promptEnterKey() {
 
-        System.out.print("Press enter to continue");
+        System.out.print("Press enter to continue...");
         Scanner enterKey = new Scanner(System.in);
         enterKey.nextLine();
     }
@@ -179,7 +337,6 @@ class ConsoleUtils {
             FileOperations.saveLoginInfo(loginInfo);
             createNewAccount();
         }
-
 
 
         Scanner keyboard = new Scanner(System.in);
