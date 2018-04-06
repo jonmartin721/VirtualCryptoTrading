@@ -3,8 +3,16 @@ This class contains useful console tools for this project. We need tools because
 to be easy to use and the interface to be uncluttered.
 */
 
+import org.knowm.xchange.Exchange;
+import org.knowm.xchange.ExchangeFactory;
+import org.knowm.xchange.coinbase.v2.CoinbaseExchange;
+import org.knowm.xchange.coinbase.v2.service.CoinbaseMarketDataService;
+import org.knowm.xchange.currency.Currency;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -38,7 +46,8 @@ class ConsoleUtils {
         System.out.println("4) Goals and Performance");
         System.out.println("5) Deposit USD");
         System.out.println("6) Withdraw USD");
-        System.out.println("7) Help");
+        System.out.println("7) Change Password");
+        System.out.println("8) Help");
         System.out.println("0) Save & Exit");
         System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
 
@@ -81,6 +90,11 @@ class ConsoleUtils {
 
             case 7:
                 ConsoleUtils.lineBreak();
+                changePassword(wallet);
+                break;
+
+            case 8:
+                ConsoleUtils.lineBreak();
                 help(wallet);
                 break;
 
@@ -108,6 +122,12 @@ class ConsoleUtils {
         }
 
 
+    }
+
+    //TODO implement password changing
+    // Changes a user's password.
+    private static boolean changePassword(Wallet wallet) {
+        return false;
     }
 
     // Returns a properly formatted currency string depending on locale.
@@ -243,16 +263,61 @@ class ConsoleUtils {
 
     // Outputs the title and version of the program.
     private static void title() {
-        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.10");
+        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.20");
     }
 
     // Uses Coinbase exchange to output information
     private static void browseCryptocurrencies(Wallet wallet) {
 
-        System.out.println("Loading cryptocurrency browser ...");
+
+        System.out.println("######################");
+        System.out.println("#   View and Trade   #");
+        System.out.println("######################");
+
+        System.out.println("\nThe information below is from the Coinbase exchange, a trusted exchange. It may change very quickly.");
+        System.out.println("The 'Buy' column is how much you can buy with 1 USD.");
+        System.out.println("There are MANY currencies, not just cryptocurrencies, organized by symbol.");
+        System.out.println("Type the name of the symbol case-insensitive to " +
+                "pull up more information about it, 'r' to reload all data, or 'q' to return to main menu.");
+
+        //Init Xchange resources
+        Exchange coinbaseExchange = ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
+        CoinbaseMarketDataService marketDataService = (CoinbaseMarketDataService) coinbaseExchange.getMarketDataService();
+
+        //Try to pull exchange rates from XChange
+        Map<String, BigDecimal> exchangeRates = null;
+        try {
+            exchangeRates = marketDataService.getCoinbaseExchangeRates();
+        } catch (IOException e) {
+            FileOperations.printException();
+            e.printStackTrace();
+        }
+
+        Currency tempCurrency = new Currency("BTC");
+        String currencyName = tempCurrency.getDisplayName();
+        System.out.println(currencyName);
+
+        //if successful, print them with nice formatting
+        if (exchangeRates != null) {
 
 
-        System.out.println("Press enter to return to the menu.");
+            String leftAlignFormat = "| %-3s        | %-13s | %-13s |%n";
+            System.out.format("\nExchange Rates:\n");
+            System.out.format("+------------+---------------+%n");
+            System.out.format("| Symbol     |   1 USD Buys  |%n");
+            System.out.format("+------------+---------------+%n");
+
+            //begin loop to display each student
+            exchangeRates.forEach((k, v) -> System.out.format(leftAlignFormat, k, v.toString()));
+
+
+            //ending line
+            System.out.format("+------------+---------------+%n");
+
+
+        }
+
+        System.out.println("\n");
         promptEnterKey();
         menu(wallet);
 

@@ -107,8 +107,8 @@ class FileOperations {
         System.out.println("FileOperations I/O error encountered while trying to read/write:");
     }
 
-    private static void printException() {
-        System.out.println("FileOperations Exception:");
+    static void printException() {
+        System.out.println("Exception:");
     }
 
 }
