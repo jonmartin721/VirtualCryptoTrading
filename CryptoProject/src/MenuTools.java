@@ -120,6 +120,11 @@ class MenuTools {
 
         // Load login info
         LoginInfo loginInfo = FileOperations.loadLoginInfo();
+        // If they chose to login, and for some reason the size of loginInfo saved file is 0 (because it is new)
+        // send them to create an account instead of infinitely denying them access
+        if (loginInfo.returnSize() == 0) {
+            createNewAccount();
+        }
 
         // Not authenticated
         while (!loginInfo.isAuthenticated(username, password)) {
@@ -449,13 +454,13 @@ class MenuTools {
 
     // Changes a user's password.
     private static void changePassword(Wallet wallet) {
-        actionMessageBox("Change Password");
+        actionMessageBox("\nChange Password");
 
         Scanner keyboard = new Scanner(System.in);
 
         System.out.print("Enter a new password: ");
         String newPassword = keyboard.next();
-        System.out.println("Enter again: ");
+        System.out.print("Enter again: ");
 
         //while the second password entered doesn't equal the first
         while (!keyboard.next().equals(newPassword)) {
@@ -463,7 +468,7 @@ class MenuTools {
 
             System.out.print("Enter a new password: ");
             newPassword = keyboard.next();
-            System.out.println("Enter again: ");
+            System.out.print("Enter again: ");
         }
 
         if (wallet.changePassword(newPassword)) {

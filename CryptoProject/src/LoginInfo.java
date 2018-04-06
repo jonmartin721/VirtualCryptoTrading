@@ -27,6 +27,10 @@ class LoginInfo implements Serializable {
         return true;
     }
 
+    int returnSize() {
+        return usersAndPasswords.size();
+    }
+
 
 
 

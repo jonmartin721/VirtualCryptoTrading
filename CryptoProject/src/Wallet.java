@@ -102,6 +102,7 @@ public class Wallet implements Serializable {
         LoginInfo loginInfo = FileOperations.loadLoginInfo();
         if (loginInfo.removeUserAndPassword(username)) {
             loginInfo.addUserAndPassword(username, newPassword);
+            FileOperations.saveLoginInfo(loginInfo);
             return true;
         } else {
             return false;
