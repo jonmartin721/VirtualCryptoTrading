@@ -20,15 +20,18 @@ class LoginInfo implements Serializable {
 
     }
 
-    // Displays all key/value pairs in the loginInfo map. Mostly for testing purposes.
-    void displayContents() {
+    // Removes a username and password.
+    boolean removeUserAndPassword(String key) {
 
-        for (String username : usersAndPasswords.keySet()) {
-
-            String value = usersAndPasswords.get(username);
-            System.out.println(username + " " + value);
-
-        }
-
+        usersAndPasswords.remove(key);
+        return true;
     }
+
+    int returnSize() {
+        return usersAndPasswords.size();
+    }
+
+
+
+
 }
