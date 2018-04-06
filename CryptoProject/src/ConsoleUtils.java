@@ -476,7 +476,7 @@ class ConsoleUtils {
         responseLength1 = d.length();
 
         responseLength2 = responseLength1 + 18;
-        numOfSpaceOnEachSide = ((responseLength2-(2 + responseLength1))/2);
+        numOfSpaceOnEachSide = ((responseLength2-responseLength1)/2);
 
         leftSide =numOfSpaceOnEachSide + responseLength1;
         //System.out.println("The length of your response is:  " + leftSide);
