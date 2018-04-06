@@ -40,6 +40,7 @@ class MenuTools {
         MenuTools.lineBreak();
         MenuTools.title();
         System.out.println("\nWelcome " + wallet.getFirstName() + ", or should I say: " + wallet.getUsername());
+        System.out.println("Remember to save and exit when you are done so that your data is safely saved!");
         System.out.println("\nChoose an option below by typing the number:");
         System.out.println("1) View Wallet");
         System.out.println("2) Browse Currencies and Trade");
@@ -47,7 +48,7 @@ class MenuTools {
         System.out.println("4) Deposit USD");
         System.out.println("5) Withdraw USD");
         System.out.println("6) Change Password");
-        System.out.println("7) Help");
+        System.out.println("7) Help and About");
         System.out.println("0) Save & Exit");
         System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
 
@@ -120,7 +121,7 @@ class MenuTools {
     }
 
     private static void viewWallet(Wallet wallet) {
-
+        actionMessageBox("View Wallet Info");
     }
 
     //TODO implement password changing
@@ -136,10 +137,6 @@ class MenuTools {
 
     // Withdraws USD from the wallet
     private static void withdrawUSD(Wallet wallet) {
-
-        /*System.out.println("######################");
-        System.out.println("#       Withdraw     #");
-        System.out.println("######################");*/
 
         actionMessageBox("Withdraw");
 
@@ -166,10 +163,6 @@ class MenuTools {
 
     // Deposits USD to the wallet
     private static void depositUSD(Wallet wallet) {
-
-        /*System.out.println("######################");
-        System.out.println("#      Deposit       #");
-        System.out.println("######################");*/
 
         actionMessageBox("Deposit");
 
@@ -336,10 +329,6 @@ class MenuTools {
     private static void help(Wallet wallet) {
 
         lineBreak();
-        title();
-        /*System.out.println("######################");
-        System.out.println("#        Help        #");
-        System.out.println("######################");*/
 
         actionMessageBox("Help");
 
@@ -347,27 +336,17 @@ class MenuTools {
                 "a working trade application. This application was created for our Java class, but can eventually be" +
                 " adapted to perform a wider variety of tasks.");
 
-        System.out.println("This app allows the user to perform virtual trades for cryptocurrencies, using a simulated "+
-                "wallet.");
-
-        System.out.println("/****************************************************************************************/"+
-                    "\n \n Menu Help");
-        System.out.println("1) View Wallet- Lets you view your USD balance, total USD deposited, USD withdrawn and "+
-                "amount traded in total.");
-        System.out.println("2) Browse Currencies and Trade- Lets you view the cryptocurrencies and their current prices."+
-                " Also lets you view the trades that can be performed. " +
-                "\nThe user can also trade in cryptocurrencies.");
-        System.out.println("3) Goals and performance- This function allows the user to enter the percentage of return "+
-                "they would like to achieve. It keeps track of the goals set, and allows the user to view their performance"+
-                " as they proceed");// exits after user confirms their goal
-        System.out.println("4) Deposit USD- Allows the user to input an amount which is then added to the wallet.");
-        System.out.println("5) Withdraw USD- Allows the user to withdraw how much ever they want. Keep in mind that the "+
-                "currency used in this application is not real.");
-        System.out.println("6) Password reset.");
-        System.out.println("7) Loads the help menu.");
-        System.out.println("0) Saves trading information to wallet and exits.");
-
-        System.out.println("/*****************************************************************************************/");
+        System.out.println("\nMenu Help: ");
+        System.out.println("1) View Wallet - Shows a variety of wallet information displayed as a summary.");
+        System.out.println("2) Browse Currencies and Trade - Lets you view and trade cryptocurrencies");
+        System.out.println("3) Goals and performance - This function allows the user to enter the percentage of return " +
+                "they would like to achieve. It keeps track of the goals set, and allows the user to view their performance" +
+                " as they trade and invest.");// exits after user confirms their goal
+        System.out.println("4) Deposit USD - Deposit an amount of USD to your wallet. (VIRTUAL)");
+        System.out.println("5) Withdraw USD - Withdraw an amount of USD to an external bank. (VIRTUAL)");
+        System.out.println("6) Change Password - Password changing.");
+        System.out.println("7) Help and About - Loads the help menu (this menu).");
+        System.out.println("0) Save and Exit - Saves trading information to wallet and exits.");
 
         System.out.println("\nResources used:");
         System.out.println("- XChange");
@@ -375,7 +354,7 @@ class MenuTools {
         System.out.println("- Lots of Google!");
         System.out.println("\n###Group members###" +
                 "\nJonathan Martin - Chief Programmer" +
-                "\nAmee Stevenson - All Purpose Role" +
+                "\nAmee Stevenson - All Purpose Programmer" +
                 "\nBhagyalakshmi Muthucumar - Documentation and Implementation");
 
 
@@ -399,7 +378,6 @@ class MenuTools {
     // This is where Driver points to.
     static void launchScreen() {
 
-
         title();
 
         //if the loginInfo.ser file doesn't exist, create a blank one, save it, and send user to account creation
@@ -409,7 +387,6 @@ class MenuTools {
             FileOperations.saveLoginInfo(loginInfo);
             createNewAccount();
         }
-
 
         Scanner keyboard = new Scanner(System.in);
         System.out.println("1) Login");
@@ -481,7 +458,7 @@ class MenuTools {
         menu(wallet);
     }
 
-    // This class handles logging in and is run before the menu is displayed.
+    // This method handles logging in and is run before the menu is displayed.
     private static void logIn() {
 
 
@@ -520,8 +497,6 @@ class MenuTools {
         // Authenticated
         System.out.println("Authenticated!");
         System.out.println("Going to the menu now...");
-        promptEnterKey();
-
 
         //Load the wallet matching their username
         Wallet wallet = null;
@@ -544,18 +519,19 @@ class MenuTools {
 
     }
 
-    private static void actionMessageBox(String d){
+    // Takes a string and outputs a pretty box at the top of any selected menu landing option
+    private static void actionMessageBox(String d) {
 
-        int responseLength1, responseLength2, numOfSpaceOnEachSide,leftSide, rightSide, totalLength;
+        int responseLength1, responseLength2, numOfSpaceOnEachSide, leftSide, rightSide, totalLength;
         responseLength1 = d.length();
 
         responseLength2 = responseLength1 + 18;
-        numOfSpaceOnEachSide = ((responseLength2-responseLength1)/2);
+        numOfSpaceOnEachSide = ((responseLength2 - responseLength1) / 2);
 
         leftSide = numOfSpaceOnEachSide + responseLength1 - 2;
         //System.out.println("The length of your response is:  " + leftSide);
 
-        String space1 = String.format("#" + "%"+ leftSide +"s", d);
+        String space1 = String.format("#" + "%" + leftSide + "s", d);
         rightSide = leftSide;
         rightSide = ((rightSide / 5) * 2);
         String space2 = String.format("%" + rightSide + "s", "#");
@@ -563,12 +539,12 @@ class MenuTools {
         totalLength = space3.length();
 
         // Here is the formatted output
-        for(int x = 0; x < totalLength; x++){
+        for (int x = 0; x < totalLength; x++) {
             System.out.print("#");
         }
         System.out.println();
         System.out.println(space3);
-        for(int x = 0; x < totalLength; x++){
+        for (int x = 0; x < totalLength; x++) {
             System.out.print("#");
         }
         System.out.println();
