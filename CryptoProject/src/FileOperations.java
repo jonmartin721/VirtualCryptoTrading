@@ -3,7 +3,7 @@
 This static utility class handles saving and loading data from file. It will be done on the server side and sent to the clients.
 Data will be serialized out to a file. Each user will have one wallet file. This also handles saving and loading login information.
 
-Exceptions are handled here, so as to be easy to consume and process.
+Most exceptions are handled here, so as to be easy to consume and process.
  */
 
 import java.io.*;
@@ -34,23 +34,15 @@ class FileOperations {
     }
 
     // Loads a wallet from file. To reach this method in normal flow, it SHOULD exist.
-    static Wallet loadWallet(String username) {
+    static Wallet loadWallet(String username) throws IOException, ClassNotFoundException {
 
         String fileName = username + "_wallet.ser";
 
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName))) {
-
-            // Read and return the specific wallet with the username
-            return (Wallet) in.readObject();
-        } catch (ClassNotFoundException | IOException e) {
-            printIoException();
-            e.printStackTrace();
-        }
-
-        return null;
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream(fileName));
+        // Read and return the specific wallet with the username
+        return (Wallet) in.readObject();
 
     }
-
     // This method saves login information to a "loginInfo.ser"
     static boolean saveLoginInfo(LoginInfo loginInfo) {
 

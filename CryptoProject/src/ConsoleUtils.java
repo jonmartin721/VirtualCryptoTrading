@@ -6,13 +6,14 @@ to be easy to use and the interface to be uncluttered.
 import org.knowm.xchange.Exchange;
 import org.knowm.xchange.ExchangeFactory;
 import org.knowm.xchange.coinbase.v2.CoinbaseExchange;
+import org.knowm.xchange.coinbase.v2.dto.CoinbasePrice;
 import org.knowm.xchange.coinbase.v2.service.CoinbaseMarketDataService;
 import org.knowm.xchange.currency.Currency;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.NumberFormat;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -41,13 +42,12 @@ class ConsoleUtils {
         System.out.println("\nWelcome " + wallet.getFirstName() + ", or should I say: " + wallet.getUsername());
         System.out.println("\nChoose an option below by typing the number:");
         System.out.println("1) View Wallet");
-        System.out.println("2) Browse Currencies");
-        System.out.println("3) Trades");
-        System.out.println("4) Goals and Performance");
-        System.out.println("5) Deposit USD");
-        System.out.println("6) Withdraw USD");
-        System.out.println("7) Change Password");
-        System.out.println("8) Help");
+        System.out.println("2) Browse Currencies and Trade");
+        System.out.println("3) Goals and Performance");
+        System.out.println("4) Deposit USD");
+        System.out.println("5) Withdraw USD");
+        System.out.println("6) Change Password");
+        System.out.println("7) Help");
         System.out.println("0) Save & Exit");
         System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
 
@@ -70,30 +70,25 @@ class ConsoleUtils {
 
             case 3:
                 ConsoleUtils.lineBreak();
-                trade(wallet);
+                goalsAndPerformance(wallet);
                 break;
 
             case 4:
                 ConsoleUtils.lineBreak();
-                goalsAndPerformance(wallet);
+                depositUSD(wallet);
                 break;
 
             case 5:
                 ConsoleUtils.lineBreak();
-                depositUSD(wallet);
+                withdrawUSD(wallet);
                 break;
 
             case 6:
                 ConsoleUtils.lineBreak();
-                withdrawUSD(wallet);
-                break;
-
-            case 7:
-                ConsoleUtils.lineBreak();
                 changePassword(wallet);
                 break;
 
-            case 8:
+            case 7:
                 ConsoleUtils.lineBreak();
                 help(wallet);
                 break;
@@ -121,6 +116,10 @@ class ConsoleUtils {
 
         }
 
+
+    }
+
+    private static void viewWallet(Wallet wallet) {
 
     }
 
@@ -257,8 +256,6 @@ class ConsoleUtils {
         }
 
 
-
-
     }
 
     // Outputs the title and version of the program.
@@ -274,75 +271,58 @@ class ConsoleUtils {
         System.out.println("#   View and Trade   #");
         System.out.println("######################");
 
-        System.out.println("\nThe information below is from the Coinbase exchange, a trusted exchange. It may change very quickly.");
-        System.out.println("The 'Buy' column is how much you can buy with 1 USD.");
+        System.out.println("\nThe information below is from the Coinbase exchange, a widely trusted exchange. It may change very quickly.");
         System.out.println("There are MANY currencies, not just cryptocurrencies, organized by symbol.");
-        System.out.println("Type the name of the symbol case-insensitive to " +
-                "pull up more information about it, 'r' to reload all data, or 'q' to return to main menu.");
+        System.out.println("Type the symbol to " +
+                "trade or see more info about it, 'r' to reload all data, or 'q' to return to main menu.");
 
-        //Init Xchange resources
-        Exchange coinbaseExchange = ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
-        CoinbaseMarketDataService marketDataService = (CoinbaseMarketDataService) coinbaseExchange.getMarketDataService();
+        //Init XChange resources w/ Coinbase
+        Exchange coinbaseExchange =
+                ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
+        CoinbaseMarketDataService marketDataService =
+                (CoinbaseMarketDataService) coinbaseExchange.getMarketDataService();
 
-        //Try to pull exchange rates from XChange
-        Map<String, BigDecimal> exchangeRates = null;
-        try {
-            exchangeRates = marketDataService.getCoinbaseExchangeRates();
-        } catch (IOException e) {
-            FileOperations.printException();
-            e.printStackTrace();
+        //Here we have a list of popular cryptos
+        ArrayList<String> cryptoList = new ArrayList<>();
+        cryptoList.add("BTC");
+        cryptoList.add("ETH");
+        cryptoList.add("LTC");
+        cryptoList.add("BCH");
+
+        //setup table header
+        String leftAlignFormat = "| %-20s     | %-6s     | %-13s |%n";
+        System.out.format("\nExchange Rates:\n");
+        System.out.format("+--------------------------+------------+---------------+%n");
+        System.out.format("| Name                     | Symbol     | Value         |%n");
+        System.out.format("+--------------------------+------------+---------------+%n");
+
+
+        for (String aCryptoList : cryptoList) {
+            Currency thisCurrency = new Currency(aCryptoList);
+
+            //loop exchange data
+            try {
+                CoinbasePrice spotRate = marketDataService.getCoinbaseSpotRate(thisCurrency, Currency.USD);
+                System.out.format(leftAlignFormat, thisCurrency.getDisplayName(), thisCurrency.getSymbol(), spotRate);
+            } catch (IOException e) {
+                System.out.println("Error: couldn't get info for this exchange.");
+                e.printStackTrace();
+            }
         }
 
-        Currency tempCurrency = new Currency("BTC");
-        String currencyName = tempCurrency.getDisplayName();
-        System.out.println(currencyName);
+        //ending line
+        System.out.format("+--------------------------+------------+---------------+%n");
 
-        //if successful, print them with nice formatting
-        if (exchangeRates != null) {
+        System.out.println("Query: ");
+        Scanner keyboard = new Scanner(System.in);
+        String query = keyboard.next();
 
+        //TODO process queries here
+        //need to process queries here and have it loop until they press q
 
-            String leftAlignFormat = "| %-3s        | %-13s | %-13s |%n";
-            System.out.format("\nExchange Rates:\n");
-            System.out.format("+------------+---------------+%n");
-            System.out.format("| Symbol     |   1 USD Buys  |%n");
-            System.out.format("+------------+---------------+%n");
-
-            //begin loop to display each student
-            exchangeRates.forEach((k, v) -> System.out.format(leftAlignFormat, k, v.toString()));
-
-
-            //ending line
-            System.out.format("+------------+---------------+%n");
-
-
-        }
 
         System.out.println("\n");
         promptEnterKey();
-        menu(wallet);
-
-    }
-
-    // Holds viewWallet information (funds, currencies)
-    private static void viewWallet(Wallet wallet) {
-
-        System.out.println("Opening viewWallet ...");
-        ConsoleUtils.underConstruction();
-        System.out.println("This section will show you your Wallet and funds.");
-        System.out.println("Press enter to return to the menu.");
-        promptEnterKey();
-        menu(wallet);
-    }
-
-    // Has trading views and options to buy and sell
-    private static void trade(Wallet wallet) {
-
-        System.out.println("Launching trading system ...");
-        ConsoleUtils.underConstruction();
-        System.out.println("This section will allow you to buy and sell cryptocurrencies.");
-        System.out.println("Press enter to return to the menu.");
-        promptEnterKey();
-
         menu(wallet);
 
     }
@@ -383,13 +363,9 @@ class ConsoleUtils {
         enterKey.nextLine();
     }
 
-    // Stub for areas under construction.
-    private static void underConstruction() {
-        System.out.println("UNDER CONSTRUCTION!");
-    }
-
     // This method is called by menu before showing the menu to make sure the user has an account (viewWallet)
     // If not, they can create it here.
+    // This is where Driver points to.
     static void launchScreen() {
 
 
@@ -517,7 +493,17 @@ class ConsoleUtils {
 
 
         //Load the wallet matching their username
-        Wallet wallet = FileOperations.loadWallet(username);
+        Wallet wallet = null;
+        try {
+            wallet = FileOperations.loadWallet(username);
+        } catch (IOException | ClassNotFoundException e) {
+            FileOperations.printException();
+            e.printStackTrace();
+            System.out.println("Can't find a wallet file, sending you to create a new account...");
+            createNewAccount();
+        }
+
+
         if (wallet != null) {
             menu(wallet);
         } else {
@@ -525,6 +511,11 @@ class ConsoleUtils {
         }
 
 
+    }
+
+
+    //TODO show crypto info here and prep for trading
+    private static void showCryptoInfo() {
     }
 }
 

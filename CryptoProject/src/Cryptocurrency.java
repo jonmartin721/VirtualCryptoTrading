@@ -4,14 +4,7 @@ on each cryptocurrency.
  */
 
 import jdk.jfr.Percentage;
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.ExchangeFactory;
-import org.knowm.xchange.coinbase.v2.CoinbaseExchange;
-import org.knowm.xchange.coinbase.v2.dto.CoinbasePrice;
-import org.knowm.xchange.coinbase.v2.service.CoinbaseMarketDataService;
-import org.knowm.xchange.currency.Currency;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 
 class Cryptocurrency extends Money {
@@ -29,22 +22,6 @@ class Cryptocurrency extends Money {
 
     // Returns from the API what the current value of this crypto is
     BigDecimal getCurrentCryptoValue() {
-
-        //use XChange API to pull in crypto value
-        Exchange coinbaseExchange = ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
-        CoinbaseMarketDataService marketDataService = (CoinbaseMarketDataService) coinbaseExchange.getMarketDataService();
-        CoinbasePrice buyPrice = null;
-
-        Currency fromCurrency = new Currency(symbol);
-
-        try {
-            buyPrice = marketDataService.getCoinbaseBuyPrice(fromCurrency, Currency.USD);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-
 
         return new BigDecimal(0); //0 for now
     }
