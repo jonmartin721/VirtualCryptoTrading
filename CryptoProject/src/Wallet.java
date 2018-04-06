@@ -54,7 +54,7 @@ public class Wallet implements Serializable {
     }
 
     // this method adds an amount to the usd. They can always add money, no check needed.
-    public boolean deposit(BigDecimal addAmount) {
+    boolean deposit(BigDecimal addAmount) {
         USDBalance = USDBalance.add(addAmount);
         totalUSDdeposited = totalUSDwithdrawn.add(addAmount);
         return true;
@@ -72,7 +72,7 @@ public class Wallet implements Serializable {
     }
 
     // This method shows basic info on each trade.
-    protected void showTrades() {
+    void showTrades() {
 
         trades.forEach(trade -> {
             System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
@@ -105,8 +105,7 @@ public class Wallet implements Serializable {
         return true;
     }
 
-    //TODO-Review Set goals based on comments below.
-    public boolean setGoal(BigDecimal goal) {
+    boolean setGoal(BigDecimal goal) {
         // This class will add up all the holdings into USD and then display true when the netProfit is higher than the
         // goal, or equal to the goal
 
@@ -118,8 +117,8 @@ public class Wallet implements Serializable {
         System.out.println(" Enter your goal: ");
         goal= scan.nextBigDecimal();*/
 
-        goal=null;
-        BigDecimal total= USDBalance.add(getTotalHoldings());
+        goal = null;
+        BigDecimal total = USDBalance.add(getTotalHoldings());
 
         BigDecimal netProfit = total.subtract(totalUSDdeposited);
 
@@ -138,22 +137,21 @@ public class Wallet implements Serializable {
     // This class shows general Wallet data.
     public void showWalletData() {
 
-        System.out.println("Hello "+ firstName+" "+ lastName);
+        System.out.println("Hello " + firstName + " " + lastName);
 
 
         System.out.println("Wallet ID: " + walletID);
         System.out.println("Balance: " + USDBalance);
-        System.out.println("Total USD Deposited: "+ totalUSDdeposited);
-        System.out.println("Total USD Withdrawn: "+ totalUSDwithdrawn);
+        System.out.println("Total USD Deposited: " + totalUSDdeposited);
+        System.out.println("Total USD Withdrawn: " + totalUSDwithdrawn);
         System.out.println("Total amount traded: " + totalAmountTraded);
 
         System.out.println("You have traded in the following: ");
         showTrades();
-       // ConsoleUtils has a method called viewPerformanceandGoals. Add it here to show the how the user is
-        // performing.
-        }
 
-    public ArrayList<Cryptocurrency> getHoldings() {
+    }
+
+    ArrayList<Cryptocurrency> getHoldings() {
         return new ArrayList<>();
     }
 
@@ -169,7 +167,6 @@ public class Wallet implements Serializable {
     public UUID getWalletID() {
         return walletID;
     }
-
 
     String getUsername() {
         return username;
