@@ -329,20 +329,19 @@ class MenuTools {
     // Information about the program and cryptocurrencies
     private static void help(Wallet wallet) {
 
-        lineBreak();
-
         actionMessageBox("Help");
 
         System.out.println("\nThis application is a VIRTUAL trading application that is both a proof of concept, and " +
-                "a working trade application. This application was created for our Java class, but can eventually be" +
+                "a working trade application.");
+        System.out.println("This application was created for our Java class, but can eventually be" +
                 " adapted to perform a wider variety of tasks.");
-
         System.out.println("\nMenu Help: ");
         System.out.println("1) View Wallet - Shows a variety of wallet information displayed as a summary.");
         System.out.println("2) Browse Currencies and Trade - Lets you view and trade cryptocurrencies");
         System.out.println("3) Goals and performance - This function allows the user to enter the percentage of return " +
-                "they would like to achieve. It keeps track of the goals set, and allows the user to view their performance" +
-                " as they trade and invest.");// exits after user confirms their goal
+                "they would like to achieve.");
+        System.out.println("It keeps track of the goals set, and allows the user to view their performance" +
+                " as they trade and invest.");
         System.out.println("4) Deposit USD - Deposit an amount of USD to your wallet. (VIRTUAL)");
         System.out.println("5) Withdraw USD - Withdraw an amount of USD to an external bank. (VIRTUAL)");
         System.out.println("6) Change Password - Password changing.");
@@ -353,7 +352,7 @@ class MenuTools {
         System.out.println("- XChange");
         System.out.println("- Coinbase Exchange API");
         System.out.println("- Lots of Google!");
-        System.out.println("\n###Group members###" +
+        System.out.println("\n### Group members ###" +
                 "\nJonathan Martin - Chief Programmer" +
                 "\nAmee Stevenson - All Purpose Programmer" +
                 "\nBhagyalakshmi Muthucumar - Documentation and Implementation");
