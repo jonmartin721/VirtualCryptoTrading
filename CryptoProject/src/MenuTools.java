@@ -122,6 +122,7 @@ class MenuTools {
 
     private static void viewWallet(Wallet wallet) {
         actionMessageBox("View Wallet Info");
+        //Here we want to display summarized information on wallets. Show everything, but in a nice way. Doesn't have to be perfect.
     }
 
     //TODO implement password changing
@@ -522,19 +523,37 @@ class MenuTools {
     // Takes a string and outputs a pretty box at the top of any selected menu landing option
     private static void actionMessageBox(String d) {
 
-        int responseLength1, responseLength2, numOfSpaceOnEachSide, leftSide, rightSide, totalLength;
+        int responseLength1,            // captures the length of the string input
+                responseLength2,        // I'm adding the #-signs to a total of 18
+                numOfSpaceOnEachSide,   // contains the number of spaces on each side
+                leftSide,               // just clarifies within code the space added is on leftside
+                rightSide,              // just clarifies within code the space added is on leftside
+                totalLength;            // contains total length of formatted output
+
         responseLength1 = d.length();
 
+        // Adding the default space require for output
         responseLength2 = responseLength1 + 18;
+
+        // Tells how many spaces on each side space is needed
         numOfSpaceOnEachSide = ((responseLength2 - responseLength1) / 2);
 
-        leftSide = numOfSpaceOnEachSide + responseLength1 - 2;
-        //System.out.println("The length of your response is:  " + leftSide);
+        // Calculate the number needed to format the output with spacing including the string
+        leftSide = numOfSpaceOnEachSide + (responseLength1 - 2);
 
+        // The actual formatting syntax for leftside
         String space1 = String.format("#" + "%" + leftSide + "s", d);
+
+        // This is redundant but there for the sake of knowing which side your working with
         rightSide = leftSide;
+
+        // This combats the spacing on the rightside of the string input
         rightSide = ((rightSide / 5) * 2);
+
+        // The actual formatting syntax for rightside
         String space2 = String.format("%" + rightSide + "s", "#");
+
+        // Concatenates the entire string
         String space3 = space1 + space2;
         totalLength = space3.length();
 
@@ -549,5 +568,6 @@ class MenuTools {
         }
         System.out.println();
     }
+
 }
 
