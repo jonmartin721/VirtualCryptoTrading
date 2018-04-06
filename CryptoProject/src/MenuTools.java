@@ -1,6 +1,6 @@
 /*
 This class contains useful console tools for this project. We need tools because we want this project
-to be easy to use and the interface to be uncluttered.
+to be easy to use and the interface to be uncluttered. This class also contains the menu options
 */
 
 import org.knowm.xchange.Exchange;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
-class ConsoleUtils {
+class MenuTools {
 
     //TODO reorder methods here, there are many are they aren't organized well
     // Adds a nice separator to different activities, doesn't clear the screen
@@ -37,8 +37,8 @@ class ConsoleUtils {
         Scanner keyboard = new Scanner(System.in);
 
         //outputs the menu options
-        ConsoleUtils.lineBreak();
-        ConsoleUtils.title();
+        MenuTools.lineBreak();
+        MenuTools.title();
         System.out.println("\nWelcome " + wallet.getFirstName() + ", or should I say: " + wallet.getUsername());
         System.out.println("\nChoose an option below by typing the number:");
         System.out.println("1) View Wallet");
@@ -59,42 +59,42 @@ class ConsoleUtils {
         switch (selection) {
 
             case 1:
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 viewWallet(wallet);
                 break;
 
             case 2:
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 browseCryptocurrencies(wallet);
                 break;
 
             case 3:
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 goalsAndPerformance(wallet);
                 break;
 
             case 4:
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 depositUSD(wallet);
                 break;
 
             case 5:
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 withdrawUSD(wallet);
                 break;
 
             case 6:
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 changePassword(wallet);
                 break;
 
             case 7:
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 help(wallet);
                 break;
 
             case 0:
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 System.out.println("Saving wallet to file...");
 
                 //saves the wallet
@@ -125,8 +125,8 @@ class ConsoleUtils {
 
     //TODO implement password changing
     // Changes a user's password.
-    private static boolean changePassword(Wallet wallet) {
-        return false;
+    private static void changePassword(Wallet wallet) {
+        actionMessageBox("Change Password");
     }
 
     // Returns a properly formatted currency string depending on locale.
@@ -213,7 +213,7 @@ class ConsoleUtils {
 
             case 1:
                 // User is setting their goals here
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 System.out.println("Let's review some goals you'd like to set.");
                 System.out.println("Enter the percentage of return you'd like to achieve:  ");
 
@@ -238,7 +238,7 @@ class ConsoleUtils {
 
             case 2:
                 // User is viewing the goals they set.
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 System.out.println("Let's view the goals you set.");
                 System.out.println("These are your holdings so far:  " + wallet.getHoldings());
                 // JON- I chose getHoldings() because it returns an ArrayList of the Cryptocurriences
@@ -247,7 +247,7 @@ class ConsoleUtils {
 
             case 3:
                 // User is viewing their performance
-                ConsoleUtils.lineBreak();
+                MenuTools.lineBreak();
                 System.out.println("Let's view the your performance.");
                 System.out.println("These are your holdings so far:  ");
                 wallet.showTrades();
@@ -552,12 +552,12 @@ class ConsoleUtils {
         responseLength2 = responseLength1 + 18;
         numOfSpaceOnEachSide = ((responseLength2-responseLength1)/2);
 
-        leftSide =numOfSpaceOnEachSide + responseLength1;
+        leftSide = numOfSpaceOnEachSide + responseLength1 - 2;
         //System.out.println("The length of your response is:  " + leftSide);
 
         String space1 = String.format("#" + "%"+ leftSide +"s", d);
         rightSide = leftSide;
-        rightSide = ((rightSide/5)*2);
+        rightSide = ((rightSide / 5) * 2);
         String space2 = String.format("%" + rightSide + "s", "#");
         String space3 = space1 + space2;
         totalLength = space3.length();
