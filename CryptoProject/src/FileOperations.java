@@ -79,7 +79,8 @@ class FileOperations {
         } catch (IOException | ClassNotFoundException ex) {
             printIoException();
             ex.printStackTrace();
-
+            System.out.println("Creating new loginInfo.ser....");
+            return new LoginInfo();
         }
 
 
