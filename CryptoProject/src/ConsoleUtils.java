@@ -483,7 +483,8 @@ class ConsoleUtils {
 
         String space1 = String.format("#" + "%"+ leftSide +"s", d);
         rightSide = leftSide;
-        String space2 = String.format("%" + (rightSide - 1) + "s", "#");
+        rightSide = ((rightSide/5)*2);
+        String space2 = String.format("%" + rightSide + "s", "#");
         String space3 = space1 + space2;
         totalLength = space3.length();
 
