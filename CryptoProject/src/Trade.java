@@ -37,8 +37,6 @@ public class Trade {
 
     }
 
-
-    //TODO- review trade Crypto -> Crypto, remember to checkTrade first and continue if true
     public boolean tradeCryptoToCrypto(Cryptocurrency fromCrypto, Cryptocurrency toCrypto, Wallet wallet) {
 
         if (checkTradeCryptoToCrypto(wallet,fromCrypto,toCrypto)==true){
@@ -57,7 +55,6 @@ public class Trade {
             return false;
     }
 
-    //TODO-Review trade Crypto -> USD, remember to checkTrade first and continue if true
     public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Currency toUSD, Wallet wallet) {
 
 
@@ -75,10 +72,8 @@ public class Trade {
 
     }
 
-    //TODO- Review trade USD -> Crypto, remember to checkTrade first and continue if true
     public boolean tradeUSDToCrypto(Currency fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
 
-        // CONVERTING FROM USD TO CRYPTO AND ADDING THAT AMOUNT TO MY WALLET OF TYPE WALLET
         if(checkTradeUSDToCrypto(wallet, fromAmount,toCrypto)==true){
             //calculation is done in server side
             //left side loses, right side gains
@@ -91,7 +86,6 @@ public class Trade {
         else{
             return false;
         }
-
 
 
     }
@@ -115,15 +109,14 @@ public class Trade {
 
     }
 
-    //TODO- Review check if USD -> Crypto trades are possible, return true if possible
     // This method checks that Crypto - > Crypto trades are possible
     public boolean checkTradeUSDToCrypto(Wallet wallet, BigDecimal fromUSD, Cryptocurrency toCrypto) {
 
-        return (toCrypto.getCurrentHoldingValue().compareTo(fromUSD)==-1)||(toCrypto.getCurrentHoldingValue().compareTo(fromUSD)==0);
+        return (toCrypto.getCurrentHoldingValue().compareTo(fromUSD) < 0) || (toCrypto.getCurrentHoldingValue().compareTo(fromUSD) == 0);
     }
 
     // SETTERS AND GETTERS
-    public UUID getTradeID() {
+    UUID getTradeID() {
         return tradeID;
     }
 
@@ -131,7 +124,7 @@ public class Trade {
         this.tradeID = tradeID;
     }
 
-    public BigDecimal getFromAmount() {
+    BigDecimal getFromAmount() {
         return fromAmount;
     }
 
@@ -139,7 +132,7 @@ public class Trade {
         this.fromAmount = fromAmount;
     }
 
-    public BigDecimal getToAmount() {
+    BigDecimal getToAmount() {
         return toAmount;
     }
 
@@ -147,7 +140,7 @@ public class Trade {
         this.toAmount = toAmount;
     }
 
-    public String getFromSymbol() {
+    String getFromSymbol() {
         return fromSymbol;
     }
 
@@ -155,7 +148,7 @@ public class Trade {
         this.fromSymbol = fromSymbol;
     }
 
-    public String getToSymbol() {
+    String getToSymbol() {
         return toSymbol;
     }
 
@@ -163,7 +156,7 @@ public class Trade {
         this.toSymbol = toSymbol;
     }
 
-    public LocalDateTime getDateTime() {
+    LocalDateTime getDateTime() {
         return dateTime;
     }
 
