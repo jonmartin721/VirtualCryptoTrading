@@ -37,20 +37,57 @@ public class Trade {
 
     }
 
-
     public boolean tradeCryptoToCrypto(Cryptocurrency fromCrypto, Cryptocurrency toCrypto, Wallet wallet) {
-        // Waiting on the API's
-        return true;
+
+        if (checkTradeCryptoToCrypto(wallet,fromCrypto,toCrypto)==true){
+
+            getFromSymbol();
+            getToSymbol();
+
+            // Convert both crypto's to USD.
+            // left side value is lost. right side value is gained.
+            // update holdings
+
+
+            return true;
+        }
+        else
+            return false;
     }
 
-    public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Money toUSD, Wallet wallet) {
+    public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Currency toUSD, Wallet wallet) {
 
-        return true;
+
+        if(checkTradeCryptoToUSD(wallet,fromCrypto,toAmount)==true){
+
+            //lose left side value. gain right side value.
+            // calculation is done on server side.
+            wallet.deposit(toAmount);
+
+            return false;
+        }
+        else{
+         return true;
+        }
+
     }
 
-    public boolean tradeUSDToCrypto(Money fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
+    public boolean tradeUSDToCrypto(Currency fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
 
-        return true;
+        if(checkTradeUSDToCrypto(wallet, fromAmount,toCrypto)==true){
+            //calculation is done in server side
+            //left side loses, right side gains
+            // update wallet
+
+            wallet.withdraw(fromAmount);
+            return true;
+        }
+
+        else{
+            return false;
+        }
+
+
     }
 
     // This method checks that Crypto - > Crypto trades are possible
