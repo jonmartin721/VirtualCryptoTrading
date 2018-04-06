@@ -346,6 +346,29 @@ class ConsoleUtils {
         System.out.println("\nThis application is a VIRTUAL trading application that is both a proof of concept, and " +
                 "a working trade application. This application was created for our Java class, but can eventually be" +
                 " adapted to perform a wider variety of tasks.");
+
+        System.out.println("This app allows the user to perform virtual trades for cryptocurrencies, using a simulated "+
+                "wallet.");
+
+        System.out.println("/****************************************************************************************/"+
+                    "\n \n Menu Help");
+        System.out.println("1) View Wallet- Lets you view your USD balance, total USD deposited, USD withdrawn and "+
+                "amount traded in total.");
+        System.out.println("2) Browse Currencies and Trade- Lets you view the cryptocurrencies and their current prices."+
+                " Also lets you view the trades that can be performed. " +
+                "\nThe user can also trade in cryptocurrencies.");
+        System.out.println("3) Goals and performance- This function allows the user to enter the percentage of return "+
+                "they would like to achieve. It keeps track of the goals set, and allows the user to view their performance"+
+                " as they proceed");// exits after user confirms their goal
+        System.out.println("4) Deposit USD- Allows the user to input an amount which is then added to the wallet.");
+        System.out.println("5) Withdraw USD- Allows the user to withdraw how much ever they want. Keep in mind that the "+
+                "currency used in this application is not real.");
+        System.out.println("6) Password reset.");
+        System.out.println("7) Loads the help menu.");
+        System.out.println("0) Saves trading information to wallet and exits.");
+
+        System.out.println("/*****************************************************************************************/");
+
         System.out.println("\nResources used:");
         System.out.println("- XChange");
         System.out.println("- Coinbase Exchange API");
