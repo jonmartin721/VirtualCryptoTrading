@@ -143,16 +143,17 @@ public class Wallet implements Serializable {
     // This class shows general Wallet data.
     public void showWalletData() {
 
-        System.out.println("Hello " + firstName + " " + lastName);
-        System.out.println("Wallet ID: " + walletID);
-        System.out.println("Balance: " + MenuTools.outputMoneyFormat(getUSDBalance()));
-        System.out.println("Total USD Deposited: " + MenuTools.outputMoneyFormat(getTotalUSDdeposited()));
-        System.out.println("Total USD Withdrawn: " + MenuTools.outputMoneyFormat(getTotalUSDwithdrawn()));
-        System.out.println("Total amount traded: " + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
-        System.out.println("You have traded in the following: ");
+        System.out.println();
+        System.out.println("\033[1mHello \033[0m" + firstName + " " + lastName);
+        System.out.println("\033[1Wallet ID: \033[0m" + walletID);
+        System.out.println("\033[1mBalance: \033[0m" + MenuTools.outputMoneyFormat(getUSDBalance()));
+        System.out.println("\033[1mTotal USD Deposited: \033[0m" + MenuTools.outputMoneyFormat(getTotalUSDdeposited()));
+        System.out.println("\033[1mTotal USD Withdrawn: \033[0m" + MenuTools.outputMoneyFormat(getTotalUSDwithdrawn()));
+        System.out.println("\033[1mTotal amount traded: \033[0m" + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
+        System.out.println("\033[1mYou have traded in the following: \033[0m");
+        //setGoal();
         showTrades();
         MenuTools.promptEnterKey();
-
 
     }
 
