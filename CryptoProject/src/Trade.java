@@ -55,7 +55,7 @@ public class Trade {
             return false;
     }
 
-    public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Currency toUSD, Wallet wallet) {
+    public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Money toUSD, Wallet wallet) {
 
 
         if(checkTradeCryptoToUSD(wallet,fromCrypto,toAmount)==true){
@@ -72,7 +72,7 @@ public class Trade {
 
     }
 
-    public boolean tradeUSDToCrypto(Currency fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
+    public boolean tradeUSDToCrypto(Money fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
 
         if(checkTradeUSDToCrypto(wallet, fromAmount,toCrypto)==true){
             //calculation is done in server side
