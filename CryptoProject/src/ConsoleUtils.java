@@ -118,9 +118,12 @@ class ConsoleUtils {
     // Withdraws USD from the wallet
     private static void withdrawUSD(Wallet wallet) {
 
-        System.out.println("######################");
+        /*System.out.println("######################");
         System.out.println("#       Withdraw     #");
-        System.out.println("######################");
+        System.out.println("######################");*/
+
+        actionMessageBox("Withdraw");
+
         BigDecimal previousBalance = wallet.getUSDBalance();
         System.out.println("\nUSD Balance: " + wallet.getUSDBalance());
         System.out.print("Enter amount to withdraw: ");
@@ -145,9 +148,11 @@ class ConsoleUtils {
     // Deposits USD to the wallet
     private static void depositUSD(Wallet wallet) {
 
-        System.out.println("######################");
+        /*System.out.println("######################");
         System.out.println("#      Deposit       #");
-        System.out.println("######################");
+        System.out.println("######################");*/
+
+        actionMessageBox("Deposit");
 
         BigDecimal previousBalance = wallet.getUSDBalance();
         System.out.println("\nUSD Balance: " + wallet.getUSDBalance());
@@ -287,9 +292,12 @@ class ConsoleUtils {
 
         lineBreak();
         title();
-        System.out.println("######################");
+        /*System.out.println("######################");
         System.out.println("#        Help        #");
-        System.out.println("######################");
+        System.out.println("######################");*/
+
+        actionMessageBox("Help");
+
         System.out.println("\nThis application is a VIRTUAL trading application that is both a proof of concept, and " +
                 "a working trade application. This application was created for our Java class, but can eventually be" +
                 " adapted to perform a wider variety of tasks.");
@@ -460,6 +468,35 @@ class ConsoleUtils {
         }
 
 
+    }
+
+    private static void actionMessageBox(String d){
+
+        int responseLength1, responseLength2, numOfSpaceOnEachSide,leftSide, rightSide, totalLength;
+        responseLength1 = d.length();
+
+        responseLength2 = responseLength1 + 18;
+        numOfSpaceOnEachSide = ((responseLength2-(2 + responseLength1))/2);
+
+        leftSide =numOfSpaceOnEachSide + responseLength1;
+        //System.out.println("The length of your response is:  " + leftSide);
+
+        String space1 = String.format("#" + "%"+ leftSide +"s", d);
+        rightSide = leftSide;
+        String space2 = String.format("%" + (rightSide - 1) + "s", "#");
+        String space3 = space1 + space2;
+        totalLength = space3.length();
+
+        // Here is the formatted output
+        for(int x = 0; x < totalLength; x++){
+            System.out.print("#");
+        }
+        System.out.println();
+        System.out.println(space3);
+        for(int x = 0; x < totalLength; x++){
+            System.out.print("#");
+        }
+        System.out.println();
     }
 }
 
