@@ -97,12 +97,16 @@ public class Wallet implements Serializable {
     }
 
     //TODO Change password (no confirmation required)
-    public boolean changePassword() {
-        // ASSUMING THIS WILL CONNECT WITH PasswordEncryptionService class?
-        // COME BACK TO THIS
-        // Jon - this calls its own object of the PasswordEncryptionService. This will simply ask for and set a new pass.
+    boolean changePassword(String newPassword) {
 
-        return true;
+        LoginInfo loginInfo = FileOperations.loadLoginInfo();
+        if (loginInfo.removeUserAndPassword(username)) {
+            loginInfo.addUserAndPassword(username, newPassword);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     boolean setGoal(BigDecimal goal) {

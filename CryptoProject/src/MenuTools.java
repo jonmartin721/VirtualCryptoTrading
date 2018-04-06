@@ -447,10 +447,33 @@ class MenuTools {
         menu(wallet);
     }
 
-    //TODO implement password changing
     // Changes a user's password.
     private static void changePassword(Wallet wallet) {
         actionMessageBox("Change Password");
+
+        Scanner keyboard = new Scanner(System.in);
+
+        System.out.print("Enter a new password: ");
+        String newPassword = keyboard.next();
+        System.out.println("Enter again: ");
+
+        //while the second password entered doesn't equal the first
+        while (!keyboard.next().equals(newPassword)) {
+            System.out.println("Passwords do not match. Try again.");
+
+            System.out.print("Enter a new password: ");
+            newPassword = keyboard.next();
+            System.out.println("Enter again: ");
+        }
+
+        if (wallet.changePassword(newPassword)) {
+            System.out.println("\nPassword changed!");
+        } else {
+            System.out.println("\nPassword not changed!");
+        }
+
+        menu(wallet);
+
     }
 
     // Information about the program and cryptocurrencies
