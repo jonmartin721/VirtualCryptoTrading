@@ -3,6 +3,7 @@ The wallet is a the class that is essentially the user profile; it is the contai
 Each wallet object has funding, holdings, personal information, trade history, and goals.
  */
 
+import java.awt.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -143,16 +144,15 @@ public class Wallet implements Serializable {
     public void showWalletData() {
 
         System.out.println("Hello " + firstName + " " + lastName);
-
-
         System.out.println("Wallet ID: " + walletID);
-        System.out.println("Balance: " + USDBalance);
-        System.out.println("Total USD Deposited: " + totalUSDdeposited);
-        System.out.println("Total USD Withdrawn: " + totalUSDwithdrawn);
-        System.out.println("Total amount traded: " + totalAmountTraded);
-
+        System.out.println("Balance: " + MenuTools.outputMoneyFormat(getUSDBalance()));
+        System.out.println("Total USD Deposited: " + MenuTools.outputMoneyFormat(getTotalUSDdeposited()));
+        System.out.println("Total USD Withdrawn: " + MenuTools.outputMoneyFormat(getTotalUSDwithdrawn()));
+        System.out.println("Total amount traded: " + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
         System.out.println("You have traded in the following: ");
         showTrades();
+        MenuTools.promptEnterKey();
+
 
     }
 
@@ -195,5 +195,13 @@ public class Wallet implements Serializable {
 
     public void setTotalUSDwithdrawn(BigDecimal totalUSDwithdrawn) {
         this.totalUSDwithdrawn = totalUSDwithdrawn;
+    }
+
+    public BigDecimal getTotalAmountTraded() {
+        return totalAmountTraded;
+    }
+
+    public void setTotalAmountTraded(BigDecimal totalAmountTraded) {
+        this.totalAmountTraded = totalAmountTraded;
     }
 }
