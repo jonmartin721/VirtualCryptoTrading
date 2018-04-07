@@ -601,5 +601,9 @@ class MenuTools {
     private static void title() {
         System.out.println("Virtual Cryptocurrency Wallet and Trading v0.20");
     }
+
+    public static void lineDivider(){
+        System.out.println("-----------------------------------------------------");
+    }
 }
 
