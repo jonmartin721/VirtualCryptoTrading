@@ -106,7 +106,6 @@ public class Wallet implements Serializable {
 
     }
 
-    //TODO Change password (no confirmation required)
     boolean changePassword(String newPassword) {
 
         LoginInfo loginInfo = FileOperations.loadLoginInfo();
