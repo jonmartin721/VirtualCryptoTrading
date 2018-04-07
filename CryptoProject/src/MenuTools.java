@@ -12,6 +12,7 @@ import org.knowm.xchange.currency.Currency;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -94,8 +95,9 @@ class MenuTools {
             System.exit(0);
         }
 
-        // Create the viewWallet and send the user to the menu
+        // Create the Wallet, SAVE IT, and send the user to the menu
         Wallet wallet = new Wallet(firstName, lastName, username);
+        FileOperations.saveWallet(wallet);
         System.out.println("\nThanks " + firstName + ", wallet created!");
         System.out.println("You can set goals, trade, and browse currencies at the main menu. Going there now..");
         promptEnterKey();
@@ -155,8 +157,8 @@ class MenuTools {
             wallet = FileOperations.loadWallet(username);
         } catch (IOException | ClassNotFoundException e) {
             FileOperations.printException();
-            e.printStackTrace();
             System.out.println("Can't find a wallet file, sending you to create a new account...");
+            System.out.println("This happens when a wallet file was not saved properly.");
             createNewAccount();
         }
 
@@ -272,17 +274,11 @@ class MenuTools {
     // Uses Coinbase exchange to output information
     private static void browseCryptocurrencies(Wallet wallet) {
 
-
-        /*
-        —System.out.println("######################");
-        System.out.println("#   View and Trade   #");
-        System.out.println("######################");
-        */
-
         actionMessageBox("View and Trade");
 
         System.out.println("\nThe information below is from the Coinbase exchange, a widely trusted exchange. It may change very quickly.");
-        System.out.println("There are MANY currencies, not just cryptocurrencies, organized by symbol.");
+        System.out.println("Right now, there are just 4 cryptocurrencies, organized by symbol.");
+        System.out.println("\nQUERIES:");
         System.out.println("Type the symbol to " +
                 "trade or see more info about it, 'r' to reload all data, or 'q' to return to main menu.");
 
@@ -322,22 +318,57 @@ class MenuTools {
 
         //ending line
         System.out.format("+--------------------------+------------+---------------+%n");
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        System.out.println("\nLast updated: " + timestamp);
 
-        System.out.println("Query: ");
+        System.out.println("\nQuery: ");
         Scanner keyboard = new Scanner(System.in);
         String query = keyboard.next();
 
-        //TODO process queries here
-        //need to process queries here and have it loop until they press q
+        //Process their query and proceed
 
 
-        System.out.println("\n");
+        //while they have not entered anything valid
+        query = query.toUpperCase();
+        while (!isQueryValid(query)) {
+            System.out.println("Invalid query. Type a symbol to see more info or trade, 'q' to exit to the menu, or 'r' to reload data.");
+            System.out.println("Query: ");
+            query = keyboard.next();
+        }
+
+        //after they have entered something valid, do something with the query
+        switch (query) {
+            case "Q":
+                menu(wallet);
+                break;
+            case "R":
+                browseCryptocurrencies(wallet);
+                break;
+            case "BTC":
+                displayCryptoDetail(query);
+                break;
+            case "XLT":
+            case "LTC":
+                displayCryptoDetail(query);
+                break;
+            case "BCH":
+                displayCryptoDetail(query);
+                break;
+            case "ETH":
+                displayCryptoDetail(query);
+                break;
+        }
+
+
         promptEnterKey();
-        menu(wallet);
+
 
     }
 
-    //TODO Implement a menu for people to view/edit goals and view performance.
+    private static void displayCryptoDetail(String symbol) {
+
+    }
+
     // This method lets users view and set goals as well as view performance.
     private static void goalsAndPerformance(Wallet wallet) {
 
@@ -602,8 +633,27 @@ class MenuTools {
         System.out.println("Virtual Cryptocurrency Wallet and Trading v0.20");
     }
 
-    public static void lineDivider(){
+    static void lineDivider() {
         System.out.println("-----------------------------------------------------");
+    }
+
+    // Handles query processing for the browsing and trading area
+    private static boolean isQueryValid(String query) {
+
+        switch (query) {
+            case "Q":
+                return true;
+            case "R":
+                return true;
+            case "BTC":
+            case "LTC":
+            case "ETH":
+            case "XLT":
+            case "BCH":
+                return true;
+        }
+
+        return false;
     }
 }
 
