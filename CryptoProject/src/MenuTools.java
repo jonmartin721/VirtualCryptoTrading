@@ -265,15 +265,21 @@ class MenuTools {
     private static void viewWallet(Wallet wallet) {
         actionMessageBox("View Wallet Info");
         //Here we want to display summarized information on wallets. Show everything, but in a nice way. Doesn't have to be perfect.
+        wallet.showWalletData();
+        menu(wallet);
     }
 
     // Uses Coinbase exchange to output information
     private static void browseCryptocurrencies(Wallet wallet) {
 
 
-        System.out.println("######################");
+        /*
+        —System.out.println("######################");
         System.out.println("#   View and Trade   #");
         System.out.println("######################");
+        */
+
+        actionMessageBox("View and Trade");
 
         System.out.println("\nThe information below is from the Coinbase exchange, a widely trusted exchange. It may change very quickly.");
         System.out.println("There are MANY currencies, not just cryptocurrencies, organized by symbol.");
@@ -521,12 +527,12 @@ class MenuTools {
     }
 
     // Returns a properly formatted currency string depending on locale.
-    private static String outputMoneyFormat(BigDecimal n) {
+    static String outputMoneyFormat(BigDecimal n) {
         return NumberFormat.getCurrencyInstance().format(n);
     }
 
     // This makes the method continue when enter is pressed.
-    private static void promptEnterKey() {
+    static void promptEnterKey() {
 
         System.out.print("Press enter to continue...");
         Scanner enterKey = new Scanner(System.in);
@@ -594,6 +600,10 @@ class MenuTools {
     // Outputs the title and version of the program.
     private static void title() {
         System.out.println("Virtual Cryptocurrency Wallet and Trading v0.20");
+    }
+
+    public static void lineDivider(){
+        System.out.println("-----------------------------------------------------");
     }
 }
 

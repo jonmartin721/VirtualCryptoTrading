@@ -3,6 +3,7 @@ The wallet is a the class that is essentially the user profile; it is the contai
 Each wallet object has funding, holdings, personal information, trade history, and goals.
  */
 
+import java.awt.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -76,9 +77,13 @@ public class Wallet implements Serializable {
 
         trades.forEach(trade -> {
             System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
+            MenuTools.lineDivider();
             System.out.println("Date of Trade: " + String.valueOf(trade.getDateTime()));
+            MenuTools.lineDivider();
             System.out.println("From: " + String.valueOf(trade.getFromSymbol()));
+            MenuTools.lineDivider();
             System.out.println("To: " + String.valueOf(trade.getToSymbol()));
+            MenuTools.lineDivider();
             System.out.println("Amount: " + String.valueOf(trade.getFromAmount().subtract(trade.getToAmount())));
 
         });
@@ -142,17 +147,25 @@ public class Wallet implements Serializable {
     // This class shows general Wallet data.
     public void showWalletData() {
 
-        System.out.println("Hello " + firstName + " " + lastName);
-
-
-        System.out.println("Wallet ID: " + walletID);
-        System.out.println("Balance: " + USDBalance);
-        System.out.println("Total USD Deposited: " + totalUSDdeposited);
-        System.out.println("Total USD Withdrawn: " + totalUSDwithdrawn);
-        System.out.println("Total amount traded: " + totalAmountTraded);
-
-        System.out.println("You have traded in the following: ");
+        System.out.println();
+        System.out.println("\033[1mHello \033[0m" + firstName + " " + lastName);
+        System.out.println("=====================================================");
+        System.out.println("\033[1mWallet ID: \033[0m" + walletID);
+        MenuTools.lineDivider();
+        System.out.println("\033[1mBalance: \033[0m" + MenuTools.outputMoneyFormat(getUSDBalance()));
+        MenuTools.lineDivider();
+        System.out.println("\033[1mTotal USD Deposited: \033[0m" + MenuTools.outputMoneyFormat(getTotalUSDdeposited()));
+        MenuTools.lineDivider();
+        System.out.println("\033[1mTotal USD Withdrawn: \033[0m" + MenuTools.outputMoneyFormat(getTotalUSDwithdrawn()));
+        System.out.println("-----------------------------------------------------");
+        System.out.println("\033[1mTotal amount traded: \033[0m" + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
+        MenuTools.lineDivider();
+        System.out.println("\033[1mYou have traded in the following: \033[0m");
+        //setGoal();
+        MenuTools.lineDivider();
         showTrades();
+        MenuTools.lineDivider();
+        MenuTools.promptEnterKey();
 
     }
 
@@ -195,5 +208,13 @@ public class Wallet implements Serializable {
 
     public void setTotalUSDwithdrawn(BigDecimal totalUSDwithdrawn) {
         this.totalUSDwithdrawn = totalUSDwithdrawn;
+    }
+
+    public BigDecimal getTotalAmountTraded() {
+        return totalAmountTraded;
+    }
+
+    public void setTotalAmountTraded(BigDecimal totalAmountTraded) {
+        this.totalAmountTraded = totalAmountTraded;
     }
 }
