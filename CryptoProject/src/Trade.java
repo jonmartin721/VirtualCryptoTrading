@@ -39,20 +39,11 @@ public class Trade {
 
     public boolean tradeCryptoToCrypto(Cryptocurrency fromCrypto, Cryptocurrency toCrypto, Wallet wallet) {
 
-        if (checkTradeCryptoToCrypto(wallet,fromCrypto,toCrypto)==true){
-
-            getFromSymbol();
-            getToSymbol();
-
-            // Convert both crypto's to USD.
-            // left side value is lost. right side value is gained.
-            // update holdings
-
-
-            return true;
-        }
-        else
-            return false;
+        //perform trade
+//remove left crypto and gain right crypto
+//
+//return that trade failed
+        return checkTradeCryptoToCrypto(wallet, fromCrypto, toCrypto);
     }
 
     public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Money toUSD, Wallet wallet) {
@@ -91,7 +82,7 @@ public class Trade {
     }
 
     // This method checks that Crypto - > Crypto trades are possible
-    public boolean checkTradeCryptoToCrypto(Wallet wallet, Cryptocurrency fromCrypto, Cryptocurrency toCrypto) {
+    private boolean checkTradeCryptoToCrypto(Wallet wallet, Cryptocurrency fromCrypto, Cryptocurrency toCrypto) {
 //            if (fromCrypto.getAmountHeld().equals(toCrypto.getCurrentCryptoValue()))//checks if the amount being traded is valid
 //            {
 //                {
@@ -104,13 +95,13 @@ public class Trade {
     }
 
     // This method checks that Crypto - > Crypto trades are possible
-    public boolean checkTradeCryptoToUSD(Wallet wallet, Cryptocurrency fromCrypto, BigDecimal toUSD) {
-        return (fromCrypto.getCurrentHoldingValue().compareTo(toUSD) == 1)||(fromCrypto.getCurrentHoldingValue().compareTo(toUSD)==0);
+    private boolean checkTradeCryptoToUSD(Wallet wallet, Cryptocurrency fromCrypto, BigDecimal toUSD) {
+        return (fromCrypto.getCurrentHoldingValue().compareTo(toUSD) > 0) || (fromCrypto.getCurrentHoldingValue().compareTo(toUSD) == 0);
 
     }
 
     // This method checks that Crypto - > Crypto trades are possible
-    public boolean checkTradeUSDToCrypto(Wallet wallet, BigDecimal fromUSD, Cryptocurrency toCrypto) {
+    private boolean checkTradeUSDToCrypto(Wallet wallet, BigDecimal fromUSD, Cryptocurrency toCrypto) {
 
         return (toCrypto.getCurrentHoldingValue().compareTo(fromUSD) < 0) || (toCrypto.getCurrentHoldingValue().compareTo(fromUSD) == 0);
     }

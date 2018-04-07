@@ -2,10 +2,12 @@
 /*
 The purpose of this class is to provide encryption services for each wallet.
 It uses the techniques and most code from here: https://goo.gl/SSuy6a
+
  */
 
 import java.io.Serializable;
 
+//TODO implement class and secure encryption
 public class EncryptionService implements Serializable {
 
     private byte[] salt;
@@ -21,7 +23,6 @@ public class EncryptionService implements Serializable {
         return "Attempted password".getBytes();
 
     }
-
 
     //TODO implement salt generation
     //This generates a salt for applying onto the password.

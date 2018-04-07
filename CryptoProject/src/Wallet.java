@@ -6,8 +6,8 @@ Each wallet object has funding, holdings, personal information, trade history, a
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.UUID;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Wallet implements Serializable {
 
@@ -140,8 +140,7 @@ public class Wallet implements Serializable {
             System.out.println("You need to set your financial goal");
             System.out.println("Enter your financial goal");
             Scanner keyboardSG = new Scanner(System.in);
-            BigDecimal newGoalPercentage = keyboardSG.nextBigDecimal();
-            goalPercentage = newGoalPercentage;
+            goalPercentage = keyboardSG.nextBigDecimal();
         }
         else {
             BigDecimal totalHoldings = USDBalance.add(getTotalHoldings());
@@ -165,11 +164,11 @@ public class Wallet implements Serializable {
     }
 
     // This class shows general Wallet data.
-    public void showWalletData() {
+    void showWalletData() {
 
         System.out.println();
         System.out.println("Hello " + firstName + " " + lastName);
-        MenuTools.lineDoubleDivider();
+        MenuTools.lineDivider();
         System.out.println("Wallet ID: " + walletID);
         MenuTools.lineDivider();
         System.out.println("Balance: " + MenuTools.outputMoneyFormat(getUSDBalance()));
@@ -215,7 +214,7 @@ public class Wallet implements Serializable {
         return firstName;
     }
 
-    public BigDecimal getTotalUSDdeposited() {
+    private BigDecimal getTotalUSDdeposited() {
         return totalUSDdeposited;
     }
 
@@ -223,7 +222,7 @@ public class Wallet implements Serializable {
         this.totalUSDdeposited = totalUSDdeposited;
     }
 
-    public BigDecimal getTotalUSDwithdrawn() {
+    private BigDecimal getTotalUSDwithdrawn() {
         return totalUSDwithdrawn;
     }
 
@@ -231,7 +230,7 @@ public class Wallet implements Serializable {
         this.totalUSDwithdrawn = totalUSDwithdrawn;
     }
 
-    public BigDecimal getTotalAmountTraded() {
+    private BigDecimal getTotalAmountTraded() {
         return totalAmountTraded;
     }
 

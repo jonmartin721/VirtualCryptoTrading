@@ -38,7 +38,7 @@ class MenuTools {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("1) Login");
         System.out.println("2) Create Wallet");
-        System.out.println("3) Exit");
+        System.out.println("0) Exit");
 
         int response = keyboard.nextInt();
 
@@ -50,6 +50,8 @@ class MenuTools {
             System.out.println("Invalid response!");
             System.out.println("1) Login");
             System.out.println("2) Create Wallet");
+            System.out.println("0) Exit");
+
 
             response = keyboard.nextInt();
         }
@@ -59,8 +61,11 @@ class MenuTools {
         // Send launchScreen to the right place depending on their input
         if (response == 1) {
             logIn();
-        } else {
+        } else if (response == 2) {
             createNewAccount();
+        } else {
+            System.out.println("Exiting....");
+            System.exit(0);
         }
 
     }
@@ -210,7 +215,7 @@ class MenuTools {
 
             case 2:
                 MenuTools.lineBreak();
-                browseCryptocurrencies(wallet);
+                performTrades(wallet);
                 break;
 
             case 3:
@@ -273,7 +278,7 @@ class MenuTools {
     }
 
     // Uses Coinbase exchange to output information
-    private static void browseCryptocurrencies(Wallet wallet) {
+    private static void performTrades(Wallet wallet) {
 
         actionMessageBox("View and Trade");
 
@@ -343,7 +348,7 @@ class MenuTools {
                 menu(wallet);
                 break;
             case "R":
-                browseCryptocurrencies(wallet);
+                performTrades(wallet);
                 break;
             case "BTC":
                 displayCryptoDetail(query);
@@ -383,11 +388,11 @@ class MenuTools {
             networkException();
         }
 
-
+        lineBreak();
         System.out.println(symbol + " details:");
         System.out.println("Name: " + thisCurrency.getDisplayName());
         System.out.println("Spot Rate: " + spotRate);
-        System.out.println("\n What kind of trade?");
+        System.out.println("\nWhat kind of trade?");
         System.out.println("1 - Buy with Crypto");
         System.out.println("2 - Buy with USD");
     }
@@ -669,13 +674,10 @@ class MenuTools {
         System.out.println("Virtual Cryptocurrency Wallet and Trading v0.20");
     }
 
-    
-    static void lineDivider() {
-        System.out.println("-----------------------------------------------------");
-    }
-
     // Used for wallet data viewing
-    public static void lineDoubleDivider () { System.out.println("=====================================================");}
+    static void lineDivider() {
+        System.out.println("=====================================================");
+    }
   
     // Handles query processing for the browsing and trading area
     private static boolean isQueryValid(String query) {
@@ -696,7 +698,7 @@ class MenuTools {
         return false;
     }
 
-    private static void networkException() {
+    static void networkException() {
         System.out.println("Could not get network data.");
     }
 }

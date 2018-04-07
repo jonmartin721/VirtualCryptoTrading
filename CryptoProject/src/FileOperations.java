@@ -46,6 +46,7 @@ class FileOperations {
     // This method saves login information to a "loginInfo.ser"
     static boolean saveLoginInfo(LoginInfo loginInfo) {
 
+        // try to create the file
         try (FileOutputStream fileOutputStream = new FileOutputStream("loginInfo.ser", false)) {
             try (ObjectOutputStream oos = new ObjectOutputStream(fileOutputStream)) {
                 oos.writeObject(loginInfo);
@@ -101,6 +102,7 @@ class FileOperations {
 
     }
 
+    //TODO consolidate exceptions to a central location
     private static void printIoException() {
         System.out.println("FileOperations I/O error encountered while trying to read/write:");
     }
