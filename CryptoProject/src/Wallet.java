@@ -3,7 +3,6 @@ The wallet is a the class that is essentially the user profile; it is the contai
 Each wallet object has funding, holdings, personal information, trade history, and goals.
  */
 
-import java.awt.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -101,7 +100,6 @@ public class Wallet implements Serializable {
 
     }
 
-    //TODO Change password (no confirmation required)
     boolean changePassword(String newPassword) {
 
         LoginInfo loginInfo = FileOperations.loadLoginInfo();

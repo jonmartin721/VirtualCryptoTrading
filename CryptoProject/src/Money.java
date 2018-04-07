@@ -6,7 +6,6 @@ of how derivation works in OOP.
 
 abstract class Money {
 
-    String name;
     Double amountHeld;
 
 }
