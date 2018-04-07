@@ -337,6 +337,7 @@ class MenuTools {
 
     }
 
+
     //TODO Implement a menu for people to view/edit goals and view performance.
     // This method lets users view and set goals as well as view performance.
     private static void goalsAndPerformance(Wallet wallet) {
@@ -349,6 +350,7 @@ class MenuTools {
         System.out.println("1) Set your goals you'd like to achieve");
         System.out.println("2) View your goals as they are presently");
         System.out.println("3) View your performance");
+        System.out.println("4) Return to main menu");
 
         selectionGAP = keyboardGAP.nextInt();
 
@@ -376,14 +378,20 @@ class MenuTools {
                 }
                 // Basically typecasting user's goal to BigDecimal so it can be passed into setGoal() method in Wallet class
                 BigDecimal confirmedUsersGoal = BigDecimal.valueOf(goal);
+                // confirmedUsersGoal passes a percentage not a dollar amount
                 wallet.setGoal(confirmedUsersGoal);
+                promptEnterKey();
+                goalsAndPerformance(wallet);
                 break;
 
             case 2:
                 // User is viewing the goals they set.
                 MenuTools.lineBreak();
                 System.out.println("Let's view the goals you set.");
-                System.out.println("These are your holdings so far:  " + wallet.getHoldings());
+                System.out.println("These are your holdings so far:  " + MenuTools.outputMoneyFormat(wallet.getTotalHoldings()));
+                System.out.println();
+                promptEnterKey();
+                goalsAndPerformance(wallet);
                 // JON- I chose getHoldings() because it returns an ArrayList of the Cryptocurriences
                 // which I'm thinking has all the aggregate information they are looking for?
                 break;
@@ -392,9 +400,15 @@ class MenuTools {
                 // User is viewing their performance
                 MenuTools.lineBreak();
                 System.out.println("Let's view the your performance.");
-                System.out.println("These are your holdings so far:  ");
+                System.out.println("These are your holdings so far:  " + MenuTools.outputMoneyFormat(wallet.getTotalHoldings()));
                 wallet.showTrades();
+                promptEnterKey();
+                goalsAndPerformance(wallet);
                 break;
+
+            case 4:
+                // Returning user to main menu
+                menu(wallet);
 
             default:
                 System.out.println("\nExiting program...");
@@ -605,5 +619,7 @@ class MenuTools {
     public static void lineDivider(){
         System.out.println("-----------------------------------------------------");
     }
+
+    public static void lineDoubleDivider () { System.out.println("=====================================================");}
 }
 
