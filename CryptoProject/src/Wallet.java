@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
+import java.util.Scanner;
 
 public class Wallet implements Serializable {
 
@@ -43,7 +44,7 @@ public class Wallet implements Serializable {
 
     // this method adds up the usd value of each cryptocurrency (current value * amount held) and returns it. it does NOT
     // include USD.
-    private BigDecimal getTotalHoldings() {
+    BigDecimal getTotalHoldings() {
 
         BigDecimal totalValue = new BigDecimal(0);
 
@@ -73,19 +74,24 @@ public class Wallet implements Serializable {
 
     // This method shows basic info on each trade.
     void showTrades() {
+        if (getTotalAmountTraded() == null){
+            System.out.println("No trades have occurred yet");
+        }
 
-        trades.forEach(trade -> {
-            System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
-            MenuTools.lineDivider();
-            System.out.println("Date of Trade: " + String.valueOf(trade.getDateTime()));
-            MenuTools.lineDivider();
-            System.out.println("From: " + String.valueOf(trade.getFromSymbol()));
-            MenuTools.lineDivider();
-            System.out.println("To: " + String.valueOf(trade.getToSymbol()));
-            MenuTools.lineDivider();
-            System.out.println("Amount: " + String.valueOf(trade.getFromAmount().subtract(trade.getToAmount())));
+        else {
+            trades.forEach(trade -> {
+                System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
+                MenuTools.lineDivider();
+                System.out.println("Date of Trade: " + String.valueOf(trade.getDateTime()));
+                MenuTools.lineDivider();
+                System.out.println("From: " + String.valueOf(trade.getFromSymbol()));
+                MenuTools.lineDivider();
+                System.out.println("To: " + String.valueOf(trade.getToSymbol()));
+                MenuTools.lineDivider();
+                System.out.println("Amount: " + String.valueOf(trade.getFromAmount().subtract(trade.getToAmount())));
 
-        });
+            });
+        }
 
 
     }
@@ -113,7 +119,7 @@ public class Wallet implements Serializable {
 
     }
 
-    boolean setGoal(BigDecimal goal) {
+    boolean setGoal(BigDecimal goalPercentage) {
         // This class will add up all the holdings into USD and then display true when the netProfit is higher than the
         // goal, or equal to the goal
 
@@ -125,17 +131,33 @@ public class Wallet implements Serializable {
         System.out.println(" Enter your goal: ");
         goal= scan.nextBigDecimal();*/
 
-        goal = null;
-        BigDecimal total = USDBalance.add(getTotalHoldings());
+       // Amee- goal is met when original holdings - withdrawals + the amount in $$ that represent the goalPercentage equals
+        // goalPercentage!
 
-        BigDecimal netProfit = total.subtract(totalUSDdeposited);
 
-        if (goal != null) {
-            if (netProfit.compareTo(goal) > 0) {
+        //goal = null;
+        if (goalPercentage == null){
+            System.out.println("You need to set your financial goal");
+            System.out.println("Enter your financial goal");
+            Scanner keyboardSG = new Scanner(System.in);
+            BigDecimal newGoalPercentage = keyboardSG.nextBigDecimal();
+            goalPercentage = newGoalPercentage;
+        }
+        else {
+            BigDecimal totalHoldings = USDBalance.add(getTotalHoldings());
 
-                return true;
+            BigDecimal netProfit = totalHoldings.subtract(totalUSDdeposited);
 
-            } else return netProfit.compareTo(goal) == 0;
+            if (goalPercentage != null) {
+                if (netProfit.compareTo(goalPercentage) > 0) {
+                    System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
+                    return true;
+                }
+
+            } else {
+                System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
+                return netProfit.compareTo(goalPercentage) == 0;
+            }
         }
 
         return true;
@@ -146,22 +168,23 @@ public class Wallet implements Serializable {
     public void showWalletData() {
 
         System.out.println();
-        System.out.println("\033[1mHello \033[0m" + firstName + " " + lastName);
-        System.out.println("=====================================================");
-        System.out.println("\033[1mWallet ID: \033[0m" + walletID);
+        System.out.println("Hello " + firstName + " " + lastName);
+        MenuTools.lineDoubleDivider();
+        System.out.println("Wallet ID: " + walletID);
         MenuTools.lineDivider();
-        System.out.println("\033[1mBalance: \033[0m" + MenuTools.outputMoneyFormat(getUSDBalance()));
+        System.out.println("Balance: " + MenuTools.outputMoneyFormat(getUSDBalance()));
         MenuTools.lineDivider();
-        System.out.println("\033[1mTotal USD Deposited: \033[0m" + MenuTools.outputMoneyFormat(getTotalUSDdeposited()));
+        System.out.println("Total USD Deposited: " + MenuTools.outputMoneyFormat(getTotalUSDdeposited()));
         MenuTools.lineDivider();
-        System.out.println("\033[1mTotal USD Withdrawn: \033[0m" + MenuTools.outputMoneyFormat(getTotalUSDwithdrawn()));
-        System.out.println("-----------------------------------------------------");
-        System.out.println("\033[1mTotal amount traded: \033[0m" + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
+        System.out.println("Total USD Withdrawn: " + MenuTools.outputMoneyFormat(getTotalUSDwithdrawn()));
         MenuTools.lineDivider();
-        System.out.println("\033[1mYou have traded in the following: \033[0m");
-        //setGoal();
+        System.out.println("Total amount traded: " + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
+        MenuTools.lineDivider();
+        System.out.println("You have traded in the following: ");
         MenuTools.lineDivider();
         showTrades();
+        MenuTools.lineDivider();
+        System.out.println("Your total holdings are:  " + MenuTools.outputMoneyFormat(getTotalHoldings()));
         MenuTools.lineDivider();
         MenuTools.promptEnterKey();
 
