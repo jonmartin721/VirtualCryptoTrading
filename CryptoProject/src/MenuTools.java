@@ -38,11 +38,12 @@ class MenuTools {
         Scanner keyboard = new Scanner(System.in);
         System.out.println("1) Login");
         System.out.println("2) Create Wallet");
+        System.out.println("3) Exit");
 
         int response = keyboard.nextInt();
 
         //Input validation
-        while (response != 1 && response != 2) {
+        while (response != 1 && response != 2 && response != 0) {
 
             lineBreak();
             title();
@@ -365,8 +366,30 @@ class MenuTools {
 
     }
 
+    // Displays basic crypto info
     private static void displayCryptoDetail(String symbol) {
 
+        Currency thisCurrency = new Currency(symbol);
+
+        Exchange coinbaseExchange =
+                ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
+        CoinbaseMarketDataService marketDataService =
+                (CoinbaseMarketDataService) coinbaseExchange.getMarketDataService();
+        CoinbasePrice spotRate = null;
+
+        try {
+            spotRate = marketDataService.getCoinbaseSpotRate(thisCurrency, Currency.USD);
+        } catch (IOException e) {
+            networkException();
+        }
+
+
+        System.out.println(symbol + " details:");
+        System.out.println("Name: " + thisCurrency.getDisplayName());
+        System.out.println("Spot Rate: " + spotRate);
+        System.out.println("\n What kind of trade?");
+        System.out.println("1 - Buy with Crypto");
+        System.out.println("2 - Buy with USD");
     }
 
     // This method lets users view and set goals as well as view performance.
@@ -633,6 +656,7 @@ class MenuTools {
         System.out.println("Virtual Cryptocurrency Wallet and Trading v0.20");
     }
 
+    // Used for wallet data viewing
     static void lineDivider() {
         System.out.println("-----------------------------------------------------");
     }
@@ -654,6 +678,10 @@ class MenuTools {
         }
 
         return false;
+    }
+
+    private static void networkException() {
+        System.out.println("Could not get network data.");
     }
 }
 
