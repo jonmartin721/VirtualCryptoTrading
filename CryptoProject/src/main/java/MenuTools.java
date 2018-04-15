@@ -252,16 +252,19 @@ class MenuTools {
                     System.out.println("Wallet saved!");
                 } else {
                     System.out.println("Wallet could not be saved.");
-                    System.exit(0);
+                    //System.exit(0);
+                    EchoClient.readSomeText2();
                 }
 
                 System.out.println("Exiting program...");
-                System.exit(0);
+                //System.exit(0);
+                EchoClient.readSomeText2();
                 break;
 
             default:
                 System.out.println("\nEnter a valid choice!");
-                System.exit(0);
+                //System.exit(0);
+                EchoClient.readSomeText2();
                 break;
 
         }
