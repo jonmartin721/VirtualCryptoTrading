@@ -206,67 +206,72 @@ class MenuTools {
 
         selection = keyboard.nextInt();
 
-        switch (selection) {
+        boolean again=true;
 
-            case 1:
-                MenuTools.lineBreak();
-                viewWallet(wallet);
-                break;
+        while (again) {
 
-            case 2:
-                MenuTools.lineBreak();
-                performTrades(wallet);
-                break;
+            switch (selection) {
 
-            case 3:
-                MenuTools.lineBreak();
-                goalsAndPerformance(wallet);
-                break;
+                case 1:
+                    MenuTools.lineBreak();
+                    viewWallet(wallet);
+                    break;
 
-            case 4:
-                MenuTools.lineBreak();
-                depositUSD(wallet);
-                break;
+                case 2:
+                    MenuTools.lineBreak();
+                    performTrades(wallet);
+                    break;
 
-            case 5:
-                MenuTools.lineBreak();
-                withdrawUSD(wallet);
-                break;
+                case 3:
+                    MenuTools.lineBreak();
+                    goalsAndPerformance(wallet);
+                    break;
 
-            case 6:
-                MenuTools.lineBreak();
-                changePassword(wallet);
-                break;
+                case 4:
+                    MenuTools.lineBreak();
+                    depositUSD(wallet);
+                    break;
 
-            case 7:
-                MenuTools.lineBreak();
-                help(wallet);
-                break;
+                case 5:
+                    MenuTools.lineBreak();
+                    withdrawUSD(wallet);
+                    break;
 
-            case 0:
-                MenuTools.lineBreak();
-                System.out.println("Saving wallet to file...");
+                case 6:
+                    MenuTools.lineBreak();
+                    changePassword(wallet);
+                    break;
 
-                //saves the wallet
-                if (FileOperations.saveWallet(wallet)) {
-                    System.out.println("Wallet saved!");
-                } else {
-                    System.out.println("Wallet could not be saved.");
+                case 7:
+                    MenuTools.lineBreak();
+                    help(wallet);
+                    break;
+
+                case 0:
+                    MenuTools.lineBreak();
+                    System.out.println("Saving wallet to file...");
+
+                    //saves the wallet
+                    if (FileOperations.saveWallet(wallet)) {
+                        System.out.println("Wallet saved!");
+                    } else {
+                        System.out.println("Wallet could not be saved.");
+                        System.exit(0);
+                    }
+
+                    System.out.println("Exiting program...");
                     System.exit(0);
-                }
+                    break;
 
-                System.out.println("Exiting program...");
-                System.exit(0);
-                break;
+                default:
+                    System.out.println("\nEnter a valid choice!");
+                    selection = keyboard.nextInt(); // User is prompted to enter a choice again
+                    again=true;
+                    break;
 
-            default:
-                System.out.println("\nEnter a valid choice!");
-                System.exit(0);
-                break;
+            }
 
         }
-
-
     }
 
     // Shows basic summarized info about the current wallet.
@@ -340,6 +345,7 @@ class MenuTools {
             System.out.println("Invalid query. Type a symbol to see more info or trade, 'q' to exit to the menu, or 'r' to reload data.");
             System.out.println("Query: ");
             query = keyboard.next();
+            return;
         }
 
         //after they have entered something valid, do something with the query
@@ -354,6 +360,8 @@ class MenuTools {
                 displayCryptoDetail(query);
                 break;
             case "XLT":
+                displayCryptoDetail("LTC");
+                break;
             case "LTC":
                 displayCryptoDetail(query);
                 break;
@@ -559,6 +567,8 @@ class MenuTools {
 
     }
 
+
+    //
     // Information about the program and cryptocurrencies
     private static void help(Wallet wallet) {
 
