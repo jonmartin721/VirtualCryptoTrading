@@ -12,21 +12,15 @@ public class EchoThread extends Thread
 	// The socket that we'll be talking over
     private final Socket socket;
 
-    /**
-     * Constructor that sets up the socket we'll chat over
-     * @param _socket The socket passed in from the server
-     */
-
+     // Constructor that sets up the socket we'll chat over
+     // @param _socket The socket passed in from the server
     public EchoThread(Socket _socket) {
 	socket = _socket;
     }
 
 
-    /**
-     * run() is basically the main method of a thread.  This thread
-     * simply reads Message objects off of the socket.
-     */
-
+	// run() is basically the main method of a thread.  This thread
+	// simply reads Message objects off of the socket.
     public void run()
     {
 	try{

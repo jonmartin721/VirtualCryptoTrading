@@ -253,18 +253,18 @@ class MenuTools {
                 } else {
                     System.out.println("Wallet could not be saved.");
                     //System.exit(0);
-                    EchoClient.readSomeText2();
+                    EchoClient.exitProgramAndServer();
                 }
 
                 System.out.println("Exiting program...");
                 //System.exit(0);
-                EchoClient.readSomeText2();
+                EchoClient.exitProgramAndServer();
                 break;
 
             default:
                 System.out.println("\nEnter a valid choice!");
                 //System.exit(0);
-                EchoClient.readSomeText2();
+                EchoClient.exitProgramAndServer();
                 break;
 
         }
@@ -473,7 +473,8 @@ class MenuTools {
 
             default:
                 System.out.println("\nExiting program...");
-                System.exit(0);
+                //System.exit(0);
+                EchoClient.exitProgramAndServer();
                 break;
 
         }

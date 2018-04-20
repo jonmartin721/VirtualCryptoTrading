@@ -1,25 +1,15 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.nio.file.FileSystem;
 
-/**
- * Simple client class. This class connects to an EchoServer to send text back
- * and forth. Java message serialization is used to pass Message objects around.
- *
- *
- */
+ // Simple client class. This class connects to an EchoServer to send text back
+ // and forth. Java message serialization is used to pass Message objects around.
+
 public class EchoClient {
 
     private static FileSystem sock;
 
-    /**
-     * Main method.
-     *
-     *
-     */
+
     public static void main(String[] args) {
         try {
             String serverName;
@@ -45,24 +35,15 @@ public class EchoClient {
             Message msg = null, resp = null;
             do {
                 //System.out.println("In do-while loop of EchoClient class");
-                // Read and send message.  Since the Message class
-                // implements the Serializable interface, the
-                // ObjectOutputStream "output" object automatically
-                // encodes the Message object into a format that can
-                // be transmitted over the socket to the server.
+                // Read and send message.
                 msg = new Message(readSomeText());
                 output.writeObject(msg);
 
-                // Get ACK and print.  Since Message implements
-                // Serializable, the ObjectInputStream can
-                // automatically read this object off of the wire and
-                // encode it as a Message.  Note that we need to
-                // explicitly cast the return from readObject() to the
-                // type Message.
+                // Get ACK and print.
+                // Note that we need explicitly cast the return from readObject() to the type Message.
                 resp = (Message) input.readObject();
 
                 System.out.println("\nServer says: " + resp.theMessage + "\n");
-                //MenuTools.launchScreen();
 
             } while (!msg.theMessage.toUpperCase().equals("EXIT"));
 
@@ -76,35 +57,31 @@ public class EchoClient {
 
     } //-- end main(String[])
 
-    /**
-     * Simple method to print a prompt and read a line of text.
-     *
-     * @return A line of text read from the console
-     */
+
+    // Simple method to print a prompt and read a line of text. @return A line of text read from the console
     static String readSomeText() {
         try {
-            //System.out.println("Enter a line of text, or type \"EXIT\" to quit.");
-            //System.out.print(" > ");
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             MenuTools.launchScreen();
             return in.readLine();
         } catch (Exception e) {
-            // Uh oh...
             return "Uh oh...";
         }
+    } //-- end readSomeText2()
 
 
-
-    } //-- end readSomeText()
-    static void readSomeText2() {
+    static void exitProgramAndServer(){
         try {
-            System.out.println("Type \"EXIT\" to quit.");
+            System.out.println("Type \"EXIT\" to quit this program and server.");
             System.out.print(" > ");
+            //Read user input for the server name or IP address
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            //serverName = in.readLine();
             sock.close();
 
         } catch (Exception e) {
-            // Uh oh...
-            System.out.println("Uh, uh, oh...");
+            System.out.println();
+            //System.out.println("Uh, uh, oh...");
         }
     }
 } //-- end class EchoClient

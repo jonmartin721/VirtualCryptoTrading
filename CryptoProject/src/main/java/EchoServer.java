@@ -1,12 +1,10 @@
 import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- * A simple server class.  Accepts client connections and forks
- * EchoThreads to handle the bulk of the work.
- *
- * 
- */
+
+// A simple server class.  Accepts client connections and forks
+// EchoThreads to handle the bulk of the work.
+
 public class EchoServer
 {
     /** The server will listen on this port for client connections */
