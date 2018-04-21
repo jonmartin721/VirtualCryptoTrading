@@ -5,8 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.file.FileSystem;
 
- // Simple client class. This class connects to an EchoServer to send text back
- // and forth. Java message serialization is used to pass Message objects around.
+// Simple client class. This class connects to an EchoServer to send text back
+// and forth. Java message serialization is used to pass Message objects around.
 
 public class EchoClient {
 
@@ -72,7 +72,7 @@ public class EchoClient {
     } //-- end readSomeText2()
 
 
-    static void exitProgramAndServer(){
+    static void exitProgramAndServer() {
         try {
             System.out.println("Type \"EXIT\" to quit this program and server.");
             System.out.print(" > ");
