@@ -14,11 +14,9 @@ public class Wallet implements Serializable {
     private ArrayList<Cryptocurrency> holdings;
     private UUID walletID;
     private String username;
-    private EncryptionService encryption;
     private String firstName;
     private String lastName;
     private ArrayList<Trade> trades;
-    private byte[] password;
     private BigDecimal totalAmountTraded;
     private BigDecimal totalUSDdeposited;
     private BigDecimal totalUSDwithdrawn;
@@ -30,11 +28,9 @@ public class Wallet implements Serializable {
         holdings = new ArrayList<>();
         walletID = UUID.randomUUID();
         this.username = username;
-        encryption = new EncryptionService();
         this.firstName = firstName;
         this.lastName = lastName;
         trades = new ArrayList<>();
-        password = new byte[0];
         USDBalance = new BigDecimal(0);
         totalAmountTraded = new BigDecimal(0);
         totalUSDdeposited = new BigDecimal(0);
@@ -91,16 +87,6 @@ public class Wallet implements Serializable {
             });
         }
 
-
-    }
-
-    // TODO Set password in Wallet using this
-    public boolean setPassword(EncryptionService object) {
-        // this.password = new byte[object.getEncryptedAttemptedPassword()]; ??
-        // return true;
-        // return false;
-        // Jon - leave this to me. I'll be helping.
-        return true;
 
     }
 
