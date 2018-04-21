@@ -478,7 +478,8 @@ class MenuTools {
 
             default:
                 System.out.println("\nExiting program...");
-                System.exit(0);
+                //System.exit(0);
+                EchoClient.exitProgramAndServer();
                 break;
 
         }
