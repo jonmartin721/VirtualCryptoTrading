@@ -541,7 +541,7 @@ class MenuTools {
 
     // Changes a user's password.
     private static void changePassword(Wallet wallet) {
-        actionMessageBox("\nChange Password");
+        actionMessageBox("Change Password");
 
         Scanner keyboard = new Scanner(System.in);
 
