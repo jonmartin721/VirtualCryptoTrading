@@ -16,16 +16,18 @@ import java.math.BigDecimal;
 
 class Cryptocurrency extends Money {
 
-
+    //TODO use or remove these member variables
     private String symbol;
     private BigDecimal currentValue;
     private Percentage last4Hours;
 
+    //TODO this should make an API call after refactoring to CryptoCompare
     // Returns from the API what the current value of this crypto is
     private BigDecimal getCurrentCryptoValue() {
 
         //create API stuff
         //TODO make API an interface or class to improve modularity
+        //TODO change API to CryptoCompare + POJO + GSON
         Currency thisCurrency = new Currency(symbol);
         Exchange coinbaseExchange =
                 ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());

@@ -23,6 +23,7 @@ class MenuTools {
     // This method is called by menu before showing the menu to make sure the user has an account (viewWallet)
     // If not, they can create it here.
     // This is where Driver points to.
+    //TODO add input processing (cleaning) method
     static void launchScreen() {
 
         title();
@@ -74,6 +75,8 @@ class MenuTools {
     private static void createNewAccount() {
 
         Scanner keyboard = new Scanner(System.in);
+        //TODO ask for Username + Password first
+        //TODO make sure the username is unique, else give message and ask for another
 
         // Gather information about the viewWallet
         lineBreak();
@@ -200,6 +203,7 @@ class MenuTools {
         System.out.println("7) Help and About");
         System.out.println("0) Save & Exit");
         System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
+        //TODO add total holdings here
 
         //captures the user selection
         System.out.print("\nSelection? ");
@@ -336,11 +340,9 @@ class MenuTools {
         Scanner keyboard = new Scanner(System.in);
         String query = keyboard.next();
 
-        //Process their query and proceed
-
-
         //while they have not entered anything valid
         query = query.toUpperCase();
+        //TODO fix this while loop
         while (!isQueryValid(query)) {
             System.out.println("Invalid query. Type a symbol to see more info or trade, 'q' to exit to the menu, or 'r' to reload data.");
             System.out.println("Query: ");
@@ -384,6 +386,7 @@ class MenuTools {
 
         Currency thisCurrency = new Currency(symbol);
 
+        //TODO remove XChange library after refactoring to CryptoCompare API
         Exchange coinbaseExchange =
                 ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
         CoinbaseMarketDataService marketDataService =
@@ -403,6 +406,8 @@ class MenuTools {
         System.out.println("\nWhat kind of trade?");
         System.out.println("1 - Buy with Crypto");
         System.out.println("2 - Buy with USD");
+
+        //TODO finish this interface area
     }
 
     // This method lets users view and set goals as well as view performance.
@@ -568,8 +573,6 @@ class MenuTools {
 
     }
 
-
-    //
     // Information about the program and cryptocurrencies
     private static void help(Wallet wallet) {
 
@@ -682,7 +685,7 @@ class MenuTools {
 
     // Outputs the title and version of the program.
     private static void title() {
-        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.20");
+        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.50");
     }
 
     // Used for wallet data viewing
@@ -691,6 +694,7 @@ class MenuTools {
     }
 
     // Handles query processing for the browsing and trading area
+    //TODO redo query validation for CryptoCompare API
     private static boolean isQueryValid(String query) {
 
         switch (query) {

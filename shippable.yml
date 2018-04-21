@@ -1,8 +1,0 @@
-## Java shippable YAML file
----
-language: java
-jdk: oraclejdk8
-
-build:
-  ci:
-    - ant all

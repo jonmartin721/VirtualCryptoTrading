@@ -5,8 +5,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.nio.file.FileSystem;
 
-// Simple client class. This class connects to an EchoServer to send text back
-// and forth. Java message serialization is used to pass Message objects around.
+// Simple client class. This class connects to an EchoServer to send text back and forth.
+// Java message serialization is used to pass Message objects around.
 
 public class EchoClient {
 
@@ -17,7 +17,8 @@ public class EchoClient {
             String serverName;
 
             //Prompt the user to enter the Server to connect to
-            System.out.println("Enter Server name or IP > \n");
+            System.out.print("Enter Server name or IP: ");
+            //TODO add message about using localhost if the server is running on the same machine
             System.out.print(" > ");
 
             //Read user input for the server name or IP address 
@@ -77,6 +78,7 @@ public class EchoClient {
             System.out.println("Type \"EXIT\" to quit this program and server.");
             System.out.print(" > ");
             //Read user input for the server name or IP address
+            //TODO Is this never used?
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
             //serverName = in.readLine();
             sock.close();

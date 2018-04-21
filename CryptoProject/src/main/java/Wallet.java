@@ -16,6 +16,7 @@ public class Wallet implements Serializable {
     private String username;
     private String firstName;
     private String lastName;
+    //TODO add trade info storage method
     private ArrayList<Trade> trades;
     private BigDecimal totalAmountTraded;
     private BigDecimal totalUSDdeposited;
@@ -103,33 +104,23 @@ public class Wallet implements Serializable {
 
     }
 
+    //TODO test to see if setGoal works
+    //TODO add a companion method checkGoal to check progress
+    //TODO use return method of this method where it is used
     boolean setGoal(BigDecimal goalPercentage) {
-        // This class will add up all the holdings into USD and then display true when the netProfit is higher than the
-        // goal, or equal to the goal
-
-
-        // The user needs to specify what the goal they want to reach is. The program asks for user input. I'm not
-        // sure where to ask for the user input, so I'm putting it here for review. For now, I have set the goal to null.
-
-       /* Scanner scan=   new Scanner(System.in);
-        System.out.println(" Enter your goal: ");
-        goal= scan.nextBigDecimal();*/
-
-        // Amee- goal is met when original holdings - withdrawals + the amount in $$ that represent the goalPercentage equals
-        // goalPercentage!
-
 
         //goal = null;
         if (goalPercentage == null) {
             System.out.println("You need to set your financial goal");
             System.out.println("Enter your financial goal");
-            Scanner keyboardSG = new Scanner(System.in);
-            goalPercentage = keyboardSG.nextBigDecimal();
+            Scanner keyboard = new Scanner(System.in);
+            goalPercentage = keyboard.nextBigDecimal();
         } else {
             BigDecimal totalHoldings = USDBalance.add(getTotalHoldings());
 
             BigDecimal netProfit = totalHoldings.subtract(totalUSDdeposited);
 
+            //TODO does this need to be here? always true?
             if (goalPercentage != null) {
                 if (netProfit.compareTo(goalPercentage) > 0) {
                     System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
@@ -183,7 +174,6 @@ public class Wallet implements Serializable {
     BigDecimal getUSDBalance() {
         return USDBalance;
     }
-
 
     public UUID getWalletID() {
         return walletID;

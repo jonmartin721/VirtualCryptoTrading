@@ -102,7 +102,6 @@ class FileOperations {
 
     }
 
-    //TODO consolidate exceptions to a central location
     private static void printIoException() {
         System.out.println("FileOperations I/O error encountered while trying to read/write:");
     }

@@ -46,6 +46,7 @@ public class Trade {
         return checkTradeCryptoToCrypto(wallet, fromCrypto, toCrypto);
     }
 
+    //TODO finish Trade Crypto - > USD
     public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Money toUSD, Wallet wallet) {
 
 
@@ -62,6 +63,7 @@ public class Trade {
 
     }
 
+    //TODO finish Trade USD - > Crypto
     public boolean tradeUSDToCrypto(Money fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
 
         if (checkTradeUSDToCrypto(wallet, fromAmount, toCrypto) == true) {
@@ -78,6 +80,7 @@ public class Trade {
 
     }
 
+    //TODO finish check Trade Crypto - > Crypto
     // This method checks that Crypto - > Crypto trades are possible
     private boolean checkTradeCryptoToCrypto(Wallet wallet, Cryptocurrency fromCrypto, Cryptocurrency toCrypto) {
 //            if (fromCrypto.getAmountHeld().equals(toCrypto.getCurrentCryptoValue()))//checks if the amount being traded is valid
@@ -91,12 +94,14 @@ public class Trade {
         return !(fromCrypto.equals(toCrypto));
     }
 
+    //TODO finish check Trade Crypto - > USD
     // This method checks that Crypto - > Crypto trades are possible
     private boolean checkTradeCryptoToUSD(Wallet wallet, Cryptocurrency fromCrypto, BigDecimal toUSD) {
         return (fromCrypto.getCurrentHoldingValue().compareTo(toUSD) > 0) || (fromCrypto.getCurrentHoldingValue().compareTo(toUSD) == 0);
 
     }
 
+    //TODO finish check Trade USD - > Crypto
     // This method checks that Crypto - > Crypto trades are possible
     private boolean checkTradeUSDToCrypto(Wallet wallet, BigDecimal fromUSD, Cryptocurrency toCrypto) {
 

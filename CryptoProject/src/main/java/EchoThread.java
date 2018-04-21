@@ -40,7 +40,7 @@ public class EchoThread extends Thread {
 
                 // Write an ACK back to the sender
                 count++;
-                output.writeObject(new Message("Recieved message #" + count));
+                output.writeObject(new Message("Received message #" + count));
 
             } while (!msg.theMessage.toUpperCase().equals("EXIT"));
 

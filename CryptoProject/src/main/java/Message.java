@@ -1,14 +1,14 @@
 /**
- * Very stupid-simple message class.  By implementing the Serializble
+ * Very stupid-simple message class.  By implementing the Serializable
  * interface, objects of this class can be serialized automatically by
  * Java to be sent across IO streams.
  */
 
 
-public class Message implements java.io.Serializable
+class Message implements java.io.Serializable
 {
     // The text string encoded in this Message object */
-    public String theMessage;
+    String theMessage;
 
     /**
      * Constructor.
