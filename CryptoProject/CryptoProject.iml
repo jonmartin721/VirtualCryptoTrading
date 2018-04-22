@@ -25,5 +25,8 @@
     <orderEntry type="library" name="org.knowm.xchange:xchange-core:4.3.4" level="project" />
     <orderEntry type="library" name="org.slf4j:slf4j-nop:1.7.25" level="project" />
     <orderEntry type="library" name="org.knowm.xchange:xchange-coinbase:4.3.4" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.2" level="project" />
+    <orderEntry type="library" name="com.squareup.retrofit2:retrofit:2.4.0" level="project" />
+    <orderEntry type="library" name="io.reactivex.rxjava2:rxjava:2.1.12" level="project" />
   </component>
 </module>
