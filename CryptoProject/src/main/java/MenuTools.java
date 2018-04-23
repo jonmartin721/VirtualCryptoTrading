@@ -3,18 +3,17 @@ This class contains useful console tools for this project. We need tools because
 to be easy to use and the interface to be uncluttered. This class also contains the menu options
 */
 
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.ExchangeFactory;
-import org.knowm.xchange.coinbase.v2.CoinbaseExchange;
-import org.knowm.xchange.coinbase.v2.dto.CoinbasePrice;
-import org.knowm.xchange.coinbase.v2.service.CoinbaseMarketDataService;
-import org.knowm.xchange.currency.Currency;
+import POJOs.SingleCryptoData;
+import Service.APICalls;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Scanner;
 
 
@@ -210,73 +209,66 @@ class MenuTools {
 
         selection = keyboard.nextInt();
 
-        boolean again=true;
+        switch (selection) {
 
-        while (again) {
+            case 1:
+                MenuTools.lineBreak();
+                viewWallet(wallet);
+                break;
 
-            switch (selection) {
+            case 2:
+                MenuTools.lineBreak();
+                performTrades(wallet);
+                break;
 
-                case 1:
-                    MenuTools.lineBreak();
-                    viewWallet(wallet);
-                    break;
+            case 3:
+                MenuTools.lineBreak();
+                goalsAndPerformance(wallet);
+                break;
 
-                case 2:
-                    MenuTools.lineBreak();
-                    performTrades(wallet);
-                    break;
+            case 4:
+                MenuTools.lineBreak();
+                depositUSD(wallet);
+                break;
 
-                case 3:
-                    MenuTools.lineBreak();
-                    goalsAndPerformance(wallet);
-                    break;
+            case 5:
+                MenuTools.lineBreak();
+                withdrawUSD(wallet);
+                break;
 
-                case 4:
-                    MenuTools.lineBreak();
-                    depositUSD(wallet);
-                    break;
+            case 6:
+                MenuTools.lineBreak();
+                changePassword(wallet);
+                break;
 
-                case 5:
-                    MenuTools.lineBreak();
-                    withdrawUSD(wallet);
-                    break;
+            case 7:
+                MenuTools.lineBreak();
+                help(wallet);
+                break;
 
-                case 6:
-                    MenuTools.lineBreak();
-                    changePassword(wallet);
-                    break;
+            case 0:
+                MenuTools.lineBreak();
+                System.out.println("Saving wallet to file...");
 
-                case 7:
-                    MenuTools.lineBreak();
-                    help(wallet);
-                    break;
-
-                case 0:
-                    MenuTools.lineBreak();
-                    System.out.println("Saving wallet to file...");
-
-                    //saves the wallet
-                    if (FileOperations.saveWallet(wallet)) {
-                        System.out.println("Wallet saved!");
-                    } else {
-                        System.out.println("Wallet could not be saved.");
-                        System.exit(0);
-                    }
-
-                    System.out.println("Exiting program...");
+                //saves the wallet
+                if (FileOperations.saveWallet(wallet)) {
+                    System.out.println("Wallet saved!");
+                } else {
+                    System.out.println("Wallet could not be saved.");
                     System.exit(0);
-                    break;
+                }
 
-                default:
-                    System.out.println("\nEnter a valid choice!");
-                    selection = keyboard.nextInt(); // User is prompted to enter a choice again
-                    again=true;
-                    break;
+                System.out.println("Exiting program...");
+                System.exit(0);
+                break;
 
-            }
+            default:
+                System.out.println("\nEnter a valid choice!");
+                break;
 
         }
     }
+
 
     // Shows basic summarized info about the current wallet.
     private static void viewWallet(Wallet wallet) {
@@ -297,42 +289,41 @@ class MenuTools {
         System.out.println("Type the symbol to " +
                 "trade or see more info about it, 'r' to reload all data, or 'q' to return to main menu.");
 
-        //Init XChange resources w/ Coinbase
-        Exchange coinbaseExchange =
-                ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
-        CoinbaseMarketDataService marketDataService =
-                (CoinbaseMarketDataService) coinbaseExchange.getMarketDataService();
+        ArrayList<SingleCryptoData> cryptos;
 
-        //Here we have a list of popular cryptos
-        ArrayList<String> cryptoList = new ArrayList<>();
-        cryptoList.add("BTC");
-        cryptoList.add("ETH");
-        cryptoList.add("LTC");
-        cryptoList.add("BCH");
-
+        try {
+            cryptos = APICalls.getFullData();
+        } catch (IOException e) {
+            e.printStackTrace();
+            cryptos = null;
+        }
         //setup table header
-        String leftAlignFormat = "| %-20s     | %-6s     | %-13s |%n";
+        String leftAlignFormat = "| %-15s  | %-6s     | %-13s | %-6s       |%n";
+
+        NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
+        twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
+        twoDecimalFormat.setMinimumFractionDigits(0);
+        twoDecimalFormat.setMaximumFractionDigits(2);
+
         System.out.format("\nExchange Rates:\n");
-        System.out.format("+--------------------------+------------+---------------+%n");
-        System.out.format("| Name                     | Symbol     | Value         |%n");
-        System.out.format("+--------------------------+------------+---------------+%n");
+        System.out.format("+------------------+------------+---------------+--------------|%n");
+        System.out.format("| Name             | Symbol     | Value (USD)   | 24H Change   |%n");
+        System.out.format("+------------------+------------+---------------+--------------|%n");
 
 
-        for (String aCryptoList : cryptoList) {
-            Currency thisCurrency = new Currency(aCryptoList);
-
-            //loop exchange data
-            try {
-                CoinbasePrice spotRate = marketDataService.getCoinbaseSpotRate(thisCurrency, Currency.USD);
-                System.out.format(leftAlignFormat, thisCurrency.getDisplayName(), thisCurrency.getSymbol(), spotRate);
-            } catch (IOException e) {
-                System.out.println("Error: couldn't get info for this exchange.");
-                e.printStackTrace();
+        if (cryptos != null) {
+            for (SingleCryptoData crypto : cryptos) {
+                System.out.format(leftAlignFormat,
+                        crypto.getName(),                               //name
+                        crypto.getRaw().getFromSymbol(),                //symbol
+                        "$" + crypto.getRaw().getPrice().toString(),    //price
+                        twoDecimalFormat.format(crypto.getRaw().getChange24Hour()) + "%");     //24 hour change
             }
         }
 
+
         //ending line
-        System.out.format("+--------------------------+------------+---------------+%n");
+        System.out.format("+------------------+------------+---------------+--------------|%n");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println("\nLast updated: " + timestamp);
 
@@ -340,14 +331,12 @@ class MenuTools {
         Scanner keyboard = new Scanner(System.in);
         String query = keyboard.next();
 
-        //while they have not entered anything valid
+        //while they have not entered anything valid, keep asking
         query = query.toUpperCase();
-        //TODO fix this while loop
         while (!isQueryValid(query)) {
             System.out.println("Invalid query. Type a symbol to see more info or trade, 'q' to exit to the menu, or 'r' to reload data.");
             System.out.println("Query: ");
-            query = keyboard.next();
-            return;
+            query = keyboard.next().toUpperCase();
         }
 
         //after they have entered something valid, do something with the query
@@ -383,29 +372,6 @@ class MenuTools {
 
     // Displays basic crypto info
     private static void displayCryptoDetail(String symbol) {
-
-        Currency thisCurrency = new Currency(symbol);
-
-        //TODO remove XChange library after refactoring to CryptoCompare API
-        Exchange coinbaseExchange =
-                ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
-        CoinbaseMarketDataService marketDataService =
-                (CoinbaseMarketDataService) coinbaseExchange.getMarketDataService();
-        CoinbasePrice spotRate = null;
-
-        try {
-            spotRate = marketDataService.getCoinbaseSpotRate(thisCurrency, Currency.USD);
-        } catch (IOException e) {
-            networkException();
-        }
-
-        lineBreak();
-        System.out.println(symbol + " details:");
-        System.out.println("Name: " + thisCurrency.getDisplayName());
-        System.out.println("Spot Rate: " + spotRate);
-        System.out.println("\nWhat kind of trade?");
-        System.out.println("1 - Buy with Crypto");
-        System.out.println("2 - Buy with USD");
 
         //TODO finish this interface area
     }
