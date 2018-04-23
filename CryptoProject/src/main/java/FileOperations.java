@@ -7,7 +7,9 @@ Most exceptions are handled here, so as to be easy to consume and process.
 
 import java.io.*;
 
+
 class FileOperations {
+
 
     // Saves the wallet passed into it as a serialized object
     static boolean saveWallet(Wallet wallet) {

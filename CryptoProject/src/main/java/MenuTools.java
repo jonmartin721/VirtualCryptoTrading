@@ -75,7 +75,7 @@ class MenuTools {
     private static void createNewAccount() {
 
         Scanner keyboard = new Scanner(System.in);
-        //TODO ask for Username + Password first
+        //Review- TODO ask for Username + Password first
         //TODO make sure the username is unique, else give message and ask for another
 
         // Gather information about the viewWallet
@@ -89,8 +89,14 @@ class MenuTools {
         System.out.println("\nThank you. Now enter a username and password; this will be what you use to login in the future.");
         System.out.print("Username: ");
         String username = keyboard.next();
+
+
+
         System.out.print("Password: ");
         String password = keyboard.next();
+
+
+
 
         // Add the login pair to the LoginInfo object
         LoginInfo loginInfo = FileOperations.loadLoginInfo();
@@ -212,7 +218,7 @@ class MenuTools {
 
         boolean again=true;
 
-        while (again) {
+        while (!again) {
 
             switch (selection) {
 

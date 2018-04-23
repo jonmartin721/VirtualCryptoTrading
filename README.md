@@ -4,6 +4,10 @@ This Java application shows how to create a Wallet object used to trade cryptocu
 
 The goal of this application is to make hesitant traders more willing to try trading cryptocurrencies by not adding the pressure of using real money. All other values and operations are real however. We do this by freely allowing for the withdrawal and deposit of USD, but without having any effect.
 
+### Instructions
+
+For this application, you should run EchoServer before running EchoClient. Just type in localhost if you're using the same machine, or you can type in the IP address if you know it.
+
 ### Features
 
 This is a list of final features. They may not be fully implemented yet, but are feasible and will be added by the completion of the project.
