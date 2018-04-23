@@ -447,6 +447,19 @@ class MenuTools {
                     System.out.println("You input: " + goal + "%");
                     System.out.println("To confirm, select 1-yes  0-no");
                     confirmInput = keyboardGAP.nextInt();
+
+                }
+
+                // If goal percentage has not been set, it will show a message
+                if (!wallet.setGoal(BigDecimal.valueOf(goal))){
+
+                    System.out.println("Success in setting goal percentage!!");
+
+                }
+                else{
+                    System.out.println("Goal percentage not set. Re-enter your goal percentage!");
+                    goal=keyboardGAP1.nextInt();
+
                 }
                 // Basically typecasting user's goal to BigDecimal so it can be passed into setGoal() method in Wallet class
                 BigDecimal confirmedUsersGoal = BigDecimal.valueOf(goal);
@@ -473,6 +486,8 @@ class MenuTools {
                 MenuTools.lineBreak();
                 System.out.println("Let's view the your performance.");
                 System.out.println("These are your holdings so far:  " + MenuTools.outputMoneyFormat(wallet.getTotalHoldings()));
+
+
                 wallet.showTrades();
                 promptEnterKey();
                 goalsAndPerformance(wallet);
