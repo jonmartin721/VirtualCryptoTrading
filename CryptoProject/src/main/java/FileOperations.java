@@ -104,6 +104,12 @@ class FileOperations {
 
     }
 
+     static boolean LoginInfoDuplicate(String username){
+
+
+        return true;
+    }
+
     private static void printIoException() {
         System.out.println("FileOperations I/O error encountered while trying to read/write:");
     }

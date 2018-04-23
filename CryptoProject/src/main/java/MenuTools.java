@@ -89,12 +89,8 @@ class MenuTools {
         System.out.println("\nThank you. Now enter a username and password; this will be what you use to login in the future.");
         System.out.print("Username: ");
         String username = keyboard.next();
-
-
-
         System.out.print("Password: ");
         String password = keyboard.next();
-
 
 
 
