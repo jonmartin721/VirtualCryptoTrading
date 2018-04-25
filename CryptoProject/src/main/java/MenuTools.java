@@ -5,6 +5,7 @@ to be easy to use and the interface to be uncluttered. This class also contains 
 
 import POJOs.SingleCryptoData;
 import Service.APICalls;
+import Service.RequestData;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -218,7 +219,7 @@ class MenuTools {
 
             case 2:
                 MenuTools.lineBreak();
-                performTrades(wallet);
+                viewAndTrade(wallet);
                 break;
 
             case 3:
@@ -269,7 +270,6 @@ class MenuTools {
         }
     }
 
-
     // Shows basic summarized info about the current wallet.
     private static void viewWallet(Wallet wallet) {
         actionMessageBox("View Wallet Info");
@@ -279,7 +279,7 @@ class MenuTools {
     }
 
     // Uses Coinbase exchange to output information
-    private static void performTrades(Wallet wallet) {
+    private static void viewAndTrade(Wallet wallet) {
 
         actionMessageBox("View and Trade");
 
@@ -298,11 +298,11 @@ class MenuTools {
             cryptos = null;
         }
         //setup table header
-        String leftAlignFormat = "| %-15s  | %-6s     | %-13s | %-6s       |%n";
+        String leftAlignFormat = "| %-15s  | %-6s     | %-13s | %-9s    |%n";
 
         NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
         twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
-        twoDecimalFormat.setMinimumFractionDigits(0);
+        twoDecimalFormat.setMinimumFractionDigits(2);
         twoDecimalFormat.setMaximumFractionDigits(2);
 
         System.out.format("\nExchange Rates:\n");
@@ -317,7 +317,8 @@ class MenuTools {
                         crypto.getName(),                               //name
                         crypto.getRaw().getFromSymbol(),                //symbol
                         "$" + crypto.getRaw().getPrice().toString(),    //price
-                        twoDecimalFormat.format(crypto.getRaw().getChange24Hour()) + "%");     //24 hour change
+                        (crypto.getRaw().getChangePercent24Hour() > 0) ? "+" + twoDecimalFormat.format(crypto.getRaw().getChangePercent24Hour()) +
+                                "%" : twoDecimalFormat.format(crypto.getRaw().getChangePercent24Hour()) + "%");     //24 hour change
             }
         }
 
@@ -345,7 +346,7 @@ class MenuTools {
                 menu(wallet);
                 break;
             case "R":
-                performTrades(wallet);
+                viewAndTrade(wallet);
                 break;
             case "BTC":
                 displayCryptoDetail(query);
@@ -373,7 +374,10 @@ class MenuTools {
     // Displays basic crypto info
     private static void displayCryptoDetail(String symbol) {
 
-        //TODO finish this interface area
+        lineBreak();
+
+
+
     }
 
     // This method lets users view and set goals as well as view performance.
@@ -660,19 +664,19 @@ class MenuTools {
     }
 
     // Handles query processing for the browsing and trading area
-    //TODO redo query validation for CryptoCompare API
     private static boolean isQueryValid(String query) {
 
         switch (query) {
-            case "Q":
+            case "Q": //go back to the main menu
                 return true;
-            case "R":
+            case "R": //reload
                 return true;
-            case "BTC":
-            case "LTC":
-            case "ETH":
-            case "XLT":
-            case "BCH":
+        }
+
+        //if the query is a symbol
+        ArrayList<String> cryptoList = RequestData.getCryptoList();
+        for (String aCryptoList : cryptoList) {
+            if (aCryptoList.equals(query))
                 return true;
         }
 

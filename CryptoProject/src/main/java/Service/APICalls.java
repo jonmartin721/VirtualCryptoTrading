@@ -50,7 +50,6 @@ public class APICalls {
     public static SingleValue getSingleValue(String fromCrypto) throws IOException {
 
         Call<SingleValue> call = service.getSingleValue(fromCrypto, "USD", "VirtualCryptoTrading");
-        //service.getSingleValue(fromCrypto, "USD", "VirtualCryptoTrading");
         return call.execute().body();
     }
 

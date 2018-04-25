@@ -1,12 +1,12 @@
 package Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
-class RequestData {
-    private static List<String> cryptoList = new ArrayList<>() {{
+public class RequestData {
+    private static ArrayList<String> cryptoList = new ArrayList<>() {{
 
-        //here is added all the currencies I want to query with the API
+        //here is added all the currencies I want to query with the API, adding a symbol here will add it to the query
+        //validation and browse/view area
         add("BTC");
         add("ETH");
         add("XRP");
@@ -31,5 +31,12 @@ class RequestData {
         }
 
         return cryptoListString.toString();
+    }
+
+
+    public static ArrayList<String> getCryptoList() {
+
+        return cryptoList;
+
     }
 }
