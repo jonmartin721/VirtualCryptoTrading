@@ -14,8 +14,9 @@ class LoginInfo implements Serializable {
     }
 
     // Lets users add a username and password to the map
-    void addUserAndPassword(String username, String password) {
+    boolean addUserAndPassword(String username, String password) {
 
+        boolean accepted = false;
         while (usersAndPasswords.containsKey(username)){
 
             // Checks to see if the username is unique
@@ -23,12 +24,14 @@ class LoginInfo implements Serializable {
             Scanner keyboard=new Scanner(System.in);
         System.out.println("This username already exits. Please choose another.");
         System.out.println("Enter New Username: ");
-        String newusername= keyboard.next();
+        username = keyboard.next();
+
+
 
         }
             // Saves the username and password to a hashmap
             usersAndPasswords.put(username, password);
-
+            return true;
 
 
 

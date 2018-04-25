@@ -521,6 +521,8 @@ class MenuTools {
 
         Scanner keyboard = new Scanner(System.in);
         BigDecimal amountDeposit = keyboard.nextBigDecimal();
+        FileOperations.inputClean(String.valueOf(amountDeposit));// cleans the input
+
         if (wallet.deposit(amountDeposit)) {
             System.out.println("Amount deposited successfully!");
             System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
@@ -547,6 +549,8 @@ class MenuTools {
 
         Scanner keyboard = new Scanner(System.in);
         BigDecimal amountWithdraw = keyboard.nextBigDecimal();
+        FileOperations.inputClean(String.valueOf(amountWithdraw));// cleans the input
+
         if (wallet.withdraw(amountWithdraw)) {
             System.out.println("Amount withdrawn successfully!");
             System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
