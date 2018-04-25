@@ -37,6 +37,20 @@ public class Wallet implements Serializable {
         totalUSDdeposited = new BigDecimal(0);
         totalUSDwithdrawn = new BigDecimal(0);
 
+        //add all the cryptos (zeroed out) to the wallet
+        holdings.add(new Cryptocurrency("BTC"));
+        holdings.add(new Cryptocurrency("ETH"));
+        holdings.add(new Cryptocurrency("XRP"));
+        holdings.add(new Cryptocurrency("DASH"));
+        holdings.add(new Cryptocurrency("BCH"));
+        holdings.add(new Cryptocurrency("ZCH"));
+        holdings.add(new Cryptocurrency("LTC"));
+        holdings.add(new Cryptocurrency("EOS"));
+        holdings.add(new Cryptocurrency("ADA"));
+        holdings.add(new Cryptocurrency("XMR"));
+        holdings.add(new Cryptocurrency("NEO"));
+
+
     }
 
     // this method adds up the usd value of each cryptocurrency (current value * amount held) and returns it. it does NOT

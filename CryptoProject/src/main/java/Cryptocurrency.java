@@ -5,7 +5,6 @@ on each cryptocurrency.
 
 import POJOs.SingleValue;
 import Service.APICalls;
-import jdk.jfr.Percentage;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -13,9 +12,11 @@ import java.math.BigDecimal;
 class Cryptocurrency extends Money {
 
     private String symbol;
-    private BigDecimal currentValue;
-    private Percentage last24Hours;
 
+    Cryptocurrency(String symbol) {
+        this.symbol = symbol;
+        this.amountHeld = 0.0;
+    }
     // Returns from the API what the current value of this crypto is
     private BigDecimal getCurrentCryptoValue() {
 

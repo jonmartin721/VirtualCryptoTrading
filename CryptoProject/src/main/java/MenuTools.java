@@ -348,20 +348,8 @@ class MenuTools {
             case "R":
                 viewAndTrade(wallet);
                 break;
-            case "BTC":
-                displayCryptoDetail(query);
-                break;
-            case "XLT":
-                displayCryptoDetail("LTC");
-                break;
-            case "LTC":
-                displayCryptoDetail(query);
-                break;
-            case "BCH":
-                displayCryptoDetail(query);
-                break;
-            case "ETH":
-                displayCryptoDetail(query);
+            default:
+                displayCryptoDetail(query, wallet);
                 break;
         }
 
@@ -372,11 +360,54 @@ class MenuTools {
     }
 
     // Displays basic crypto info
-    private static void displayCryptoDetail(String symbol) {
+    private static void displayCryptoDetail(String symbol, Wallet wallet) {
 
         lineBreak();
+        //get the individual crypto data
+        try {
+            ArrayList<SingleCryptoData> cryptos = APICalls.getFullData();
+
+            SingleCryptoData targetCrypto = new SingleCryptoData();
+
+            for (SingleCryptoData crypto : cryptos) {
+
+                if (crypto.getRaw().getFromSymbol().equals(symbol)) {
+                    targetCrypto = crypto;
+                }
+
+            }
+
+            //display a LOT of data
+
+            NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
+            twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
+            twoDecimalFormat.setMinimumFractionDigits(2);
+            twoDecimalFormat.setMaximumFractionDigits(2);
+
+            //Total
+            System.out.println("Name: " + targetCrypto.getName());
+            System.out.println("Symbol: " + targetCrypto.getRaw().getFromSymbol());
+            System.out.println("Price: " + targetCrypto.getRaw().getPrice());
+            System.out.println("Total Volume: " + targetCrypto.getRaw().getLastVolumeTotal());
+            System.out.println("Market Cap: " + targetCrypto.getRaw().getMarketCap());
+            System.out.println("Supply: " + targetCrypto.getRaw().getSupply());
+            //24 Hour
+            System.out.println("24 Hour Change: " + targetCrypto.getRaw().getChange24Hour());
+            System.out.println("24 Hour Change %: " + targetCrypto.getRaw().getChangePercent24Hour());
+            System.out.println("24 Hour Open: " + targetCrypto.getRaw().getOpen24Hour());
+            System.out.println("24 Hour High: " + targetCrypto.getRaw().getHigh24Hour());
+            System.out.println("24 Hour Low: " + targetCrypto.getRaw().getLow24Hour());
+            System.out.println("24 Hour Volume: " + targetCrypto.getRaw().getVolume24Hour());
+            //Options
+            System.out.println("\nOptions");
+            System.out.println("1) Buy");
 
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Couldn't retrieve API data.");
+            viewAndTrade(wallet);
+        }
 
     }
 
