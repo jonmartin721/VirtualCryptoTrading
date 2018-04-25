@@ -16,7 +16,6 @@ public class Wallet implements Serializable {
     private String username;
     private String firstName;
     private String lastName;
-    //TODO add trade info storage method
     private ArrayList<Trade> trades;
     private BigDecimal totalAmountTraded;
     private BigDecimal totalUSDdeposited;
@@ -192,6 +191,17 @@ public class Wallet implements Serializable {
     public UUID getWalletID() {
         return walletID;
     }
+
+    void setUSDBalance(BigDecimal USDBalance) {
+        this.USDBalance = USDBalance;
+    }
+
+    boolean addTrade(Trade trade) {
+
+        trades.add(trade);
+        return true;
+    }
+
 
     String getUsername() {
         return username;

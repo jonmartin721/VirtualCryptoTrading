@@ -53,5 +53,9 @@ public class APICalls {
         return call.execute().body();
     }
 
+    public static void apiError() {
+        System.out.println("Could not retrieve API data.");
+    }
+
 
 }

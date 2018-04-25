@@ -22,7 +22,6 @@ class MenuTools {
 
     // This method is called by menu before showing the menu to make sure the user has an account (viewWallet)
     // If not, they can create it here.
-    // This is where Driver points to.
     //TODO add input processing (cleaning) method
     static void launchScreen() {
 
@@ -281,6 +280,13 @@ class MenuTools {
     // Uses Coinbase exchange to output information
     private static void viewAndTrade(Wallet wallet) {
 
+        //saves the wallet
+        if (FileOperations.saveWallet(wallet)) {
+            System.out.println("Wallet saved!");
+        } else {
+            System.out.println("Wallet could not be saved.");
+        }
+
         actionMessageBox("View and Trade");
 
         System.out.println("\nThe information below is from the Coinbase exchange, a widely trusted exchange. It may change very quickly.");
@@ -363,7 +369,7 @@ class MenuTools {
     private static void displayCryptoDetail(String symbol, Wallet wallet) {
 
         lineBreak();
-        //get the individual crypto data
+        //get the individual crypto data from API
         try {
             ArrayList<SingleCryptoData> cryptos = APICalls.getFullData();
 
@@ -377,35 +383,78 @@ class MenuTools {
 
             }
 
-            //display a LOT of data
+            int cryptoPosition = -1;
+            double amountHeld = 0;
+            //Pull info on how much the user holds of this crypto
+            for (int i = 0; i < wallet.getHoldings().size(); i++) {
+                if (wallet.getHoldings().get(i).getSymbol().equals(symbol)) {
+                    amountHeld = wallet.getHoldings().get(i).getAmountHeld();
+                    cryptoPosition = i;
+                }
+            }
 
-            NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
-            twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
-            twoDecimalFormat.setMinimumFractionDigits(2);
-            twoDecimalFormat.setMaximumFractionDigits(2);
+
+            //display a LOT of data on the crypto
 
             //Total
-            System.out.println("Name: " + targetCrypto.getName());
-            System.out.println("Symbol: " + targetCrypto.getRaw().getFromSymbol());
-            System.out.println("Price: " + targetCrypto.getRaw().getPrice());
-            System.out.println("Total Volume: " + targetCrypto.getRaw().getLastVolumeTotal());
-            System.out.println("Market Cap: " + targetCrypto.getRaw().getMarketCap());
-            System.out.println("Supply: " + targetCrypto.getRaw().getSupply());
+            System.out.println("Name:           " + targetCrypto.getName());
+            System.out.println("Symbol:         " + targetCrypto.getRaw().getFromSymbol());
+            System.out.println("Price:          " + outputMoneyFormat(targetCrypto.getRaw().getPrice()));
+            System.out.println("Total Volume:   " + outputTwoDecimalFormat(targetCrypto.getRaw().getLastVolumeTotal()));
+            System.out.println("Market Cap:     " + outputTwoDecimalFormat(targetCrypto.getRaw().getMarketCap()));
+            System.out.println("Supply:         " + outputTwoDecimalFormat(targetCrypto.getRaw().getSupply()));
             //24 Hour
-            System.out.println("24 Hour Change: " + targetCrypto.getRaw().getChange24Hour());
-            System.out.println("24 Hour Change %: " + targetCrypto.getRaw().getChangePercent24Hour());
-            System.out.println("24 Hour Open: " + targetCrypto.getRaw().getOpen24Hour());
-            System.out.println("24 Hour High: " + targetCrypto.getRaw().getHigh24Hour());
-            System.out.println("24 Hour Low: " + targetCrypto.getRaw().getLow24Hour());
-            System.out.println("24 Hour Volume: " + targetCrypto.getRaw().getVolume24Hour());
+            System.out.println("24H Change:     " + outputTwoDecimalFormat(targetCrypto.getRaw().getChange24Hour()));
+            System.out.println("24H Change %:   " + outputTwoDecimalFormat(targetCrypto.getRaw().getChangePercent24Hour()) + "%");
+            System.out.println("24H Open:       " + outputTwoDecimalFormat(targetCrypto.getRaw().getOpen24Hour()));
+            System.out.println("24H High:       " + outputTwoDecimalFormat(targetCrypto.getRaw().getHigh24Hour()));
+            System.out.println("24H Low:        " + outputTwoDecimalFormat(targetCrypto.getRaw().getLow24Hour()));
+            System.out.println("24H Volume:     " + outputTwoDecimalFormat(targetCrypto.getRaw().getVolume24Hour()));
             //Options
-            System.out.println("\nOptions");
-            System.out.println("1) Buy");
+            System.out.println("\nAmount held:  " + amountHeld);
+            System.out.println("Value of amount held in USD: " + outputMoneyFormat(amountHeld * targetCrypto.getRaw().getPrice()));
+            System.out.println("\nOptions:");
+            System.out.println("\n1) Buy w/ USD or another crypto");
+            System.out.println("2) Sell to USD");
+            System.out.println("0) Return to browse");
+
+            //take query
+            int input;
+
+            Scanner keyboard = new Scanner(System.in);
+            input = keyboard.nextInt();
+            while (input != 1 && input != 2 && input != 0) {
+
+                System.out.println("Invalid choice.");
+                System.out.println("\nOptions:");
+                System.out.println("\n1) Buy w/ USD or another crypto");
+                System.out.println("2) Sell to USD");
+                System.out.println("0) Return to browse");
+                input = keyboard.nextInt();
+            }
+
+            switch (input) {
+
+                case 0:
+                    viewAndTrade(wallet);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    boolean result = Trade.tradeCryptoToUSD(cryptoPosition, wallet);
+                    if (result) {
+                        System.out.println("Trade successful! Wallet updated.");
+                    }
+
+                    viewAndTrade(wallet);
+                    break;
+
+            }
 
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Couldn't retrieve API data.");
+            APICalls.apiError();
             viewAndTrade(wallet);
         }
 
@@ -618,6 +667,21 @@ class MenuTools {
         return NumberFormat.getCurrencyInstance().format(n);
     }
 
+    // Returns a properly formatted currency string depending on locale. (Uses double)
+    private static String outputMoneyFormat(Double n) {
+        return NumberFormat.getCurrencyInstance().format(n);
+    }
+
+    // Returns a two decimal formatted result from a double.
+    static String outputTwoDecimalFormat(Double n) {
+        NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
+        twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
+        twoDecimalFormat.setMinimumFractionDigits(2);
+        twoDecimalFormat.setMaximumFractionDigits(2);
+
+        return twoDecimalFormat.format(n);
+    }
+
     // This makes the method continue when enter is pressed.
     static void promptEnterKey() {
 
@@ -686,7 +750,7 @@ class MenuTools {
 
     // Outputs the title and version of the program.
     private static void title() {
-        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.50");
+        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.70");
     }
 
     // Used for wallet data viewing
@@ -712,10 +776,6 @@ class MenuTools {
         }
 
         return false;
-    }
-
-    static void networkException() {
-        System.out.println("Could not get network data.");
     }
 }
 

@@ -17,6 +17,11 @@ class Cryptocurrency extends Money {
         this.symbol = symbol;
         this.amountHeld = 0.0;
     }
+
+    Cryptocurrency() {
+        this.amountHeld = 0.0;
+    }
+
     // Returns from the API what the current value of this crypto is
     private BigDecimal getCurrentCryptoValue() {
 
@@ -40,13 +45,17 @@ class Cryptocurrency extends Money {
 
     }
 
-    private Double getAmountHeld() {
+    Double getAmountHeld() {
 
         return amountHeld;
     }
 
-    public void setAmountHeld(Double amountHeld) {
+    void setAmountHeld(Double amountHeld) {
         this.amountHeld = amountHeld;
     }
 
+
+    String getSymbol() {
+        return symbol;
+    }
 }
