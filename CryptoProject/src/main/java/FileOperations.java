@@ -6,8 +6,11 @@ Most exceptions are handled here, so as to be easy to consume and process.
  */
 
 import java.io.*;
+import java.math.BigDecimal;
+
 
 class FileOperations {
+
 
     // Saves the wallet passed into it as a serialized object
     static boolean saveWallet(Wallet wallet) {
@@ -102,8 +105,23 @@ class FileOperations {
 
     }
 
+
     private static void printIoException() {
         System.out.println("FileOperations I/O error encountered while trying to read/write:");
+    }
+
+    public static BigDecimal inputClean(String str){
+        char c = str.charAt(0);
+        BigDecimal result;
+        if (c < 48 || c > 57) //check if first character is not a digit using the ASCII chart
+            str = str.replaceFirst(String.valueOf(c), ""); //remove first character
+        try{
+            result = new BigDecimal(str);
+        }catch (NumberFormatException e){
+            return BigDecimal.valueOf(1);
+        }
+
+        return result;
     }
 
     static void printException() {
