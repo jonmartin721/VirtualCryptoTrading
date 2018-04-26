@@ -7,9 +7,10 @@ import POJOs.SingleValue;
 import Service.APICalls;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-class Cryptocurrency extends Money {
+class Cryptocurrency extends Money implements Serializable {
 
     private String symbol;
 

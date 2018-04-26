@@ -22,7 +22,6 @@ class MenuTools {
 
     // This method is called by menu before showing the menu to make sure the user has an account (viewWallet)
     // If not, they can create it here.
-    //TODO add input processing (cleaning) method
     static void launchScreen() {
 
         title();

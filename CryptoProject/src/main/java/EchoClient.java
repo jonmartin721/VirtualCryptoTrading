@@ -1,8 +1,6 @@
 import java.io.*;
 import java.net.Socket;
 import java.nio.file.FileSystem;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 
 // Simple client class. This class connects to an EchoServer to send text back and forth.
@@ -23,7 +21,6 @@ public class EchoClient {
             MenuTools.longerLineDivider();
             System.out.print("\nEnter \"localhost\" if server is on local machine");
             System.out.println(" or IP address of the server if you know it: ");
-            //TODO add message about using localhost if the server is running on the same machine
             System.out.print(" > ");
 
             //Read user input for the server name or IP address
@@ -37,7 +34,7 @@ public class EchoClient {
                 System.out.print(" > ");
 
                 serverName = in.readLine();
-            };
+            }
 
             // Connect to the specified server
             final Socket sock = new Socket(serverName, EchoServer.SERVER_PORT);

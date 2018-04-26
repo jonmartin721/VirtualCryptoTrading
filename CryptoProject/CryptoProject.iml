@@ -13,7 +13,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="jar://$APPLICATION_HOME_DIR$/redist/annotations-java8.jar!/" />
@@ -22,9 +22,9 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="org.slf4j:slf4j-nop:1.7.25" level="project" />
-    <orderEntry type="library" name="com.google.code.gson:gson:2.8.2" level="project" />
-    <orderEntry type="library" name="com.squareup.retrofit2:retrofit:2.4.0" level="project" />
-    <orderEntry type="library" name="com.squareup.retrofit2:converter-gson:2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="org.slf4j:slf4j-nop:1.7.25" level="project" />
+    <orderEntry type="library" exported="" name="com.google.code.gson:gson:2.8.2" level="project" />
+    <orderEntry type="library" exported="" name="com.squareup.retrofit2:retrofit:2.4.0" level="project" />
+    <orderEntry type="library" exported="" name="com.squareup.retrofit2:converter-gson:2.4.0" level="project" />
   </component>
 </module>
