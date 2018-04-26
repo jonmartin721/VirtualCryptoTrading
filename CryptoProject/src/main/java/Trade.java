@@ -3,8 +3,12 @@ This class holds trade objects, these are stored in each Wallet object and repre
 in that Wallet (account).
  */
 
+import Service.APICalls;
+
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 import java.util.UUID;
 
 public class Trade {
@@ -16,89 +20,120 @@ public class Trade {
     private String fromSymbol;
     private String toSymbol;
 
-    // There will be no default constructor, because we won't be consistently creating the same type of object.
-    // Remember, there are 3 types of trades:
 
-    // 1) Crypto to Crypto
-    // 2) USD to Crypto
-    // 3) Crypto to USD
-    // Each of these types is represented below in a method and each will create its own unique TradingPair and it will be added to the list
+    //trade constructor
+    private Trade(String fromSymbol, String toSymbol, BigDecimal fromAmount, BigDecimal toAmount) {
 
-    // PARAMETERIZED CONSTRUCTOR
-    // This can be used for any of the 3 types.
-    Trade(BigDecimal fromAmount, BigDecimal toAmount, String fromSymbol, String toSymbol) {
-
-        tradeID = UUID.randomUUID();
-        dateTime = LocalDateTime.now();
-        this.fromAmount = fromAmount;
-        this.toAmount = toAmount;
         this.fromSymbol = fromSymbol;
         this.toSymbol = toSymbol;
+        this.fromAmount = fromAmount;
+        this.toAmount = toAmount;
+        this.tradeID = UUID.randomUUID();
+        this.dateTime = LocalDateTime.now();
 
     }
+
 
     public boolean tradeCryptoToCrypto(Cryptocurrency fromCrypto, Cryptocurrency toCrypto, Wallet wallet) {
 
-        //perform trade
-//remove left crypto and gain right crypto
-//
-//return that trade failed
         return checkTradeCryptoToCrypto(wallet, fromCrypto, toCrypto);
     }
 
-    //TODO finish Trade Crypto - > USD
-    public boolean tradeCryptoToUSD(Cryptocurrency fromCrypto, Money toUSD, Wallet wallet) {
+    static boolean tradeCryptoToUSD(int cryptoPosition, Wallet wallet) {
+
+        //display basic held info on the currency
+        System.out.println("You have: " + MenuTools.outputTwoDecimalFormat(wallet.getHoldings().get(cryptoPosition).getAmountHeld()));
+        try {
+
+            BigDecimal currentValue = new BigDecimal(APICalls.getSingleValue(wallet.getHoldings().get(cryptoPosition).getSymbol()).getValue());
+            System.out.println("USD Value: " + currentValue);
+            //ask the user how much they want to sell
+            System.out.println("How much (of amount held) to sell?");
+            Scanner keyboard = new Scanner(System.in);
+            double proposedAmountToSell = keyboard.nextDouble();
+            while (proposedAmountToSell < 0) {
+                System.out.println("Invalid amount, choose a valid amount.");
+                proposedAmountToSell = keyboard.nextDouble();
+            }
+
+            //if the trade is valid, perform the trade
+            //1. remove the amount held from the crypto
+            //2. add the USD balance to balance
+            //3. add trade record to trades in wallet
+
+            if (checkTradeCryptoToUSD(wallet, proposedAmountToSell, cryptoPosition)) {
+                //get the total amount held of the crypto
+                double amountHeld = wallet.getHoldings().get(cryptoPosition).getAmountHeld();
+                //get usd held
+                BigDecimal usdHeld = wallet.getUSDBalance();
 
 
-        if (checkTradeCryptoToUSD(wallet, fromCrypto, toAmount) == true) {
+                //calculate USD value of proposed amount to sell
+                BigDecimal proposedAmountBigDecimal = new BigDecimal(proposedAmountToSell);
+                BigDecimal proposedSellValue = currentValue.multiply(proposedAmountBigDecimal);
 
-            //lose left side value. gain right side value.
-            // calculation is done on server side.
-            wallet.deposit(toAmount);
+                //check with the user and display trade data
+                System.out.println("Proposed Trade");
+                System.out.println(wallet.getHoldings().get(cryptoPosition).getSymbol() + "\nFrom: " + amountHeld + " -> " + (amountHeld - proposedAmountToSell));
+                System.out.println("USD" + "\nFrom" + wallet.getUSDBalance() + " -> " + proposedSellValue);
+                System.out.println("Accept?");
+                System.out.println("1) Yes");
+                System.out.println("2) No");
+                int input = keyboard.nextInt();
+                while (input != 1 && input != 0) {
+                    System.out.println("Invalid choice.");
+                    System.out.println("Accept?");
+                    System.out.println("1) Yes");
+                    System.out.println("2) No");
+                    input = keyboard.nextInt();
+                }
 
+                //after the user agrees, perform the trade
+
+                //add usd value usd held
+                wallet.setUSDBalance(usdHeld.add(proposedSellValue));
+
+                //remove that portion of crypto held
+                wallet.getHoldings().get(cryptoPosition).setAmountHeld(amountHeld - proposedAmountToSell);
+
+                //create and add trade to the wallet
+                Trade trade = new Trade(wallet.getHoldings().get(cryptoPosition).getSymbol(), "USD", new BigDecimal(proposedAmountToSell), proposedSellValue);
+                wallet.addTrade(trade);
+
+
+                return true;
+
+
+            }
             return false;
-        } else {
-            return true;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            APICalls.apiError();
+            return false;
         }
+
+    }
+
+    // This method checks that Crypto - > USD trades are possible
+    // This is basically selling Crypto.
+    private static boolean checkTradeCryptoToUSD(Wallet wallet, double proposedAmountToSell, int cryptoPosition) {
+
+        return (wallet.getHoldings().get(cryptoPosition).getAmountHeld() > proposedAmountToSell && proposedAmountToSell > 0);
 
     }
 
     //TODO finish Trade USD - > Crypto
-    public boolean tradeUSDToCrypto(Money fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
+    static boolean tradeUSDToCrypto(Money fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
 
-        if (checkTradeUSDToCrypto(wallet, fromAmount, toCrypto) == true) {
-            //calculation is done in server side
-            //left side loses, right side gains
-            // update wallet
-
-            wallet.withdraw(fromAmount);
-            return true;
-        } else {
-            return false;
-        }
-
+        return true;
 
     }
 
     //TODO finish check Trade Crypto - > Crypto
     // This method checks that Crypto - > Crypto trades are possible
-    private boolean checkTradeCryptoToCrypto(Wallet wallet, Cryptocurrency fromCrypto, Cryptocurrency toCrypto) {
-//            if (fromCrypto.getAmountHeld().equals(toCrypto.getCurrentCryptoValue()))//checks if the amount being traded is valid
-//            {
-//                {
-//                    return true;
-//                }
-//          }
-//                else
-//                return false;
-        return !(fromCrypto.equals(toCrypto));
-    }
-
-    //TODO finish check Trade Crypto - > USD
-    // This method checks that Crypto - > Crypto trades are possible
-    private boolean checkTradeCryptoToUSD(Wallet wallet, Cryptocurrency fromCrypto, BigDecimal toUSD) {
-        return (fromCrypto.getCurrentHoldingValue().compareTo(toUSD) > 0) || (fromCrypto.getCurrentHoldingValue().compareTo(toUSD) == 0);
-
+    private static boolean checkTradeCryptoToCrypto(Wallet wallet, Cryptocurrency fromCrypto, Cryptocurrency toCrypto) {
+        return true;
     }
 
     //TODO finish check Trade USD - > Crypto

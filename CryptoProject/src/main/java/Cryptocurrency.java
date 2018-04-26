@@ -3,41 +3,33 @@ This class is instantiated and put in every Wallet as a cryptocurrency held by t
 on each cryptocurrency.
  */
 
-import jdk.jfr.Percentage;
-import org.knowm.xchange.Exchange;
-import org.knowm.xchange.ExchangeFactory;
-import org.knowm.xchange.coinbase.v2.CoinbaseExchange;
-import org.knowm.xchange.coinbase.v2.dto.CoinbasePrice;
-import org.knowm.xchange.coinbase.v2.service.CoinbaseMarketDataService;
-import org.knowm.xchange.currency.Currency;
+import POJOs.SingleValue;
+import Service.APICalls;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 
 class Cryptocurrency extends Money {
 
-    //TODO use or remove these member variables
     private String symbol;
-    private BigDecimal currentValue;
-    private Percentage last4Hours;
 
-    //TODO this should make an API call after refactoring to CryptoCompare
+    Cryptocurrency(String symbol) {
+        this.symbol = symbol;
+        this.amountHeld = 0.0;
+    }
+
+    Cryptocurrency() {
+        this.amountHeld = 0.0;
+    }
+
     // Returns from the API what the current value of this crypto is
     private BigDecimal getCurrentCryptoValue() {
 
-        //create API stuff
-        //TODO make API an interface or class to improve modularity
-        //TODO change API to CryptoCompare + POJO + GSON
-        Currency thisCurrency = new Currency(symbol);
-        Exchange coinbaseExchange =
-                ExchangeFactory.INSTANCE.createExchange(CoinbaseExchange.class.getName());
-        CoinbaseMarketDataService marketDataService =
-                (CoinbaseMarketDataService) coinbaseExchange.getMarketDataService();
         try {
-            CoinbasePrice spotRate = marketDataService.getCoinbaseSpotRate(thisCurrency, Currency.USD);
-            return new BigDecimal(String.valueOf(spotRate));
+            SingleValue singleValue = APICalls.getSingleValue(symbol);
+            return new BigDecimal(singleValue.getValue());
         } catch (IOException e) {
-            MenuTools.networkException();
+            e.printStackTrace();
             return new BigDecimal(0);
         }
 
@@ -53,13 +45,17 @@ class Cryptocurrency extends Money {
 
     }
 
-    private Double getAmountHeld() {
+    Double getAmountHeld() {
 
         return amountHeld;
     }
 
-    public void setAmountHeld(Double amountHeld) {
+    void setAmountHeld(Double amountHeld) {
         this.amountHeld = amountHeld;
     }
 
+
+    String getSymbol() {
+        return symbol;
+    }
 }

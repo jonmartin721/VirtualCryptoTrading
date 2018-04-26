@@ -16,7 +16,6 @@ public class Wallet implements Serializable {
     private String username;
     private String firstName;
     private String lastName;
-    //TODO add trade info storage method
     private ArrayList<Trade> trades;
     private BigDecimal totalAmountTraded;
     private BigDecimal totalUSDdeposited;
@@ -36,6 +35,20 @@ public class Wallet implements Serializable {
         totalAmountTraded = new BigDecimal(0);
         totalUSDdeposited = new BigDecimal(0);
         totalUSDwithdrawn = new BigDecimal(0);
+
+        //add all the cryptos (zeroed out) to the wallet
+        holdings.add(new Cryptocurrency("BTC"));
+        holdings.add(new Cryptocurrency("ETH"));
+        holdings.add(new Cryptocurrency("XRP"));
+        holdings.add(new Cryptocurrency("DASH"));
+        holdings.add(new Cryptocurrency("BCH"));
+        holdings.add(new Cryptocurrency("ZCH"));
+        holdings.add(new Cryptocurrency("LTC"));
+        holdings.add(new Cryptocurrency("EOS"));
+        holdings.add(new Cryptocurrency("ADA"));
+        holdings.add(new Cryptocurrency("XMR"));
+        holdings.add(new Cryptocurrency("NEO"));
+
 
     }
 
@@ -179,6 +192,17 @@ public class Wallet implements Serializable {
     public UUID getWalletID() {
         return walletID;
     }
+
+    void setUSDBalance(BigDecimal USDBalance) {
+        this.USDBalance = USDBalance;
+    }
+
+    boolean addTrade(Trade trade) {
+
+        trades.add(trade);
+        return true;
+    }
+
 
     String getUsername() {
         return username;
