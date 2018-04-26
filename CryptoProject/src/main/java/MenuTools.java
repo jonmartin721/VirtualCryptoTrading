@@ -74,7 +74,7 @@ class MenuTools {
     private static void createNewAccount() {
 
         Scanner keyboard = new Scanner(System.in);
-        //TODO ask for Username + Password first
+        //Review- TODO ask for Username + Password first
         //TODO make sure the username is unique, else give message and ask for another
 
         // Gather information about the viewWallet
@@ -90,6 +90,8 @@ class MenuTools {
         String username = keyboard.next();
         System.out.print("Password: ");
         String password = keyboard.next();
+
+
 
         // Add the login pair to the LoginInfo object
         LoginInfo loginInfo = FileOperations.loadLoginInfo();
@@ -496,6 +498,19 @@ class MenuTools {
                     System.out.println("You input: " + goal + "%");
                     System.out.println("To confirm, select 1-yes  0-no");
                     confirmInput = keyboardGAP.nextInt();
+
+                }
+
+                // If goal percentage has not been set, it will show a message
+                if (!wallet.setGoal(BigDecimal.valueOf(goal))){
+
+                    System.out.println("Success in setting goal percentage!!");
+
+                }
+                else{
+                    System.out.println("Goal percentage not set. Re-enter your goal percentage!");
+                    goal=keyboardGAP1.nextInt();
+
                 }
                 // Basically typecasting user's goal to BigDecimal so it can be passed into setGoal() method in Wallet class
                 BigDecimal confirmedUsersGoal = BigDecimal.valueOf(goal);
@@ -522,6 +537,8 @@ class MenuTools {
                 MenuTools.lineBreak();
                 System.out.println("Let's view the your performance.");
                 System.out.println("These are your holdings so far:  " + MenuTools.outputMoneyFormat(wallet.getTotalHoldings()));
+
+
                 wallet.showTrades();
                 promptEnterKey();
                 goalsAndPerformance(wallet);
@@ -535,7 +552,7 @@ class MenuTools {
                 System.out.println("\nExiting program...");
                 //System.exit(0);
                 EchoClient.exitProgramAndServer();
-                break;
+                //break;
 
         }
 
@@ -553,6 +570,8 @@ class MenuTools {
 
         Scanner keyboard = new Scanner(System.in);
         BigDecimal amountDeposit = keyboard.nextBigDecimal();
+        FileOperations.inputClean(String.valueOf(amountDeposit));// cleans the input
+
         if (wallet.deposit(amountDeposit)) {
             System.out.println("Amount deposited successfully!");
             System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
@@ -579,6 +598,8 @@ class MenuTools {
 
         Scanner keyboard = new Scanner(System.in);
         BigDecimal amountWithdraw = keyboard.nextBigDecimal();
+        FileOperations.inputClean(String.valueOf(amountWithdraw));// cleans the input
+
         if (wallet.withdraw(amountWithdraw)) {
             System.out.println("Amount withdrawn successfully!");
             System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
@@ -756,6 +777,10 @@ class MenuTools {
     // Used for wallet data viewing
     static void lineDivider() {
         System.out.println("=====================================================");
+    }
+
+    static void longerLineDivider(){
+        System.out.println("==================================================================================================");
     }
 
     // Handles query processing for the browsing and trading area

@@ -127,23 +127,24 @@ public class Wallet implements Serializable {
             System.out.println("You need to set your financial goal");
             System.out.println("Enter your financial goal");
             Scanner keyboard = new Scanner(System.in);
-            goalPercentage = keyboard.nextBigDecimal();
+
         } else {
             BigDecimal totalHoldings = USDBalance.add(getTotalHoldings());
 
             BigDecimal netProfit = totalHoldings.subtract(totalUSDdeposited);
 
             //TODO does this need to be here? always true?
-            if (goalPercentage != null) {
+
                 if (netProfit.compareTo(goalPercentage) > 0) {
                     System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
                     return true;
                 }
 
-            } else {
-                System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
-                return netProfit.compareTo(goalPercentage) == 0;
-            }
+                else {
+                    System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
+
+                    return netProfit.compareTo(goalPercentage) == 0;
+                }
         }
 
         return true;
