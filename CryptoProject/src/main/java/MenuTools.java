@@ -672,7 +672,7 @@ class MenuTools {
         System.out.println("\n### Group members ###" +
                 "\nJonathan Martin - Chief Programmer" +
                 "\nAmee Stevenson - All Purpose Programmer" +
-                "\nBhagyalakshmi Muthucumar - Documentation and Implementation");
+                "\nBhagyalakshmi Muthucumar - Documentation and QA");
 
 
         //saving the wallet for safety

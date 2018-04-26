@@ -14,9 +14,9 @@ class Cryptocurrency extends Money implements Serializable {
 
     private String symbol;
 
-    Cryptocurrency(String symbol) {
+    Cryptocurrency(String symbol, double amountHeld) {
         this.symbol = symbol;
-        this.amountHeld = 0.0;
+        this.amountHeld = amountHeld;
     }
 
     Cryptocurrency() {
