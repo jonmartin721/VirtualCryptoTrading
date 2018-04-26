@@ -7,10 +7,13 @@ Most exceptions are handled here, so as to be easy to consume and process.
 
 import java.io.*;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Scanner;
 
 
 class FileOperations {
 
+    static LoginInfo x=new LoginInfo();
 
     // Saves the wallet passed into it as a serialized object
     static boolean saveWallet(Wallet wallet) {
@@ -102,6 +105,26 @@ class FileOperations {
         String filePathString = "loginInfo.ser";
         File f = new File(filePathString);
         return f.exists() && !f.isDirectory();
+
+    }
+
+    static boolean checkUsername(String username){
+
+        HashMap<String, String> usersAndPasswords= x.getUsersAndPasswords();
+
+        boolean accepted = false;
+        while (usersAndPasswords.containsKey(username)) {
+
+            // Checks to see if the username is unique
+            // Still need to work on this some more
+            Scanner keyboard = new Scanner(System.in);
+            System.out.println("This username already exits. Please choose another.");
+            System.out.println("Enter New Username: ");
+            username = keyboard.next();
+
+        }
+
+        return true;
 
     }
 
