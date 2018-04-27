@@ -83,6 +83,10 @@ class MenuTools {
         System.out.println("\nEnter a username and password; this will be what you use to login in the future.");
         System.out.print("Username: ");
         String username = keyboard.next();
+
+        //Check if username is unique. Otherwise request new username
+        FileOperations.checkUsername(username);
+
         System.out.print("Password: ");
         String password = keyboard.next();
         System.out.print("First Name: ");
