@@ -80,15 +80,17 @@ class MenuTools {
         lineBreak();
         System.out.println("Let's create a Wallet for you.");
         System.out.println("Please enter the following information:");
-        System.out.print("First Name: ");
-        String firstName = keyboard.next();
-        System.out.print("Last Name: ");
-        String lastName = keyboard.next();
-        System.out.println("\nThank you. Now enter a username and password; this will be what you use to login in the future.");
+        System.out.println("\nEnter a username and password; this will be what you use to login in the future.");
         System.out.print("Username: ");
         String username = keyboard.next();
         System.out.print("Password: ");
         String password = keyboard.next();
+        System.out.print("First Name: ");
+        String firstName = keyboard.next();
+        System.out.print("Last Name: ");
+        String lastName = keyboard.next();
+
+
 
 
         // Add the login pair to the LoginInfo object
