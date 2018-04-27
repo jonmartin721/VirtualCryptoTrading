@@ -6,7 +6,7 @@ The goal of this application is to make hesitant traders more willing to try tra
 
 ### Instructions
 
-For this application, you should run EchoServer before running EchoClient. Just type in localhost if you're using the same machine, or you can type in the IP address if you know it.
+For this application, you should run EchoServer before running EchoClient. Just type in "localhost" if you're using the same machine, or you can type in the IP address if you know it.
 
 ### Features
 
@@ -17,6 +17,7 @@ This is a list of final features. They may not be fully implemented yet, but are
 - Live data from the Coinbase exchange API
 - File operations
 - Client/Server architecture
+- Authentication
 
 
 Less impressive but still important OOP features:
@@ -29,8 +30,9 @@ Less impressive but still important OOP features:
 - Serialization
 - Networking
 
-### Libraries
-The only library currently used is [XChange](https://github.com/knowm/XChange). It is a Java library that can connect with many exchanges to pull data and perform real trades on a wallet.
+### API
+CryptoCompare is an API that brings all the latest streaming pricing data in the world of cryptocurrencies. All the latest trades like Bitcoin or Ethereum, these features are all implemented in this program.
+
 
 ### New to Crypto?
 Cryptocurrencies are digital currencies that have some features that set them apart from their real-world counterparts. They are traded online and are much more volatile in value compared to traditional exchanges. Some of their features are:
