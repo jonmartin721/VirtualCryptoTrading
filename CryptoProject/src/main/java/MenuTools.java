@@ -494,11 +494,11 @@ class MenuTools {
         // 'GAP' represents the name of this method Goals And Performance
         Scanner keyboardGAP = new Scanner(System.in);
         int selectionGAP;
-        System.out.println("Select your option below");
-        System.out.println("1) Set your goals you'd like to achieve");
+        System.out.println("Select your option below:");
+        System.out.println("\n1) Set your goals you'd like to achieve");
         System.out.println("2) View your goals as they are presently");
         System.out.println("3) View your performance");
-        System.out.println("4) Return to main menu");
+        System.out.println("0) Return to main menu");
 
         selectionGAP = keyboardGAP.nextInt();
 
@@ -552,17 +552,13 @@ class MenuTools {
                 System.out.println();
                 promptEnterKey();
                 goalsAndPerformance(wallet);
-                // JON- I chose getHoldings() because it returns an ArrayList of the Cryptocurriences
-                // which I'm thinking has all the aggregate information they are looking for?
                 break;
 
-            case 3:
+            case 0:
                 // User is viewing their performance
                 MenuTools.lineBreak();
                 System.out.println("Let's view the your performance.");
                 System.out.println("These are your holdings so far:  " + MenuTools.outputMoneyFormat(wallet.getTotalHoldings()));
-
-
                 wallet.showTrades();
                 promptEnterKey();
                 goalsAndPerformance(wallet);
@@ -571,12 +567,12 @@ class MenuTools {
             case 4:
                 // Returning user to main menu
                 menu(wallet);
+                break;
 
             default:
-                System.out.println("\nExiting program...");
-                //System.exit(0);
-                EchoClient.exitProgramAndServer();
-                //break;
+                System.out.println("Invalid choice. Enter a correct choice next time!");
+                goalsAndPerformance(wallet);
+                break;
 
         }
 
