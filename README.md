@@ -2,16 +2,16 @@
 Please be advised, in order to run this program you must have the required dependencies.  All dependencies are being bundled in a .jar file to guarantee program is operable.  Please keep in mind only do this if your using the .jar file and not compiling yourself.   
 
 In the directory of the CryptoProject.jar file, please create a command prompt and type the following:
-    </br></br>   java -cp CryptoProject.jar EchoServer
+</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java -cp CryptoProject.jar EchoServer
 
 then open a new command prompt in the same folder and type the following:
-    </br></br>   java -cp CryptoProject.jar Echoclient
+</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java -cp CryptoProject.jar Echoclient
 
-  Also the Maven coordinates are:
-    </br></br>   com.google.code.gson:gson:2.8.2
-    </br>   com.squareup.retrofit2:converter-gson:2.4.0
-    </br>   com.squareup.retrofit2:retrofit:2.4.0
-    </br>   org.slf4j:slf4j-nop:1.7.25
+Also the Maven coordinates are:
+</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;com.google.code.gson:gson:2.8.2
+</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;com.squareup.retrofit2:converter-gson:2.4.0
+</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;com.squareup.retrofit2:retrofit:2.4.0
+</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;org.slf4j:slf4j-nop:1.7.25
 
 
 # Virtual Crypto Wallet and Trading 
