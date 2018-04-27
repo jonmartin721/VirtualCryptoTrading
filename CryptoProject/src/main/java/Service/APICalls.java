@@ -33,16 +33,17 @@ public class APICalls {
             response.getRawData().getXRP().setName("Ripple");
             response.getRawData().getXLM().setName("Stellar");
             cryptos.add(response.getRawData().getBTC());
-            cryptos.add(response.getRawData().getBCH());
             cryptos.add(response.getRawData().getETH());
             cryptos.add(response.getRawData().getXRP());
-            cryptos.add(response.getRawData().getLTC());
-            cryptos.add(response.getRawData().getDASH());
-            cryptos.add(response.getRawData().getXMR());
-            cryptos.add(response.getRawData().getNEO());
+            cryptos.add(response.getRawData().getBCH());
             cryptos.add(response.getRawData().getEOS());
+            cryptos.add(response.getRawData().getLTC());
             cryptos.add(response.getRawData().getADA());
             cryptos.add(response.getRawData().getXLM());
+            cryptos.add(response.getRawData().getNEO());
+            cryptos.add(response.getRawData().getXMR());
+            cryptos.add(response.getRawData().getDASH());
+
         }
 
         return cryptos;

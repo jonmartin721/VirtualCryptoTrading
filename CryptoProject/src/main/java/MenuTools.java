@@ -190,6 +190,10 @@ class MenuTools {
         //outputs the menu options
         MenuTools.lineBreak();
         MenuTools.title();
+
+        //saves wallet
+        FileOperations.saveWallet(wallet);
+
         System.out.println("\nWelcome " + wallet.getFirstName() + ", or should I say: " + wallet.getUsername());
         System.out.println("Remember to save and exit when you are done so that your data is safely saved!");
         System.out.println("\nChoose an option below by typing the number:");
@@ -202,7 +206,9 @@ class MenuTools {
         System.out.println("7) Help and About");
         System.out.println("0) Save & Exit");
         System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
-        System.out.println("Total Holdings Value (less USD): " + outputMoneyFormat(wallet.getTotalHoldings()));
+        BigDecimal holdingsValue = wallet.getTotalHoldings();
+        System.out.println("Total Holdings Value (less USD): " + outputMoneyFormat(holdingsValue));
+        System.out.println("Total Wallet Value: " + outputMoneyFormat(wallet.getUSDBalance().add(holdingsValue)));
 
         //captures the user selection
         System.out.print("\nSelection? ");
@@ -290,10 +296,7 @@ class MenuTools {
         actionMessageBox("View and Trade");
 
         System.out.println("\nThe information below is from the CryptoCompareAPI exchange, a widely trusted data source. Data may change quickly.");
-        System.out.println("Right now, there are the top 11 cryptocurrencies by market cap.");
-        System.out.println("\nQUERIES:");
-        System.out.println("Type the symbol to " +
-                "trade or see more info about it, 'r' to reload all data, or 'q' to return to main menu.");
+        System.out.println("Below are the top 11 cryptocurrencies by market cap (as of April 26th, 2018).");
         System.out.println("Loading....");
 
         ArrayList<SingleCryptoData> cryptos;
@@ -305,36 +308,36 @@ class MenuTools {
             cryptos = null;
         }
         //setup table header
-        String leftAlignFormat = "| %-15s  | %-6s     | %-13s | %-9s    |%n";
+        String leftAlignFormat = "| %-15s  | %-6s     | %-13s | %-9s    | %-9s    |%n";
 
-        NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
-        twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
-        twoDecimalFormat.setMinimumFractionDigits(2);
-        twoDecimalFormat.setMaximumFractionDigits(2);
 
         System.out.format("\nExchange Rates:\n");
-        System.out.format("+------------------+------------+---------------+--------------|%n");
-        System.out.format("| Name             | Symbol     | Value (USD)   | 24H Change   |%n");
-        System.out.format("+------------------+------------+---------------+--------------|%n");
+        System.out.format("+------------------+------------+---------------+--------------+--------------|%n");
+        System.out.format("| Name             | Symbol     | Value (USD)   | 24H Change   | Amount Held  |%n");
+        System.out.format("+------------------+------------+---------------+--------------+--------------|%n");
 
 
         if (cryptos != null) {
-            for (SingleCryptoData crypto : cryptos) {
+            for (int i = 0; i < cryptos.size(); i++) {
                 System.out.format(leftAlignFormat,
-                        crypto.getName(),                               //name
-                        crypto.getRaw().getFromSymbol(),                //symbol
-                        "$" + crypto.getRaw().getPrice().toString(),    //price
-                        (crypto.getRaw().getChangePercent24Hour() > 0) ? "+" + twoDecimalFormat.format(crypto.getRaw().getChangePercent24Hour()) +
-                                "%" : twoDecimalFormat.format(crypto.getRaw().getChangePercent24Hour()) + "%");     //24 hour change
+                        cryptos.get(i).getName(),                               //name
+                        cryptos.get(i).getRaw().getFromSymbol(),                //symbol
+                        "$" + cryptos.get(i).getRaw().getPrice().toString(),    //price
+                        (cryptos.get(i).getRaw().getChangePercent24Hour() > 0) ? "+" + MenuTools.outputTwoDecimalFormat(cryptos.get(i).getRaw().getChangePercent24Hour()) +
+                                "%" : MenuTools.outputTwoDecimalFormat(cryptos.get(i).getRaw().getChangePercent24Hour()) + "%",
+                        MenuTools.outputTwoDecimalFormat(wallet.getHoldings().get(i).getAmountHeld()));     //24 hour change
             }
         }
 
 
         //ending line
-        System.out.format("+------------------+------------+---------------+--------------|%n");
+        System.out.format("+------------------+------------+---------------+--------------+--------------|%n");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println("\nLast updated: " + timestamp);
-
+        System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
+        System.out.println("\nQUERIES:");
+        System.out.println("Type the symbol to " +
+                "trade or see more info about it, 'r' to reload all data, or 'q' to return to main menu.");
         System.out.println("\nQuery: ");
         Scanner keyboard = new Scanner(System.in);
         String query = keyboard.next();
@@ -415,23 +418,23 @@ class MenuTools {
             System.out.println("24H Low:        " + outputTwoDecimalFormat(targetCrypto.getRaw().getLow24Hour()));
             System.out.println("24H Volume:     " + outputTwoDecimalFormat(targetCrypto.getRaw().getVolume24Hour()));
             //Options
-            System.out.println("\nAmount held:  " + amountHeld);
+            System.out.println("\nAmount held:  " + outputSixDecimalFormat(amountHeld));
             System.out.println("Value of amount held in USD: " + outputMoneyFormat(amountHeld.multiply(BigDecimal.valueOf(targetCrypto.getRaw().getPrice()))));
             System.out.println("\nOptions:");
-            System.out.println("\n1) Buy w/ USD or another crypto");
+            System.out.println("\n1) Buy with USD");
             System.out.println("2) Sell to USD");
             System.out.println("0) Return to browse");
 
             //take query
             int input;
-
+            boolean result;
             Scanner keyboard = new Scanner(System.in);
             input = keyboard.nextInt();
             while (input != 1 && input != 2 && input != 0) {
 
                 System.out.println("Invalid choice.");
                 System.out.println("\nOptions:");
-                System.out.println("\n1) Buy w/ USD or another crypto");
+                System.out.println("\n1) Buy with USD");
                 System.out.println("2) Sell to USD");
                 System.out.println("0) Return to browse");
                 input = keyboard.nextInt();
@@ -443,17 +446,28 @@ class MenuTools {
                     viewAndTrade(wallet);
                     break;
                 case 1:
-                    break;
-                case 2:
-                    boolean result = Trade.tradeCryptoToUSD(cryptoPosition, wallet);
+                    result = Trade.tradeUsdToCrypto(cryptoPosition, wallet);
                     if (result) {
                         System.out.println("Trade successful! Wallet updated.");
+                        promptEnterKey();
+                    } else {
+                        System.out.println("Trade not successful. Make sure to be entering a valid amount.");
+                        promptEnterKey();
+                    }
+                    viewAndTrade(wallet);
+                    break;
+                case 2:
+                    result = Trade.tradeCryptoToUSD(cryptoPosition, wallet);
+                    if (result) {
+                        System.out.println("Trade successful! Wallet updated.");
+                        promptEnterKey();
+                    } else {
+                        System.out.println("Trade not successful. Make sure to be entering a valid amount.");
                         promptEnterKey();
                     }
 
                     viewAndTrade(wallet);
                     break;
-
             }
 
 
@@ -567,7 +581,7 @@ class MenuTools {
         actionMessageBox("Deposit");
 
         BigDecimal previousBalance = wallet.getUSDBalance();
-        System.out.println("\nUSD Balance: " + wallet.getUSDBalance());
+        System.out.println("\nUSD Balance: " + outputMoneyFormat(previousBalance));
         System.out.println("Enter amount to deposit: ");
 
         Scanner keyboard = new Scanner(System.in);
@@ -579,13 +593,13 @@ class MenuTools {
             System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
             System.out.println("Deposited: " + outputMoneyFormat(amountDeposit));
             System.out.println("After: " + outputMoneyFormat(wallet.getUSDBalance()));
+            wallet.setTotalUsdDeposited(wallet.getTotalUsdDeposited().add(amountDeposit)); //updates the total amount deposited
             promptEnterKey();
         } else {
             System.out.println("Amount not deposited, incorrect amount specified. Try again later.");
         }
 
         //saving the wallet for safety
-        FileOperations.saveWallet(wallet);
         menu(wallet);
     }
 
@@ -595,7 +609,7 @@ class MenuTools {
         actionMessageBox("Withdraw");
 
         BigDecimal previousBalance = wallet.getUSDBalance();
-        System.out.println("\nUSD Balance: " + wallet.getUSDBalance());
+        System.out.println("\nUSD Balance: " + outputMoneyFormat(previousBalance));
         System.out.print("Enter amount to withdraw: ");
 
         Scanner keyboard = new Scanner(System.in);
@@ -607,13 +621,13 @@ class MenuTools {
             System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
             System.out.println("Withdrawn: " + outputMoneyFormat(amountWithdraw));
             System.out.println("After: " + outputMoneyFormat(wallet.getUSDBalance()));
+            wallet.setTotalUsdWithdrawn(wallet.getTotalUsdWithdrawn().add(amountWithdraw)); //updates the total amount withdrawn
             promptEnterKey();
         } else {
             System.out.println("Amount not withdrawn, incorrect amount specified. Try again later.");
         }
 
-        //saving the wallet for safety
-        FileOperations.saveWallet(wallet);
+
         menu(wallet);
     }
 
@@ -705,6 +719,23 @@ class MenuTools {
         return twoDecimalFormat.format(n);
     }
 
+    private static String outputTwoDecimalFormat(BigDecimal n) {
+        NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
+        twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
+        twoDecimalFormat.setMinimumFractionDigits(2);
+        twoDecimalFormat.setMaximumFractionDigits(2);
+
+        return twoDecimalFormat.format(n);
+    }
+
+    static String outputSixDecimalFormat(BigDecimal n) {
+        NumberFormat sixDecimalFormat = DecimalFormat.getInstance(Locale.US);
+        sixDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
+        sixDecimalFormat.setMinimumFractionDigits(2);
+        sixDecimalFormat.setMaximumFractionDigits(2);
+        return sixDecimalFormat.format(n);
+    }
+
     // This makes the method continue when enter is pressed.
     static void promptEnterKey() {
 
@@ -773,16 +804,7 @@ class MenuTools {
 
     // Outputs the title and version of the program.
     private static void title() {
-        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.70");
-    }
-
-    // Used for wallet data viewing
-    static void lineDivider() {
-        System.out.println("=====================================================");
-    }
-
-    static void longerLineDivider() {
-        System.out.println("==================================================================================================");
+        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.80");
     }
 
     // Handles query processing for the browsing and trading area
