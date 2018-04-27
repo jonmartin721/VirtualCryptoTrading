@@ -513,7 +513,9 @@ class MenuTools {
                 Scanner keyboardGAP1 = new Scanner(System.in);
                 float goal = keyboardGAP1.nextFloat();
                 System.out.println("You input: " + goal + "%");
-                System.out.println("To confirm, select 1-yes  0-no");
+                System.out.println("Confirm?");
+                System.out.println("\n1) Yes");
+                System.out.println("0) No");
                 int confirmInput = keyboardGAP1.nextInt();
 
                 // Confirm user has input the amount of their goal
