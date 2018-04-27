@@ -450,6 +450,8 @@ class MenuTools {
                     if (result) {
                         System.out.println("Trade successful! Wallet updated.");
                         promptEnterKey();
+                    } else {
+                        System.out.println("Trade not successful. Make sure to be entering a valid amount.");
                     }
                     viewAndTrade(wallet);
                     break;
@@ -458,6 +460,8 @@ class MenuTools {
                     if (result) {
                         System.out.println("Trade successful! Wallet updated.");
                         promptEnterKey();
+                    } else {
+                        System.out.println("Trade not successful. Make sure to be entering a valid amount.");
                     }
 
                     viewAndTrade(wallet);
@@ -799,11 +803,6 @@ class MenuTools {
     // Outputs the title and version of the program.
     private static void title() {
         System.out.println("Virtual Cryptocurrency Wallet and Trading v0.80");
-    }
-
-    // Used for wallet data viewing
-    static void lineDivider() {
-        System.out.println("=====================================================");
     }
 
     // Handles query processing for the browsing and trading area

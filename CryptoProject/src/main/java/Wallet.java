@@ -89,13 +89,9 @@ class Wallet implements Serializable {
         } else {
             trades.forEach(trade -> {
                 System.out.println("Trade ID: " + trade.getTradeID());
-                MenuTools.lineDivider();
                 System.out.println("Date of Trade: " + trade.getDateTime());
-                MenuTools.lineDivider();
                 System.out.println("From: " + trade.getFromSymbol());
-                MenuTools.lineDivider();
                 System.out.println("To: " + trade.getToSymbol());
-                MenuTools.lineDivider();
                 System.out.println("Amount: " + MenuTools.outputMoneyFormat(trade.getFromAmount().subtract(trade.getToAmount())));
 
             });
