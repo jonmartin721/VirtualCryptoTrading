@@ -24,6 +24,7 @@ class MenuTools {
     // If not, they can create it here.
     static void launchScreen() {
 
+        lineBreak();
         title();
 
         //if the loginInfo.ser file doesn't exist, create a blank one, save it, and send user to account creation
@@ -44,9 +45,8 @@ class MenuTools {
         //Input validation
         while (response != 1 && response != 2 && response != 0) {
 
-            lineBreak();
             title();
-            System.out.println("Invalid response!");
+            System.out.println("\nInvalid response!");
             System.out.println("1) Login");
             System.out.println("2) Create Wallet");
             System.out.println("0) Exit");
@@ -275,7 +275,9 @@ class MenuTools {
                 break;
 
             default:
-                System.out.println("\nEnter a valid choice!");
+                System.out.println("\nInvalid choice. Enter a valid choice next time!");
+                promptEnterKey();
+                menu(wallet);
                 break;
 
         }
@@ -689,8 +691,9 @@ class MenuTools {
         System.out.println("0) Save and Exit - Saves trading information to wallet and exits.");
 
         System.out.println("\nResources used:");
-        System.out.println("- XChange");
-        System.out.println("- Coinbase Exchange API");
+        System.out.println("- CryptoCompareAPI");
+        System.out.println("- Retrofit");
+        System.out.println("- Gson");
         System.out.println("- Lots of Google!");
         System.out.println("\n### Group members ###" +
                 "\nJonathan Martin - Chief Programmer" +
