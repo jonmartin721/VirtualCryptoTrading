@@ -190,6 +190,10 @@ class MenuTools {
         //outputs the menu options
         MenuTools.lineBreak();
         MenuTools.title();
+
+        //saves wallet
+        FileOperations.saveWallet(wallet);
+
         System.out.println("\nWelcome " + wallet.getFirstName() + ", or should I say: " + wallet.getUsername());
         System.out.println("Remember to save and exit when you are done so that your data is safely saved!");
         System.out.println("\nChoose an option below by typing the number:");
@@ -578,13 +582,13 @@ class MenuTools {
             System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
             System.out.println("Deposited: " + outputMoneyFormat(amountDeposit));
             System.out.println("After: " + outputMoneyFormat(wallet.getUSDBalance()));
+            wallet.setTotalUsdDeposited(wallet.getTotalUsdDeposited().add(amountDeposit)); //updates the total amount deposited
             promptEnterKey();
         } else {
             System.out.println("Amount not deposited, incorrect amount specified. Try again later.");
         }
 
         //saving the wallet for safety
-        FileOperations.saveWallet(wallet);
         menu(wallet);
     }
 
@@ -606,13 +610,13 @@ class MenuTools {
             System.out.println("\nBefore: " + outputMoneyFormat(previousBalance));
             System.out.println("Withdrawn: " + outputMoneyFormat(amountWithdraw));
             System.out.println("After: " + outputMoneyFormat(wallet.getUSDBalance()));
+            wallet.setTotalUsdWithdrawn(wallet.getTotalUsdWithdrawn().add(amountWithdraw)); //updates the total amount withdrawn
             promptEnterKey();
         } else {
             System.out.println("Amount not withdrawn, incorrect amount specified. Try again later.");
         }
 
-        //saving the wallet for safety
-        FileOperations.saveWallet(wallet);
+
         menu(wallet);
     }
 
@@ -789,7 +793,7 @@ class MenuTools {
 
     // Outputs the title and version of the program.
     private static void title() {
-        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.70");
+        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.80");
     }
 
     // Used for wallet data viewing

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class Wallet implements Serializable {
+class Wallet implements Serializable {
 
     private ArrayList<Cryptocurrency> holdings;
     private UUID walletID;
@@ -149,19 +149,19 @@ public class Wallet implements Serializable {
 
     }
 
-    // This class shows general Wallet data.
+    // This method shows general Wallet data.
     void showWalletData() {
 
         BigDecimal totalHoldings = getTotalHoldings();
         System.out.println("\nHello " + firstName + " " + lastName + "!");
-        System.out.println("BASIC INFO:");
-        System.out.println("Wallet ID: " + walletID);
+        System.out.println("\nBASIC INFO:");
+        System.out.println("\nWallet ID: " + walletID);
         System.out.println("Total Holdings USD Worth:  " + MenuTools.outputMoneyFormat(totalHoldings));
         System.out.println("USD Balance: " + MenuTools.outputMoneyFormat(getUSDBalance()));
-        System.out.println("Total Wallet Value: " + totalHoldings.add(getUSDBalance()));
+        System.out.println("Total Wallet Value: " + MenuTools.outputMoneyFormat(totalHoldings.add(getUSDBalance())));
         System.out.println("Total USD Deposited: " + MenuTools.outputMoneyFormat(getTotalUsdDeposited()));
         System.out.println("Total USD Withdrawn: " + MenuTools.outputMoneyFormat(getTotalUsdWithdrawn()));
-        System.out.println("Total amount traded: " + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
+        System.out.println("Total Amount traded: " + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
         System.out.println("\nTRADES: ");
         showTrades();
 
@@ -173,28 +173,18 @@ public class Wallet implements Serializable {
         return holdings;
     }
 
-    public void setHoldings(ArrayList<Cryptocurrency> holdings) {
-        this.holdings = holdings;
-    }
-
     BigDecimal getUSDBalance() {
         return USDBalance;
-    }
-
-    public UUID getWalletID() {
-        return walletID;
     }
 
     void setUSDBalance(BigDecimal USDBalance) {
         this.USDBalance = USDBalance;
     }
 
-    boolean addTrade(Trade trade) {
+    void addTrade(Trade trade) {
 
         trades.add(trade);
-        return true;
     }
-
 
     String getUsername() {
         return username;
@@ -204,19 +194,19 @@ public class Wallet implements Serializable {
         return firstName;
     }
 
-    private BigDecimal getTotalUsdDeposited() {
+    BigDecimal getTotalUsdDeposited() {
         return totalUsdDeposited;
     }
 
-    public void setTotalUsdDeposited(BigDecimal totalUsdDeposited) {
+    void setTotalUsdDeposited(BigDecimal totalUsdDeposited) {
         this.totalUsdDeposited = totalUsdDeposited;
     }
 
-    private BigDecimal getTotalUsdWithdrawn() {
+    BigDecimal getTotalUsdWithdrawn() {
         return totalUsdWithdrawn;
     }
 
-    public void setTotalUsdWithdrawn(BigDecimal totalUsdWithdrawn) {
+    void setTotalUsdWithdrawn(BigDecimal totalUsdWithdrawn) {
         this.totalUsdWithdrawn = totalUsdWithdrawn;
     }
 
@@ -224,7 +214,7 @@ public class Wallet implements Serializable {
         return totalAmountTraded;
     }
 
-    public void setTotalAmountTraded(BigDecimal totalAmountTraded) {
+    void setTotalAmountTraded(BigDecimal totalAmountTraded) {
         this.totalAmountTraded = totalAmountTraded;
     }
 }
