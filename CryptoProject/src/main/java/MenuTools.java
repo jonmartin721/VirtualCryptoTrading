@@ -290,10 +290,7 @@ class MenuTools {
         actionMessageBox("View and Trade");
 
         System.out.println("\nThe information below is from the CryptoCompareAPI exchange, a widely trusted data source. Data may change quickly.");
-        System.out.println("Right now, there are the top 11 cryptocurrencies by market cap.");
-        System.out.println("\nQUERIES:");
-        System.out.println("Type the symbol to " +
-                "trade or see more info about it, 'r' to reload all data, or 'q' to return to main menu.");
+        System.out.println("Below are the top 11 cryptocurrencies by market cap (as of April 26th, 2018).");
         System.out.println("Loading....");
 
         ArrayList<SingleCryptoData> cryptos;
@@ -305,36 +302,36 @@ class MenuTools {
             cryptos = null;
         }
         //setup table header
-        String leftAlignFormat = "| %-15s  | %-6s     | %-13s | %-9s    |%n";
+        String leftAlignFormat = "| %-15s  | %-6s     | %-13s | %-9s    | %-9s    |%n";
 
-        NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
-        twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
-        twoDecimalFormat.setMinimumFractionDigits(2);
-        twoDecimalFormat.setMaximumFractionDigits(2);
 
         System.out.format("\nExchange Rates:\n");
-        System.out.format("+------------------+------------+---------------+--------------|%n");
-        System.out.format("| Name             | Symbol     | Value (USD)   | 24H Change   |%n");
-        System.out.format("+------------------+------------+---------------+--------------|%n");
+        System.out.format("+------------------+------------+---------------+--------------+--------------|%n");
+        System.out.format("| Name             | Symbol     | Value (USD)   | 24H Change   | Amount Held  |%n");
+        System.out.format("+------------------+------------+---------------+--------------+--------------|%n");
 
 
         if (cryptos != null) {
-            for (SingleCryptoData crypto : cryptos) {
+            for (int i = 0; i < cryptos.size(); i++) {
                 System.out.format(leftAlignFormat,
-                        crypto.getName(),                               //name
-                        crypto.getRaw().getFromSymbol(),                //symbol
-                        "$" + crypto.getRaw().getPrice().toString(),    //price
-                        (crypto.getRaw().getChangePercent24Hour() > 0) ? "+" + twoDecimalFormat.format(crypto.getRaw().getChangePercent24Hour()) +
-                                "%" : twoDecimalFormat.format(crypto.getRaw().getChangePercent24Hour()) + "%");     //24 hour change
+                        cryptos.get(i).getName(),                               //name
+                        cryptos.get(i).getRaw().getFromSymbol(),                //symbol
+                        "$" + cryptos.get(i).getRaw().getPrice().toString(),    //price
+                        (cryptos.get(i).getRaw().getChangePercent24Hour() > 0) ? "+" + MenuTools.outputTwoDecimalFormat(cryptos.get(i).getRaw().getChangePercent24Hour()) +
+                                "%" : MenuTools.outputTwoDecimalFormat(cryptos.get(i).getRaw().getChangePercent24Hour()) + "%",
+                        MenuTools.outputTwoDecimalFormat(wallet.getHoldings().get(i).getAmountHeld()));     //24 hour change
             }
         }
 
 
         //ending line
-        System.out.format("+------------------+------------+---------------+--------------|%n");
+        System.out.format("+------------------+------------+---------------+--------------+--------------|%n");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println("\nLast updated: " + timestamp);
-
+        System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
+        System.out.println("\nQUERIES:");
+        System.out.println("Type the symbol to " +
+                "trade or see more info about it, 'r' to reload all data, or 'q' to return to main menu.");
         System.out.println("\nQuery: ");
         Scanner keyboard = new Scanner(System.in);
         String query = keyboard.next();
@@ -705,6 +702,23 @@ class MenuTools {
         return twoDecimalFormat.format(n);
     }
 
+    private static String outputTwoDecimalFormat(BigDecimal n) {
+        NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
+        twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
+        twoDecimalFormat.setMinimumFractionDigits(2);
+        twoDecimalFormat.setMaximumFractionDigits(2);
+
+        return twoDecimalFormat.format(n);
+    }
+
+    static String outputSixDecimalFormat(BigDecimal n) {
+        NumberFormat sixDecimalFormat = DecimalFormat.getInstance(Locale.US);
+        sixDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
+        sixDecimalFormat.setMinimumFractionDigits(2);
+        sixDecimalFormat.setMaximumFractionDigits(2);
+        return sixDecimalFormat.format(n);
+    }
+
     // This makes the method continue when enter is pressed.
     static void promptEnterKey() {
 
@@ -779,10 +793,6 @@ class MenuTools {
     // Used for wallet data viewing
     static void lineDivider() {
         System.out.println("=====================================================");
-    }
-
-    static void longerLineDivider() {
-        System.out.println("==================================================================================================");
     }
 
     // Handles query processing for the browsing and trading area

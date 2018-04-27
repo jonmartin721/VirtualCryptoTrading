@@ -83,8 +83,10 @@ public class Trade implements Serializable {
                 BigDecimal proposedSellValue = currentValue.multiply(proposedAmountBigDecimal);
 
                 //check with the user and display trade data
+                System.out.println("\n###############");
                 System.out.println("Proposed Trade");
-                System.out.println(wallet.getHoldings().get(cryptoPosition).getSymbol() + ":" + "\nFrom: " + amountHeld + " -> " + (amountHeld.subtract(proposedAmountBigDecimal)));
+                System.out.println("###############");
+                System.out.println(wallet.getHoldings().get(cryptoPosition).getSymbol() + ":" + "\nFrom: " + amountHeld + " -> " + MenuTools.outputSixDecimalFormat(amountHeld.subtract(proposedAmountBigDecimal)));
                 System.out.println("\nUSD:" + "\nFrom: " + wallet.getUSDBalance() + " -> " + MenuTools.outputMoneyFormat(wallet.getUSDBalance().add(proposedSellValue)));
                 System.out.println("\nAccept?");
                 System.out.println("1) Yes");
