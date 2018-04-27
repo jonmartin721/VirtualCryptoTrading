@@ -6,12 +6,13 @@ in that Wallet (account).
 import Service.APICalls;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.UUID;
 
-public class Trade {
+public class Trade implements Serializable {
 
     private UUID tradeID;
     private LocalDateTime dateTime;
@@ -47,13 +48,15 @@ public class Trade {
                     "Avoided crash... Returning to login.");
             MenuTools.launchScreen();
         }
-        System.out.println("You have: " + wallet.getHoldings().get(cryptoPosition).getAmountHeld());
+
         try {
 
             String cryptoSymbol = wallet.getHoldings().get(cryptoPosition).getSymbol();
             double currentValueDouble = APICalls.getSingleValue(cryptoSymbol).getValue();
             BigDecimal currentValue = new BigDecimal(currentValueDouble);
-            System.out.println("USD Value: " + currentValue);
+            System.out.println("\nSelling " + cryptoSymbol + ":");
+            System.out.println("USD Value: " + MenuTools.outputMoneyFormat(currentValueDouble));
+
             //ask the user how much they want to sell
             System.out.println("How much (of amount held) to sell?");
             Scanner keyboard = new Scanner(System.in);
@@ -81,9 +84,9 @@ public class Trade {
 
                 //check with the user and display trade data
                 System.out.println("Proposed Trade");
-                System.out.println(wallet.getHoldings().get(cryptoPosition).getSymbol() + "\nFrom: " + amountHeld + " -> " + (amountHeld.subtract(proposedAmountBigDecimal)));
-                System.out.println("USD" + "\nFrom" + wallet.getUSDBalance() + " -> " + proposedSellValue);
-                System.out.println("Accept?");
+                System.out.println(wallet.getHoldings().get(cryptoPosition).getSymbol() + ":" + "\nFrom: " + amountHeld + " -> " + (amountHeld.subtract(proposedAmountBigDecimal)));
+                System.out.println("\nUSD:" + "\nFrom: " + wallet.getUSDBalance() + " -> " + MenuTools.outputMoneyFormat(wallet.getUSDBalance().add(proposedSellValue)));
+                System.out.println("\nAccept?");
                 System.out.println("1) Yes");
                 System.out.println("2) No");
                 int input = keyboard.nextInt();

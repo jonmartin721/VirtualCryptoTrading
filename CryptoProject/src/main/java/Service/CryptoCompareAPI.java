@@ -27,7 +27,7 @@ public interface CryptoCompareAPI {
 
     @GET("price")
     Call<SingleValue> getSingleValue(
-            @Query("fsyms") String fromCryptos,
+            @Query("fsym") String fromCryptos,
             @Query("tsyms") String toCryptos,
             @Query("extraParams") String extraParams);
 

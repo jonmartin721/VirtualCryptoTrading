@@ -202,7 +202,7 @@ class MenuTools {
         System.out.println("7) Help and About");
         System.out.println("0) Save & Exit");
         System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
-        //TODO add total holdings here
+        System.out.println("Total Holdings Value (less USD): " + outputMoneyFormat(wallet.getTotalHoldings()));
 
         //captures the user selection
         System.out.print("\nSelection? ");
@@ -289,11 +289,12 @@ class MenuTools {
 
         actionMessageBox("View and Trade");
 
-        System.out.println("\nThe information below is from the Coinbase exchange, a widely trusted exchange. It may change very quickly.");
+        System.out.println("\nThe information below is from the CryptoCompareAPI exchange, a widely trusted data source. Data may change quickly.");
         System.out.println("Right now, there are the top 11 cryptocurrencies by market cap.");
         System.out.println("\nQUERIES:");
         System.out.println("Type the symbol to " +
                 "trade or see more info about it, 'r' to reload all data, or 'q' to return to main menu.");
+        System.out.println("Loading....");
 
         ArrayList<SingleCryptoData> cryptos;
 
@@ -447,6 +448,7 @@ class MenuTools {
                     boolean result = Trade.tradeCryptoToUSD(cryptoPosition, wallet);
                     if (result) {
                         System.out.println("Trade successful! Wallet updated.");
+                        promptEnterKey();
                     }
 
                     viewAndTrade(wallet);
@@ -689,12 +691,12 @@ class MenuTools {
     }
 
     // Returns a properly formatted currency string depending on locale. (Uses double)
-    private static String outputMoneyFormat(Double n) {
+    static String outputMoneyFormat(Double n) {
         return NumberFormat.getCurrencyInstance().format(n);
     }
 
     // Returns a two decimal formatted result from a double.
-    static String outputTwoDecimalFormat(Double n) {
+    private static String outputTwoDecimalFormat(Double n) {
         NumberFormat twoDecimalFormat = DecimalFormat.getInstance(Locale.US);
         twoDecimalFormat.setRoundingMode(RoundingMode.FLOOR);
         twoDecimalFormat.setMinimumFractionDigits(2);

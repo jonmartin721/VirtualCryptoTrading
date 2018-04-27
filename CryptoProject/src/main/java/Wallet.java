@@ -37,7 +37,7 @@ public class Wallet implements Serializable {
         totalUsdWithdrawn = new BigDecimal(0);
 
         //add all the cryptos (zeroed out) to the wallet
-        holdings.add(new Cryptocurrency("BTC", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("BTC", new BigDecimal(1)));
         holdings.add(new Cryptocurrency("ETH", new BigDecimal(0)));
         holdings.add(new Cryptocurrency("XRP", new BigDecimal(0)));
         holdings.add(new Cryptocurrency("DASH", new BigDecimal(0)));
