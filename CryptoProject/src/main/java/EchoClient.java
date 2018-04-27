@@ -18,7 +18,6 @@ public class EchoClient {
             //Prompting the user to enter the Server to connect to
             System.out.println("\nYou must run \"EchoServer\" first and then \"EchoClient\" to successfully start this program.");
             System.out.println("If you don't, the system will not work properly and you will not be able to launch the program.");
-            MenuTools.longerLineDivider();
             System.out.print("\nEnter \"localhost\" if server is on local machine");
             System.out.println(" or IP address of the server if you know it: ");
             System.out.print(" > ");
@@ -41,7 +40,6 @@ public class EchoClient {
             System.out.println();
             System.out.println("Connected to " + serverName + " on port " + EchoServer.SERVER_PORT);
             System.out.println();
-            MenuTools.longerLineDivider();
 
             // Set up I/O streams with the server
             final ObjectOutputStream output = new ObjectOutputStream(sock.getOutputStream());

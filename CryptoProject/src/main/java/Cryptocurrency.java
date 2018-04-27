@@ -20,7 +20,12 @@ class Cryptocurrency extends Money implements Serializable {
     }
 
     // Returns from the API what the current value of this crypto is
-    private BigDecimal getCurrentCryptoValue() {
+    BigDecimal getCurrentCryptoValue() {
+
+        //returns 0 immediately if they don't have any (will save lots of time)
+        if (amountHeld.compareTo(BigDecimal.ZERO) == 0) {
+            return new BigDecimal(0);
+        }
 
         try {
             SingleValue singleValue = APICalls.getSingleValue(symbol);

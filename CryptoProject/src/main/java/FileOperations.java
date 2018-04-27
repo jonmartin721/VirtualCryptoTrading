@@ -110,7 +110,7 @@ class FileOperations {
         System.out.println("FileOperations I/O error encountered while trying to read/write:");
     }
 
-    public static BigDecimal inputClean(String str){
+    static BigDecimal inputClean(String str) {
         char c = str.charAt(0);
         BigDecimal result;
         if (c < 48 || c > 57) //check if first character is not a digit using the ASCII chart
