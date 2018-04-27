@@ -5,7 +5,8 @@ In the directory of the CryptoProject.jar file, please create a command prompt a
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java -cp CryptoProject.jar EchoServer
 
 then open a new command prompt in the same folder and type the following:
-</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java -cp CryptoProject.jar EchoClient
+</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java -cp CryptoProject.jar EchoClient.
+This is the window you will be using to interact with the program.
 
 Also the Maven coordinates (for importing into an IDE for compilation) are:
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;com.google.code.gson:gson:2.8.2
