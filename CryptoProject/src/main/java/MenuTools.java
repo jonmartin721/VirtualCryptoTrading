@@ -804,7 +804,7 @@ class MenuTools {
 
     // Outputs the title and version of the program.
     private static void title() {
-        System.out.println("Virtual Cryptocurrency Wallet and Trading v0.80");
+        System.out.println("Virtual Cryptocurrency Wallet and Trading v1.0");
     }
 
     // Handles query processing for the browsing and trading area
