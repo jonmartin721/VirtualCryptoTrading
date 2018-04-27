@@ -314,9 +314,9 @@ class MenuTools {
 
 
         System.out.format("\nExchange Rates:\n");
-        System.out.format("+------------------+------------+---------------+--------------+--------------|%n");
+        System.out.format("+------------------+------------+---------------+--------------+--------------+%n");
         System.out.format("| Name             | Symbol     | Value (USD)   | 24H Change   | Amount Held  |%n");
-        System.out.format("+------------------+------------+---------------+--------------+--------------|%n");
+        System.out.format("+------------------+------------+---------------+--------------+--------------+%n");
 
 
         if (cryptos != null) {
@@ -333,7 +333,7 @@ class MenuTools {
 
 
         //ending line
-        System.out.format("+------------------+------------+---------------+--------------+--------------|%n");
+        System.out.format("+------------------+------------+---------------+--------------+--------------+%n");
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         System.out.println("\nLast updated: " + timestamp);
         System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
