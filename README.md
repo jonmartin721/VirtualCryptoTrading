@@ -33,7 +33,7 @@ Less impressive but still important OOP features:
 - Networking
 
 ### API
-CryptoCompare is an API that brings all the latest streamed pricing data in the world of cryptocurrencies. All the latest trades like Bitcoin, Ethereum, BTC Cash, Ripple and Litcoin to name a few.  The current trades for these crytocurrencies are streamed live and can be updated while program is running by selecting the "r" button that reloads the query (see picture 3).
+CryptoCompare is an API that brings all the latest streamed pricing data in the world of cryptocurrencies. All the latest trades like Bitcoin, Ethereum, BTC Cash, Ripple and Litcoin to name a few.  The current rates for these crytocurrencies can be updated while program is running by selecting the "r" button that reloads the query in that area of the application (see picture 3).
 
 
 ### New to Crypto?
