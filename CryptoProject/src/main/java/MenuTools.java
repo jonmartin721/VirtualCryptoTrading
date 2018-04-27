@@ -412,11 +412,12 @@ class MenuTools {
             System.out.println("24H Low:        " + outputTwoDecimalFormat(targetCrypto.getRaw().getLow24Hour()));
             System.out.println("24H Volume:     " + outputTwoDecimalFormat(targetCrypto.getRaw().getVolume24Hour()));
             //Options
-            System.out.println("\nAmount held:  " + amountHeld);
+            System.out.println("\nAmount held:  " + outputSixDecimalFormat(amountHeld));
             System.out.println("Value of amount held in USD: " + outputMoneyFormat(amountHeld.multiply(BigDecimal.valueOf(targetCrypto.getRaw().getPrice()))));
             System.out.println("\nOptions:");
-            System.out.println("\n1) Buy w/ USD or another crypto");
-            System.out.println("2) Sell to USD");
+            System.out.println("\n1) Buy with USD");
+            System.out.println("2) Buy with crypto");
+            System.out.println("3) Sell to USD");
             System.out.println("0) Return to browse");
 
             //take query
@@ -424,12 +425,13 @@ class MenuTools {
 
             Scanner keyboard = new Scanner(System.in);
             input = keyboard.nextInt();
-            while (input != 1 && input != 2 && input != 0) {
+            while (input != 1 && input != 2 && input != 0 && input != 3) {
 
                 System.out.println("Invalid choice.");
                 System.out.println("\nOptions:");
-                System.out.println("\n1) Buy w/ USD or another crypto");
-                System.out.println("2) Sell to USD");
+                System.out.println("\n1) Buy with USD");
+                System.out.println("2) Buy with crypto");
+                System.out.println("3) Sell to USD");
                 System.out.println("0) Return to browse");
                 input = keyboard.nextInt();
             }
@@ -442,6 +444,8 @@ class MenuTools {
                 case 1:
                     break;
                 case 2:
+                    break;
+                case 3:
                     boolean result = Trade.tradeCryptoToUSD(cryptoPosition, wallet);
                     if (result) {
                         System.out.println("Trade successful! Wallet updated.");

@@ -86,8 +86,8 @@ public class Trade implements Serializable {
                 System.out.println("\n###############");
                 System.out.println("Proposed Trade");
                 System.out.println("###############");
-                System.out.println(wallet.getHoldings().get(cryptoPosition).getSymbol() + ":" + "\nFrom: " + amountHeld + " -> " + MenuTools.outputSixDecimalFormat(amountHeld.subtract(proposedAmountBigDecimal)));
-                System.out.println("\nUSD:" + "\nFrom: " + wallet.getUSDBalance() + " -> " + MenuTools.outputMoneyFormat(wallet.getUSDBalance().add(proposedSellValue)));
+                System.out.println(wallet.getHoldings().get(cryptoPosition).getSymbol() + ":" + "\nFrom: " + MenuTools.outputSixDecimalFormat(amountHeld) + " -> " + MenuTools.outputSixDecimalFormat(amountHeld.subtract(proposedAmountBigDecimal)));
+                System.out.println("\nUSD:" + "\nFrom: " + MenuTools.outputMoneyFormat(wallet.getUSDBalance()) + " -> " + MenuTools.outputMoneyFormat(wallet.getUSDBalance().add(proposedSellValue)));
                 System.out.println("\nAccept?");
                 System.out.println("1) Yes");
                 System.out.println("2) No");
