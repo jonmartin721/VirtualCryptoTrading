@@ -35,11 +35,6 @@ public class Trade implements Serializable {
     }
 
 
-    public boolean tradeCryptoToCrypto(Cryptocurrency fromCrypto, Cryptocurrency toCrypto, Wallet wallet) {
-
-        return checkTradeCryptoToCrypto(wallet, fromCrypto, toCrypto);
-    }
-
     static boolean tradeCryptoToUSD(int cryptoPosition, Wallet wallet) {
 
         //display basic held info on the currency
@@ -143,11 +138,6 @@ public class Trade implements Serializable {
 
     }
 
-    //TODO finish check Trade Crypto - > Crypto
-    // This method checks that Crypto - > Crypto trades are possible
-    private static boolean checkTradeCryptoToCrypto(Wallet wallet, Cryptocurrency fromCrypto, Cryptocurrency toCrypto) {
-        return true;
-    }
 
     //TODO finish check Trade USD - > Crypto
     // This method checks that Crypto - > Crypto trades are possible

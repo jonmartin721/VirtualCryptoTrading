@@ -135,16 +135,14 @@ public class Wallet implements Serializable {
 
             //TODO does this need to be here? always true?
 
-                if (netProfit.compareTo(goalPercentage) > 0) {
-                    System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
-                    return true;
-                }
+            if (netProfit.compareTo(goalPercentage) > 0) {
+                System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
+                return true;
+            } else {
+                System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
 
-                else {
-                    System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));
-
-                    return netProfit.compareTo(goalPercentage) == 0;
-                }
+                return netProfit.compareTo(goalPercentage) == 0;
+            }
         }
 
         return true;
@@ -154,25 +152,19 @@ public class Wallet implements Serializable {
     // This class shows general Wallet data.
     void showWalletData() {
 
-        System.out.println();
-        System.out.println("Hello " + firstName + " " + lastName);
-        MenuTools.lineDivider();
+        BigDecimal totalHoldings = getTotalHoldings();
+        System.out.println("\nHello " + firstName + " " + lastName + "!");
+        System.out.println("BASIC INFO:");
         System.out.println("Wallet ID: " + walletID);
-        MenuTools.lineDivider();
-        System.out.println("Balance: " + MenuTools.outputMoneyFormat(getUSDBalance()));
-        MenuTools.lineDivider();
+        System.out.println("Total Holdings USD Worth:  " + MenuTools.outputMoneyFormat(totalHoldings));
+        System.out.println("USD Balance: " + MenuTools.outputMoneyFormat(getUSDBalance()));
+        System.out.println("Total Wallet Value: " + totalHoldings.add(getUSDBalance()));
         System.out.println("Total USD Deposited: " + MenuTools.outputMoneyFormat(getTotalUsdDeposited()));
-        MenuTools.lineDivider();
         System.out.println("Total USD Withdrawn: " + MenuTools.outputMoneyFormat(getTotalUsdWithdrawn()));
-        MenuTools.lineDivider();
         System.out.println("Total amount traded: " + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
-        MenuTools.lineDivider();
-        System.out.println("You have traded in the following: ");
-        MenuTools.lineDivider();
+        System.out.println("\nTRADES: ");
         showTrades();
-        MenuTools.lineDivider();
-        System.out.println("Your total holdings are:  " + MenuTools.outputMoneyFormat(getTotalHoldings()));
-        MenuTools.lineDivider();
+
         MenuTools.promptEnterKey();
 
     }

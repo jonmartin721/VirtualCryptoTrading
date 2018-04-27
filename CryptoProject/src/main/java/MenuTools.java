@@ -202,7 +202,9 @@ class MenuTools {
         System.out.println("7) Help and About");
         System.out.println("0) Save & Exit");
         System.out.println("\nUSD Balance: " + outputMoneyFormat(wallet.getUSDBalance()));
-        System.out.println("Total Holdings Value (less USD): " + outputMoneyFormat(wallet.getTotalHoldings()));
+        BigDecimal holdingsValue = wallet.getTotalHoldings();
+        System.out.println("Total Holdings Value (less USD): " + outputMoneyFormat(holdingsValue));
+        System.out.println("Total Wallet Value: " + outputMoneyFormat(wallet.getUSDBalance().add(holdingsValue)));
 
         //captures the user selection
         System.out.print("\nSelection? ");
@@ -416,8 +418,7 @@ class MenuTools {
             System.out.println("Value of amount held in USD: " + outputMoneyFormat(amountHeld.multiply(BigDecimal.valueOf(targetCrypto.getRaw().getPrice()))));
             System.out.println("\nOptions:");
             System.out.println("\n1) Buy with USD");
-            System.out.println("2) Buy with crypto");
-            System.out.println("3) Sell to USD");
+            System.out.println("2) Sell to USD");
             System.out.println("0) Return to browse");
 
             //take query
@@ -425,13 +426,12 @@ class MenuTools {
 
             Scanner keyboard = new Scanner(System.in);
             input = keyboard.nextInt();
-            while (input != 1 && input != 2 && input != 0 && input != 3) {
+            while (input != 1 && input != 2 && input != 0) {
 
                 System.out.println("Invalid choice.");
                 System.out.println("\nOptions:");
                 System.out.println("\n1) Buy with USD");
-                System.out.println("2) Buy with crypto");
-                System.out.println("3) Sell to USD");
+                System.out.println("2) Sell to USD");
                 System.out.println("0) Return to browse");
                 input = keyboard.nextInt();
             }
@@ -444,8 +444,6 @@ class MenuTools {
                 case 1:
                     break;
                 case 2:
-                    break;
-                case 3:
                     boolean result = Trade.tradeCryptoToUSD(cryptoPosition, wallet);
                     if (result) {
                         System.out.println("Trade successful! Wallet updated.");
@@ -568,7 +566,7 @@ class MenuTools {
         actionMessageBox("Deposit");
 
         BigDecimal previousBalance = wallet.getUSDBalance();
-        System.out.println("\nUSD Balance: " + wallet.getUSDBalance());
+        System.out.println("\nUSD Balance: " + outputMoneyFormat(previousBalance));
         System.out.println("Enter amount to deposit: ");
 
         Scanner keyboard = new Scanner(System.in);
@@ -596,7 +594,7 @@ class MenuTools {
         actionMessageBox("Withdraw");
 
         BigDecimal previousBalance = wallet.getUSDBalance();
-        System.out.println("\nUSD Balance: " + wallet.getUSDBalance());
+        System.out.println("\nUSD Balance: " + outputMoneyFormat(previousBalance));
         System.out.print("Enter amount to withdraw: ");
 
         Scanner keyboard = new Scanner(System.in);
