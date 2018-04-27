@@ -113,9 +113,6 @@ class Wallet implements Serializable {
 
     }
 
-    //TODO test to see if setGoal works
-    //TODO add a companion method checkGoal to check progress
-    //TODO use return method of this method where it is used
     boolean setGoal(BigDecimal goalPercentage) {
 
         //goal = null;
@@ -204,7 +201,7 @@ class Wallet implements Serializable {
         this.totalUsdWithdrawn = totalUsdWithdrawn;
     }
 
-    private BigDecimal getTotalAmountTraded() {
+    BigDecimal getTotalAmountTraded() {
         return totalAmountTraded;
     }
 

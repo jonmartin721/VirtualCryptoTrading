@@ -452,6 +452,7 @@ class MenuTools {
                         promptEnterKey();
                     } else {
                         System.out.println("Trade not successful. Make sure to be entering a valid amount.");
+                        promptEnterKey();
                     }
                     viewAndTrade(wallet);
                     break;
@@ -462,6 +463,7 @@ class MenuTools {
                         promptEnterKey();
                     } else {
                         System.out.println("Trade not successful. Make sure to be entering a valid amount.");
+                        promptEnterKey();
                     }
 
                     viewAndTrade(wallet);
