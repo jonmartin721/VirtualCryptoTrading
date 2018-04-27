@@ -6,18 +6,18 @@ The goal of this application is to make hesitant traders more willing to try tra
 
 ### Instructions
 
-For this application, you should run EchoServer before running EchoClient. Just type in "localhost" if you're using the same machine, or you can type in the IP address if you know it.
+For this application, you should run EchoServer before running EchoClient. Just type in 'localhost' if you're using the same machine, or you can type in the IP address if you know it.
 
 ### Features
 
 This is a list of final features. They may not be fully implemented yet, but are feasible and will be added by the completion of the project.
 
 - Secure login info storage and wallet storage
-- Trade Bitcoin, Ethereum, Litecoin, and Bitcoin Cash
-- Live data from the Coinbase exchange API
+- Trade Bitcoin, Ethereum, Litecoin, Bitcoin Cash, Ripple, Dash, Monero, Neo, EOS, Cardano, Stellar
+- Live data from the CryptoCompare API
 - File operations
 - Client/Server architecture
-- Authentication
+- Full BigDecimal for currency support
 
 
 Less impressive but still important OOP features:
@@ -31,7 +31,7 @@ Less impressive but still important OOP features:
 - Networking
 
 ### API
-CryptoCompare is an API that brings all the latest streaming pricing data in the world of cryptocurrencies. All the latest trades like Bitcoin or Ethereum, these features are all implemented in this program.
+CryptoCompare is an API that brings all the latest streamed pricing data in the world of cryptocurrencies. All the latest trades like Bitcoin, Ethereum, BTC Cash, Ripple and Litcoin to name a few.  The current trades for these crytocurrencies are streamed live and can be updated whilst program is running by selecting the "r" button the reloading the query.
 
 
 ### New to Crypto?
@@ -46,16 +46,27 @@ Cryptocurrencies are digital currencies that have some features that set them ap
 
 When using this application, don't terminate execution prematurely. Save and exit at the main menu (option 0). This prevents files from being corrupted.
 
-You can use Maven to import by adding the Maven coordinates that can be found at the XChange link above in the libraries section.
-
-If you modify the Wallet class or any of its subclasses, all wallet files (xyz_wallet.ser) will not be usable anymore. This is because the UID of the wallet serialized and Wallet class do not match. All serialized files **must be deleted** if this happens. 
+If you modify the Wallet class or any of its subclasses, all wallet files (***_wallet.ser) will not be usable anymore. This is because the UID of the wallet serialized and Wallet class do not match. All serialized files **must be manually deleted** if this happens. 
 
 ### Interface
+This is the initial client/server connection
+
+![ClientServer](http://u.cubeupload.com/texasrock/LoginScreen.jpg)
 
 We use a menu, like the one shown below:
 
-![Interface](http://i.cubeupload.com/bi0Aho.png)
+![Interface](http://u.cubeupload.com/texasrock/Menu.jpg)
 
 See the live API data in action:
 
-![API Data](http://i.cubeupload.com/wfJVwn.png)
+![API Data](https://u.cubeupload.com/texasrock/BrowseCryptos.jpg)
+
+More detailed information or cryptocurrency within last 24 hours with a choice of options
+
+![DetailedData](https://u.cubeupload.com/texasrock/DetaileData.jpg)
+
+Example of what a proposed trade looks like
+
+![ProposedTrade](https://u.cubeupload.com/texasrock/ProposedTrade.jpg)
+
+
