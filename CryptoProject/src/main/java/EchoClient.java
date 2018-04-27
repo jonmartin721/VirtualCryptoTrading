@@ -81,9 +81,10 @@ public class EchoClient {
             MenuTools.launchScreen();
             return in.readLine();
         } catch (Exception e) {
+            e.printStackTrace();
             return "Uh oh...";
         }
-    } //-- end readSomeText2()
+    }
 
 
     static void exitProgramAndServer(){

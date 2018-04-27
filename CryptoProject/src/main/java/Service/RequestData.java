@@ -12,7 +12,7 @@ public class RequestData {
         add("XRP");
         add("DASH");
         add("BCH");
-        add("ZCH");
+        add("XLM");
         add("LTC");
         add("EOS");
         add("ADA");

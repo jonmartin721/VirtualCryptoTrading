@@ -21,7 +21,7 @@ public class APICalls {
         //service.getFullData(RequestData.getCryptoString(), "USD", "VirtualCryptoTrading");
 
         if (response != null) {
-            response.getRawData().getADA().setName("Ada");
+            response.getRawData().getADA().setName("Cardano");
             response.getRawData().getBCH().setName("BTC Cash");
             response.getRawData().getBTC().setName("Bitcoin");
             response.getRawData().getDASH().setName("Dash");
@@ -31,6 +31,7 @@ public class APICalls {
             response.getRawData().getNEO().setName("Neo");
             response.getRawData().getXMR().setName("Monero");
             response.getRawData().getXRP().setName("Ripple");
+            response.getRawData().getXLM().setName("Stellar");
             cryptos.add(response.getRawData().getBTC());
             cryptos.add(response.getRawData().getBCH());
             cryptos.add(response.getRawData().getETH());
@@ -41,6 +42,7 @@ public class APICalls {
             cryptos.add(response.getRawData().getNEO());
             cryptos.add(response.getRawData().getEOS());
             cryptos.add(response.getRawData().getADA());
+            cryptos.add(response.getRawData().getXLM());
         }
 
         return cryptos;

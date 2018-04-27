@@ -13,8 +13,4 @@ public class SingleValue {
         return value;
     }
 
-    public void getValue(Double value) {
-        this.value = value;
-    }
-
 }

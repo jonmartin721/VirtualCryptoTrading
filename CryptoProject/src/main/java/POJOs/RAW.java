@@ -1,4 +1,3 @@
-
 package POJOs;
 
 import com.google.gson.annotations.Expose;
@@ -36,6 +35,10 @@ public class RAW {
     @SerializedName("NEO")
     @Expose
     private SingleCryptoData NEO;
+    @SerializedName("XLM")
+    @Expose
+    private SingleCryptoData XLM;
+
 
     public SingleCryptoData getDASH() {
         return DASH;
@@ -71,6 +74,10 @@ public class RAW {
 
     public SingleCryptoData getADA() {
         return ADA;
+    }
+
+    public SingleCryptoData getXLM() {
+        return XLM;
     }
 
     public SingleCryptoData getNEO() {

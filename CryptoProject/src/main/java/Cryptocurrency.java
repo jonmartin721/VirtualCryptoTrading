@@ -14,13 +14,9 @@ class Cryptocurrency extends Money implements Serializable {
 
     private String symbol;
 
-    Cryptocurrency(String symbol, double amountHeld) {
+    Cryptocurrency(String symbol, BigDecimal amountHeld) {
         this.symbol = symbol;
         this.amountHeld = amountHeld;
-    }
-
-    Cryptocurrency() {
-        this.amountHeld = 0.0;
     }
 
     // Returns from the API what the current value of this crypto is
@@ -41,17 +37,17 @@ class Cryptocurrency extends Money implements Serializable {
 
         BigDecimal holdingValue;
         holdingValue = this.getCurrentCryptoValue();
-        holdingValue = holdingValue.multiply(BigDecimal.valueOf(getAmountHeld()));
+        holdingValue = holdingValue.multiply(getAmountHeld());
         return holdingValue;
 
     }
 
-    Double getAmountHeld() {
+    BigDecimal getAmountHeld() {
 
         return amountHeld;
     }
 
-    void setAmountHeld(Double amountHeld) {
+    void setAmountHeld(BigDecimal amountHeld) {
         this.amountHeld = amountHeld;
     }
 

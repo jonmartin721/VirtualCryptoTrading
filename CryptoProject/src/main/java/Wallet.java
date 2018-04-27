@@ -18,8 +18,8 @@ public class Wallet implements Serializable {
     private String lastName;
     private ArrayList<Trade> trades;
     private BigDecimal totalAmountTraded;
-    private BigDecimal totalUSDdeposited;
-    private BigDecimal totalUSDwithdrawn;
+    private BigDecimal totalUsdDeposited;
+    private BigDecimal totalUsdWithdrawn;
     private BigDecimal USDBalance;
 
     // Parameterized constructor
@@ -33,21 +33,21 @@ public class Wallet implements Serializable {
         trades = new ArrayList<>();
         USDBalance = new BigDecimal(0);
         totalAmountTraded = new BigDecimal(0);
-        totalUSDdeposited = new BigDecimal(0);
-        totalUSDwithdrawn = new BigDecimal(0);
+        totalUsdDeposited = new BigDecimal(0);
+        totalUsdWithdrawn = new BigDecimal(0);
 
         //add all the cryptos (zeroed out) to the wallet
-        holdings.add(new Cryptocurrency("BTC", 0.0));
-        holdings.add(new Cryptocurrency("ETH", 0.0));
-        holdings.add(new Cryptocurrency("XRP", 0.0));
-        holdings.add(new Cryptocurrency("DASH", 0.0));
-        holdings.add(new Cryptocurrency("BCH", 0.0));
-        holdings.add(new Cryptocurrency("ZCH", 0.0));
-        holdings.add(new Cryptocurrency("LTC", 0.0));
-        holdings.add(new Cryptocurrency("EOS", 0.0));
-        holdings.add(new Cryptocurrency("ADA", 0.0));
-        holdings.add(new Cryptocurrency("XMR", 0.0));
-        holdings.add(new Cryptocurrency("NEO", 0.0));
+        holdings.add(new Cryptocurrency("BTC", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("ETH", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("XRP", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("DASH", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("BCH", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("XLM", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("LTC", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("EOS", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("ADA", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("XMR", new BigDecimal(0)));
+        holdings.add(new Cryptocurrency("NEO", new BigDecimal(0)));
 
 
     }
@@ -67,7 +67,7 @@ public class Wallet implements Serializable {
     // this method adds an amount to the usd. They can always add money, no check needed.
     boolean deposit(BigDecimal addAmount) {
         USDBalance = USDBalance.add(addAmount);
-        totalUSDdeposited = totalUSDwithdrawn.add(addAmount);
+        totalUsdDeposited = totalUsdWithdrawn.add(addAmount);
         return true;
     }
 
@@ -75,7 +75,7 @@ public class Wallet implements Serializable {
     boolean withdraw(BigDecimal withdrawAmount) {
         if (USDBalance.compareTo(withdrawAmount) >= 0) {
             USDBalance = USDBalance.subtract(withdrawAmount);
-            totalUSDwithdrawn = totalUSDwithdrawn.add(withdrawAmount);
+            totalUsdWithdrawn = totalUsdWithdrawn.add(withdrawAmount);
             return true;
         } else {
             return false;
@@ -131,7 +131,7 @@ public class Wallet implements Serializable {
         } else {
             BigDecimal totalHoldings = USDBalance.add(getTotalHoldings());
 
-            BigDecimal netProfit = totalHoldings.subtract(totalUSDdeposited);
+            BigDecimal netProfit = totalHoldings.subtract(totalUsdDeposited);
 
             //TODO does this need to be here? always true?
 
@@ -161,9 +161,9 @@ public class Wallet implements Serializable {
         MenuTools.lineDivider();
         System.out.println("Balance: " + MenuTools.outputMoneyFormat(getUSDBalance()));
         MenuTools.lineDivider();
-        System.out.println("Total USD Deposited: " + MenuTools.outputMoneyFormat(getTotalUSDdeposited()));
+        System.out.println("Total USD Deposited: " + MenuTools.outputMoneyFormat(getTotalUsdDeposited()));
         MenuTools.lineDivider();
-        System.out.println("Total USD Withdrawn: " + MenuTools.outputMoneyFormat(getTotalUSDwithdrawn()));
+        System.out.println("Total USD Withdrawn: " + MenuTools.outputMoneyFormat(getTotalUsdWithdrawn()));
         MenuTools.lineDivider();
         System.out.println("Total amount traded: " + MenuTools.outputMoneyFormat(getTotalAmountTraded()));
         MenuTools.lineDivider();
@@ -178,7 +178,7 @@ public class Wallet implements Serializable {
     }
 
     ArrayList<Cryptocurrency> getHoldings() {
-        return new ArrayList<>();
+        return holdings;
     }
 
     public void setHoldings(ArrayList<Cryptocurrency> holdings) {
@@ -212,20 +212,20 @@ public class Wallet implements Serializable {
         return firstName;
     }
 
-    private BigDecimal getTotalUSDdeposited() {
-        return totalUSDdeposited;
+    private BigDecimal getTotalUsdDeposited() {
+        return totalUsdDeposited;
     }
 
-    public void setTotalUSDdeposited(BigDecimal totalUSDdeposited) {
-        this.totalUSDdeposited = totalUSDdeposited;
+    public void setTotalUsdDeposited(BigDecimal totalUsdDeposited) {
+        this.totalUsdDeposited = totalUsdDeposited;
     }
 
-    private BigDecimal getTotalUSDwithdrawn() {
-        return totalUSDwithdrawn;
+    private BigDecimal getTotalUsdWithdrawn() {
+        return totalUsdWithdrawn;
     }
 
-    public void setTotalUSDwithdrawn(BigDecimal totalUSDwithdrawn) {
-        this.totalUSDwithdrawn = totalUSDwithdrawn;
+    public void setTotalUsdWithdrawn(BigDecimal totalUsdWithdrawn) {
+        this.totalUsdWithdrawn = totalUsdWithdrawn;
     }
 
     private BigDecimal getTotalAmountTraded() {

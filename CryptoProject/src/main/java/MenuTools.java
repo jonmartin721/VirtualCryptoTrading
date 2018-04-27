@@ -91,7 +91,6 @@ class MenuTools {
         String password = keyboard.next();
 
 
-
         // Add the login pair to the LoginInfo object
         LoginInfo loginInfo = FileOperations.loadLoginInfo();
         loginInfo.addUserAndPassword(username, password);
@@ -291,7 +290,7 @@ class MenuTools {
         actionMessageBox("View and Trade");
 
         System.out.println("\nThe information below is from the Coinbase exchange, a widely trusted exchange. It may change very quickly.");
-        System.out.println("Right now, there are just 4 cryptocurrencies, organized by symbol.");
+        System.out.println("Right now, there are the top 11 cryptocurrencies by market cap.");
         System.out.println("\nQUERIES:");
         System.out.println("Type the symbol to " +
                 "trade or see more info about it, 'r' to reload all data, or 'q' to return to main menu.");
@@ -385,12 +384,15 @@ class MenuTools {
             }
 
             int cryptoPosition = -1;
-            double amountHeld = 0;
+            BigDecimal amountHeld = new BigDecimal(0);
+            ArrayList<Cryptocurrency> holdings;
+            holdings = wallet.getHoldings();
             //Pull info on how much the user holds of this crypto
-            for (int i = 0; i < wallet.getHoldings().size(); i++) {
-                if (wallet.getHoldings().get(i).getSymbol().equals(symbol)) {
-                    amountHeld = wallet.getHoldings().get(i).getAmountHeld();
+            for (int i = 0; i < holdings.size(); i++) {
+                if (holdings.get(i).getSymbol().equals(symbol)) {
+                    amountHeld = holdings.get(i).getAmountHeld();
                     cryptoPosition = i;
+                    break;
                 }
             }
 
@@ -413,7 +415,7 @@ class MenuTools {
             System.out.println("24H Volume:     " + outputTwoDecimalFormat(targetCrypto.getRaw().getVolume24Hour()));
             //Options
             System.out.println("\nAmount held:  " + amountHeld);
-            System.out.println("Value of amount held in USD: " + outputMoneyFormat(amountHeld * targetCrypto.getRaw().getPrice()));
+            System.out.println("Value of amount held in USD: " + outputMoneyFormat(amountHeld.multiply(BigDecimal.valueOf(targetCrypto.getRaw().getPrice()))));
             System.out.println("\nOptions:");
             System.out.println("\n1) Buy w/ USD or another crypto");
             System.out.println("2) Sell to USD");
@@ -501,14 +503,13 @@ class MenuTools {
                 }
 
                 // If goal percentage has not been set, it will show a message
-                if (!wallet.setGoal(BigDecimal.valueOf(goal))){
+                if (!wallet.setGoal(BigDecimal.valueOf(goal))) {
 
                     System.out.println("Success in setting goal percentage!!");
 
-                }
-                else{
+                } else {
                     System.out.println("Goal percentage not set. Re-enter your goal percentage!");
-                    goal=keyboardGAP1.nextInt();
+                    goal = keyboardGAP1.nextInt();
 
                 }
                 // Basically typecasting user's goal to BigDecimal so it can be passed into setGoal() method in Wallet class
@@ -778,7 +779,7 @@ class MenuTools {
         System.out.println("=====================================================");
     }
 
-    static void longerLineDivider(){
+    static void longerLineDivider() {
         System.out.println("==================================================================================================");
     }
 

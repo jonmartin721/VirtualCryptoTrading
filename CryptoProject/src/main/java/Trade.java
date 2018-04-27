@@ -42,10 +42,17 @@ public class Trade {
     static boolean tradeCryptoToUSD(int cryptoPosition, Wallet wallet) {
 
         //display basic held info on the currency
-        System.out.println("You have: " + MenuTools.outputTwoDecimalFormat(wallet.getHoldings().get(cryptoPosition).getAmountHeld()));
+        if (cryptoPosition == -1) {
+            System.out.println("Crypto position not correctly loaded. " +
+                    "Avoided crash... Returning to login.");
+            MenuTools.launchScreen();
+        }
+        System.out.println("You have: " + wallet.getHoldings().get(cryptoPosition).getAmountHeld());
         try {
 
-            BigDecimal currentValue = new BigDecimal(APICalls.getSingleValue(wallet.getHoldings().get(cryptoPosition).getSymbol()).getValue());
+            String cryptoSymbol = wallet.getHoldings().get(cryptoPosition).getSymbol();
+            double currentValueDouble = APICalls.getSingleValue(cryptoSymbol).getValue();
+            BigDecimal currentValue = new BigDecimal(currentValueDouble);
             System.out.println("USD Value: " + currentValue);
             //ask the user how much they want to sell
             System.out.println("How much (of amount held) to sell?");
@@ -63,7 +70,7 @@ public class Trade {
 
             if (checkTradeCryptoToUSD(wallet, proposedAmountToSell, cryptoPosition)) {
                 //get the total amount held of the crypto
-                double amountHeld = wallet.getHoldings().get(cryptoPosition).getAmountHeld();
+                BigDecimal amountHeld = wallet.getHoldings().get(cryptoPosition).getAmountHeld();
                 //get usd held
                 BigDecimal usdHeld = wallet.getUSDBalance();
 
@@ -74,7 +81,7 @@ public class Trade {
 
                 //check with the user and display trade data
                 System.out.println("Proposed Trade");
-                System.out.println(wallet.getHoldings().get(cryptoPosition).getSymbol() + "\nFrom: " + amountHeld + " -> " + (amountHeld - proposedAmountToSell));
+                System.out.println(wallet.getHoldings().get(cryptoPosition).getSymbol() + "\nFrom: " + amountHeld + " -> " + (amountHeld.subtract(proposedAmountBigDecimal)));
                 System.out.println("USD" + "\nFrom" + wallet.getUSDBalance() + " -> " + proposedSellValue);
                 System.out.println("Accept?");
                 System.out.println("1) Yes");
@@ -94,7 +101,7 @@ public class Trade {
                 wallet.setUSDBalance(usdHeld.add(proposedSellValue));
 
                 //remove that portion of crypto held
-                wallet.getHoldings().get(cryptoPosition).setAmountHeld(amountHeld - proposedAmountToSell);
+                wallet.getHoldings().get(cryptoPosition).setAmountHeld(amountHeld.subtract(proposedAmountBigDecimal));
 
                 //create and add trade to the wallet
                 Trade trade = new Trade(wallet.getHoldings().get(cryptoPosition).getSymbol(), "USD", new BigDecimal(proposedAmountToSell), proposedSellValue);
@@ -119,7 +126,8 @@ public class Trade {
     // This is basically selling Crypto.
     private static boolean checkTradeCryptoToUSD(Wallet wallet, double proposedAmountToSell, int cryptoPosition) {
 
-        return (wallet.getHoldings().get(cryptoPosition).getAmountHeld() > proposedAmountToSell && proposedAmountToSell > 0);
+        BigDecimal proposedAmountBigDecimal = new BigDecimal(proposedAmountToSell);
+        return (wallet.getHoldings().get(cryptoPosition).getAmountHeld().compareTo(proposedAmountBigDecimal) > 0 && proposedAmountBigDecimal.compareTo(BigDecimal.ZERO) > 0);
 
     }
 
@@ -146,10 +154,6 @@ public class Trade {
     // SETTERS AND GETTERS
     UUID getTradeID() {
         return tradeID;
-    }
-
-    public void setTradeID(UUID tradeID) {
-        this.tradeID = tradeID;
     }
 
     BigDecimal getFromAmount() {
