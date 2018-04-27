@@ -1,13 +1,13 @@
 # For Professor Marian Iskander
-Please be advised, in order to run this program you must have the required dependencies.  All dependencies are being bundled in a .jar file to guarantee program is operable.  Please keep in mind only do this if your using the .jar file and not compiling yourself.   
+Please be advised, in order to **compile** this program you must have the required dependencies. If you are just running the supplied .jar file, you do not need any of them, as they are bundled in the .jar. All dependencies are being bundled in a .jar file to guarantee program is operable. 
 
 In the directory of the CryptoProject.jar file, please create a command prompt and type the following:
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java -cp CryptoProject.jar EchoServer
 
 then open a new command prompt in the same folder and type the following:
-</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java -cp CryptoProject.jar Echoclient
+</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;java -cp CryptoProject.jar EchoClient
 
-Also the Maven coordinates are:
+Also the Maven coordinates (for importing into an IDE for compilation) are:
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;com.google.code.gson:gson:2.8.2
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;com.squareup.retrofit2:converter-gson:2.4.0
 </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;com.squareup.retrofit2:retrofit:2.4.0
