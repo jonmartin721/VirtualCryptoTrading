@@ -131,17 +131,14 @@ public class Trade implements Serializable {
 
     }
 
-    //TODO finish Trade USD - > Crypto
-    static boolean tradeUSDToCrypto(Money fromUSD, Cryptocurrency toCrypto, Wallet wallet) {
+    static boolean tradeUsdToCrypto(int cryptoPosition, Wallet wallet) {
 
         return true;
 
     }
 
-
-    //TODO finish check Trade USD - > Crypto
     // This method checks that Crypto - > Crypto trades are possible
-    private boolean checkTradeUSDToCrypto(Wallet wallet, BigDecimal fromUSD, Cryptocurrency toCrypto) {
+    private boolean checkTradeUsdToCrypto(Wallet wallet, BigDecimal fromUSD, Cryptocurrency toCrypto) {
 
         return (toCrypto.getCurrentHoldingValue().compareTo(fromUSD) < 0) || (toCrypto.getCurrentHoldingValue().compareTo(fromUSD) == 0);
     }
@@ -171,25 +168,14 @@ public class Trade implements Serializable {
         return fromSymbol;
     }
 
-    public void setFromSymbol(String fromSymbol) {
-        this.fromSymbol = fromSymbol;
-    }
-
     String getToSymbol() {
         return toSymbol;
-    }
-
-    public void setToSymbol(String toSymbol) {
-        this.toSymbol = toSymbol;
     }
 
     LocalDateTime getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
 
 }
 

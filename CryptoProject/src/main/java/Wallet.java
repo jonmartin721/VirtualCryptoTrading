@@ -84,19 +84,19 @@ class Wallet implements Serializable {
 
     // This method shows basic info on each trade.
     void showTrades() {
-        if (getTotalAmountTraded() == null) {
+        if (getTotalAmountTraded().compareTo(BigDecimal.ZERO) == 0) {
             System.out.println("No trades have occurred yet");
         } else {
             trades.forEach(trade -> {
-                System.out.println("Trade ID: " + String.valueOf(trade.getTradeID()));
+                System.out.println("Trade ID: " + trade.getTradeID());
                 MenuTools.lineDivider();
-                System.out.println("Date of Trade: " + String.valueOf(trade.getDateTime()));
+                System.out.println("Date of Trade: " + trade.getDateTime());
                 MenuTools.lineDivider();
-                System.out.println("From: " + String.valueOf(trade.getFromSymbol()));
+                System.out.println("From: " + trade.getFromSymbol());
                 MenuTools.lineDivider();
-                System.out.println("To: " + String.valueOf(trade.getToSymbol()));
+                System.out.println("To: " + trade.getToSymbol());
                 MenuTools.lineDivider();
-                System.out.println("Amount: " + String.valueOf(trade.getFromAmount().subtract(trade.getToAmount())));
+                System.out.println("Amount: " + MenuTools.outputMoneyFormat(trade.getFromAmount().subtract(trade.getToAmount())));
 
             });
         }
@@ -132,8 +132,6 @@ class Wallet implements Serializable {
             BigDecimal totalHoldings = USDBalance.add(getTotalHoldings());
 
             BigDecimal netProfit = totalHoldings.subtract(totalUsdDeposited);
-
-            //TODO does this need to be here? always true?
 
             if (netProfit.compareTo(goalPercentage) > 0) {
                 System.out.println("Your net profit is: " + MenuTools.outputMoneyFormat(netProfit));

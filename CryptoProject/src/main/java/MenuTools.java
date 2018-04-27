@@ -427,7 +427,7 @@ class MenuTools {
 
             //take query
             int input;
-
+            boolean result;
             Scanner keyboard = new Scanner(System.in);
             input = keyboard.nextInt();
             while (input != 1 && input != 2 && input != 0) {
@@ -446,9 +446,15 @@ class MenuTools {
                     viewAndTrade(wallet);
                     break;
                 case 1:
+                    result = Trade.tradeUsdToCrypto(cryptoPosition, wallet);
+                    if (result) {
+                        System.out.println("Trade successful! Wallet updated.");
+                        promptEnterKey();
+                    }
+                    viewAndTrade(wallet);
                     break;
                 case 2:
-                    boolean result = Trade.tradeCryptoToUSD(cryptoPosition, wallet);
+                    result = Trade.tradeCryptoToUSD(cryptoPosition, wallet);
                     if (result) {
                         System.out.println("Trade successful! Wallet updated.");
                         promptEnterKey();
@@ -456,7 +462,6 @@ class MenuTools {
 
                     viewAndTrade(wallet);
                     break;
-
             }
 
 
