@@ -6,7 +6,9 @@ The goal of this application is to make hesitant traders more willing to try tra
 
 ### Instructions
 
-For this application, you should run EchoServer before running EchoClient. Just type in 'localhost' if you're using the same machine, or you can type in the IP address if you know it.
+For this application, you should run EchoServer before running EchoClient. Just type in 'localhost' if you're using the same machine, or you can type in the IP address if you know it (see picture 1 below).  After you set-up your login information and username, you will see a selection menu (picture 2).  From this menu, you can navigate to different parts of the program like viewing how much is in your wallet, adding to your wallet, browsing current cryptocurrencies and trades.  You can even establish some financial goals you'd like to set for your portfolio.  You can move money into your wallet via the 'Deposit USD' option and also withdraw from your wallet.  Changing or updating your password is an integral part of any proper application and even though we did not implement encryption the basic functionality of authentication is available via serialization of the files.  Obviously if this was published application encryption would have to be implemented.  
+
+There is also a help feature that explains all the menu options in detail.  And finally the save and exit options when the use is done with the program.  The final feature display the user's exit balance in USD along with the value of total holdings.  Many safeguards have been implemented to catch any exceptions that might be thrown so the program with run relatively error-free.
 
 ### Features
 
@@ -31,7 +33,7 @@ Less impressive but still important OOP features:
 - Networking
 
 ### API
-CryptoCompare is an API that brings all the latest streamed pricing data in the world of cryptocurrencies. All the latest trades like Bitcoin, Ethereum, BTC Cash, Ripple and Litcoin to name a few.  The current trades for these crytocurrencies are streamed live and can be updated whilst program is running by selecting the "r" button the reloading the query.
+CryptoCompare is an API that brings all the latest streamed pricing data in the world of cryptocurrencies. All the latest trades like Bitcoin, Ethereum, BTC Cash, Ripple and Litcoin to name a few.  The current trades for these crytocurrencies are streamed live and can be updated while program is running by selecting the "r" button that reloads the query (see picture 3).
 
 
 ### New to Crypto?
@@ -49,23 +51,27 @@ When using this application, don't terminate execution prematurely. Save and exi
 If you modify the Wallet class or any of its subclasses, all wallet files (***_wallet.ser) will not be usable anymore. This is because the UID of the wallet serialized and Wallet class do not match. All serialized files **must be manually deleted** if this happens. 
 
 ### Interface
-This is the initial client/server connection
+This is the initial client/server connection (picture 1):
 
 ![ClientServer](http://u.cubeupload.com/texasrock/LoginScreen.jpg)
 
-We use a menu, like the one shown below:
+
+We use a menu, like the one shown below (picture 2):
 
 ![Interface](http://u.cubeupload.com/texasrock/Menu.jpg)
 
-See the live API data in action:
+
+See the live API data in action (picture 3):
 
 ![API Data](https://u.cubeupload.com/texasrock/BrowseCryptos.jpg)
 
-More detailed information or cryptocurrency within last 24 hours with a choice of options
+
+More detailed information or cryptocurrency within last 24 hours with a choice of options (picture 4):
 
 ![DetailedData](https://u.cubeupload.com/texasrock/DetaileData.jpg)
 
-Example of what a proposed trade looks like
+
+Example of what a proposed trade looks like (picture 5):
 
 ![ProposedTrade](https://u.cubeupload.com/texasrock/ProposedTrade.jpg)
 
