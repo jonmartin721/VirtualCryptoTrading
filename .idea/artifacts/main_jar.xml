@@ -2,7 +2,7 @@
   <artifact type="jar" name="main:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/main_jar</output-path>
     <root id="archive" name="main.jar">
-      <element id="module-output" name="main" />
+      <element id="module-output" name="VirtualCryptoAnalysis" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/squareup/retrofit2/converter-gson/2.4.0/converter-gson-2.4.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/squareup/retrofit2/retrofit/2.4.0/retrofit-2.4.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/squareup/okhttp3/okhttp/3.10.0/okhttp-3.10.0.jar" path-in-jar="/" />
